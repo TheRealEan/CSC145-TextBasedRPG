@@ -1,59 +1,51 @@
-#include <iostream>
+// Filename: "Character.h"
+#include <string>
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
 class Character {
-
 public:
-	// Constructor Prototype
-	Character(std::string Name, int Health, int Strength, int Stamina, int Mana, int Armor);
+	// Constructor and Destructors
 
-	// Getter and Setter Function Prototypes
+	Character(std::string nombre);
+	Character(std::string nombre, int hp, int sp, int mp, int str, int arm);
+	virtual ~Character() = default;
 
-	// Retrieves the value of name.
-	std::string getName();
-	// Sets the value of name.
-	void setName(std::string newName);
-	// Retrieves the value of health.
-	int getHealth();
-	// Sets the value of health.
-	void setHealth(int newHealth);
-	// Retrieves the value of strength.
-	int getStrength();
-	// Sets the value of strength.
-	void setStrength(int newStrength);
-	// Retrieves the value of stamina.
-	int getStamina();
-	// Sets the value of stamina.
-	void setStamina(int newStamina);
-	// Retrieves the value of mana.
-	int getMana();
-	// Sets the value of mana.
-	void setMana(int newMana);
-	// Retrieves the value of armor.
-	int getArmor();
-	// Sets the value of armor.
-	void setArmor(int newArmor);
+	// Getter and Setter Functions
+
+	std::string getName(); 	// Retrieves the value of name.
+	void setName(std::string newName); 	// Sets the value of name.
+	int getHealth(); // Retrieves the value of health.
+	void setHealth(int newHealth); 	// Sets the value of health.
+	int getStamina(); 	// Retrieves the value of stamina.
+	void setStamina(int newStamina); 	// Sets the value of stamina.
+	int getMana(); 	// Retrieves the value of mana.
+	void setMana(int newMana); 	// Sets the value of mana.
+	int getStrength(); 	// Retrieves the value of strength.
+	void setStrength(int newStrength); 	// Sets the value of strength.
+	int getArmor(); 	// Retrieves the value of armor.
+	void setArmor(int newArmor); 	// Sets the value of armor.
 
 	// Combat Functions
 
-	// The Character deals damage to an opponent equal to their strength.
-	void attack(Character *opponent);
-	// The Character blocks damage equal to double their armor.
-	void defend();
-	// The Character leaves the battle.
-	void run();
+	void attack(Character *opponent); // The Character deals damage to an opponent equal to their strength.
+	void defend(); 	// The Character blocks damage equal to double their armor.
+	void run(); // The Character leaves the battle.
+	// virtual void chat(Character* opponent) = 0; // The Character enters a chat with an opponent.
+
+	// Statistic Functions
+
+	virtual void displayStats();
 
 private:
 	// Data Members
 
 	std::string name;
-	int health;
-	int strength;
-	int stamina;
-	int mana;
-	int armor;
-	
+	int health{ 100 };
+	int stamina{ 100 };
+	int mana{ 100 };
+	int strength{ 100 };
+	int armor{ 100 };
 };
 
 #endif

@@ -1,0 +1,19 @@
+Update Notes (McCurdy) - 1/23/25:
+- Comments have been added for development clarity.
+- Comments have been added specifically before member functions for Visual Studio's context clues.
+- Class names are capitalized as per standard convention in both files and filenames.
+- Data members were made private as per standard convention.
+- Constructors now use a member-initializer list and are prototyped in the headers.
+- The using namespace std was removed in the header files as per standard convention.
+- Include guards are used in the header files are per standard convention.
+- The mainMenu.cpp file was removed; all functionality persists in the Menu class.
+- New test cases introduced in main.cpp.
+
+Update Notes (McCurdy) - 1/24/25:
+- Changed class parameter names to camelcase.
+- Defined new playable character: Player (Character) class.
+- Defined new Enemy base class for creating enemies (and basic NPCs), derived from the Character class.
+- Defined 18 new enemy types.
+- Updated Visual Studio project to contain filters to see enemy source files, enemy header files, and text files.
+- Updated main.cpp with new test cases for enemies.
+- Updated comments for cleanliness.

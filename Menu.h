@@ -1,26 +1,19 @@
-/*
-* Developer's Note: The menu class is designed to offer modularity to the options made available to the user.
-*/
+// Filename: "Menu.h"
 #include <iostream>
 #ifndef MENU_H
 #define MENU_H
 
 class Menu {
 public:
-	// Open the main menu.
-	void mainMenu();
-	// Return to the overworld.
-	void returnToOverworld();
-	// Enter into a battle sequence.
-	void enterBattle();
-	// Manage inventory options.
-	void manageInventory();
-	// Enter the shop.
-	void enterShop();
-	// Chat with a Character.
-	void chat();
-	// Quit the game.
-	int quitGame();
+	// Main Menu Functions
+
+	void mainMenu(); // Open the main menu.
+	void returnToOverworld(); // Return to the overworld.
+	void enterBattle(); // Enter into a battle sequence.
+	void manageInventory(); // Manage inventory options.
+	void enterShop(); // Enter the shop.
+	void chat(); // Chat with a Character.
+	int quitGame(); // Quit the game.
 };
 
 #endif

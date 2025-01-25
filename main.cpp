@@ -1,51 +1,55 @@
-/*
-** This project was designed for the CSC-145 Data Structures class at Franciscan University of Steubenville.
-** Authors: Ian McCurdy, Noah Parkhurst, Philomene Sturgeon, Christian Wolk
-** 
-** Update Notes (McCurdy) - 1/23/25: Comments have been added for development clarity.
-** Comments have been added specifically before member functions for Visual Studio's context clues.
-** Class names are capitalized as per standard convention in both files and filenames.
-** Data members were made private as per standard convention.
-** Constructors now use a member-initializer list and are prototyped in the headers.
-** The using namespace std was removed in the header files as per standard convention.
-** Include guards are used in the header files are per standard convention.
-** The mainMenu.cpp file was removed; all functionality persists in the Menu class.
-** New test cases introduced in main.cpp.
-* 
-** Developer Note: Highlighting text and pressing CTRL + K + C comments all highlighted text. CTRL + K + U undoes it.
-*/
+// Developer Note: Highlighting text and pressing CTRL + K + C comments all highlighted text. CTRL + K + U undoes it.
 
-// 
-#include "Character.h"
-#include "Menu.h"
+// Import Libraries
 #include <iostream>
+// Import Primary Classes
+#include "Character.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "Menu.h"
+// Import Enemy Classes
+#include "enemies/ChineseSpyPigeon.h"
+#include "enemies/ChineseWeatherBalloon.h"
+#include "enemies/DannyDevito.h"
+#include "enemies/Drake.h"
+#include "enemies/Goblin.h"
+#include "enemies/Harpy.h"
+#include "enemies/Hippie.h"
+#include "enemies/Merfolk.h"
+#include "enemies/Nickelback.h"
+#include "enemies/Ninja.h"
+#include "enemies/NotSoPeacefulProtestor.h"
+#include "enemies/Orc.h"
+#include "enemies/Pirate.h"
+#include "enemies/Roomba.h"
+#include "enemies/Samurai.h"
+#include "enemies/Swiftie.h"
+#include "enemies/TeaKettle.h"
+#include "enemies/TrashCan.h"
+// Set Namespace
 using namespace std;
 
-// Initialize starting characters.
-Character dude("dude", 100, 20, 20, 50, 10);
-Character bro("bro", 100, 20, 20, 50, 10);
+// Initialize Starting Players
 
-// Define a main menu.
+// Player object dude
+Player dude("dude", 100, 20, 20, 50, 10);
+// Player object bro
+Player bro("bro", 100, 20, 20, 50, 10);
+
+// Main Menu
 Menu choices;
 
 int main() {
 
-	/*
-	** Test Case for Program
-	*/
+	// Show initial player stats.
 
-	// Testing getters and setters.
-	// 
-	// Show initial data members.
-	cout << "Showing initial data members." << endl;
-	cout << "Dude's Name: " << dude.getName() << endl
-		<< "Dude's Health: " << dude.getHealth() << endl
-		<< "Dude's Strength: " << dude.getStrength() << endl
-		<< "Dude's Stamina: " << dude.getStamina() << endl
-		<< "Dude's Mana: " << dude.getMana() << endl
-		<< "Dude's Armor: " << dude.getArmor() << endl << endl;
+	cout << "Showing initial player stats." << endl;
+	dude.displayStats();
+	bro.displayStats();
+	cout << "------------------------------" << endl;
 
 	// Change data members.
+
 	cout << "Changing data members." << endl << endl;
 	dude.setName("radical dude");
 	dude.setHealth(dude.getHealth() / 2);
@@ -53,17 +57,16 @@ int main() {
 	dude.setStamina(dude.getStamina() / 2);
 	dude.setMana(dude.getMana() / 2);
 	dude.setArmor(dude.getArmor() / 2);
+	cout << "------------------------------" << endl;
 
 	// Show changed data members.
-	cout << "Showing changed data members." << endl;
-	cout << "Dude's Name: " << dude.getName() << endl
-		<< "Dude's Health: " << dude.getHealth() << endl
-		<< "Dude's Strength: " << dude.getStrength() << endl
-		<< "Dude's Stamina: " << dude.getStamina() << endl
-		<< "Dude's Mana: " << dude.getMana() << endl
-		<< "Dude's Armor: " << dude.getArmor() << endl << endl;
+
+	cout << "Showing changed player stats." << endl;
+	dude.displayStats();
+	cout << "------------------------------" << endl;
 
 	// Reset to original values.
+
 	cout << "Resetting to original values." << endl << endl;
 	dude.setName("dude");
 	dude.setHealth(dude.getHealth() * 2);
@@ -71,82 +74,98 @@ int main() {
 	dude.setStamina(dude.getStamina() * 2);
 	dude.setMana(dude.getMana() * 2);
 	dude.setArmor(dude.getArmor() * 2);
+	cout << "------------------------------" << endl;
 
-	// Test Combat Functions
-	//
 	// Test the attack function.
+
 	cout << "Testing attack function." << endl;
-	cout << "Bro's strength before attack: " << bro.getStrength() << endl
-		<< "Dude's health before attack: " << dude.getHealth() << endl
-		<< "Dude's armor before attack: " << dude.getArmor() << endl;
+	cout << "Dude's pre-attack statistics:" << endl;
+	dude.displayStats();
 	bro.attack(&dude);
-	cout << "Bro attacks dude!!!" << endl
-		<< "Dude's health after attack: " << dude.getHealth() << endl
-		<< "Dude's armor after attack: " << dude.getArmor() << endl << endl;
-	dude.setHealth(100);
+	cout << "Bro attacks dude!!!" << endl;
+	cout << "Dude's post-attack statistics:" << endl;
+	dude.displayStats();
+	dude.setHealth(100); // Reset health.
+	cout << "------------------------------" << endl;
 
 	// Test the defend function.
+
 	cout << "Testing defend function." << endl;
+	cout << "Dude's pre-defend statistics:" << endl;
 	dude.defend();
-	cout << "Bro's strength before attack: " << bro.getStrength() << endl
-		<< "Dude's health before attack: " << dude.getHealth() << endl
-		<< "Dude's armor before attack: " << dude.getArmor() << endl;
+	cout << "Dude's post-defend statistics:" << endl;
+	dude.displayStats();
 	bro.attack(&dude);
-	cout << "Bro attacks dude!!!" << endl
-		<< "Dude's health after attack: " << dude.getHealth() << endl
-		<< "Dude's armor after attack: " << dude.getArmor() << endl << endl; // We don't want defense to stay permanent.
+	cout << "Bro attacks dude!!!" << endl;
+	cout << "Dude's post-attack statistics:" << endl;
+	dude.displayStats();
+	cout << "------------------------------" << endl;
 
 	// Test the run function.
+
 	cout << "Testing run function." << endl;
-	dude.run(); // To have better functionality with the battle sequence.
+	dude.run();
+	cout << "------------------------------" << endl;
 
-	//cout << "dude health: " << dude.getHealth() << endl;
+	// Create enemy objects.
 
-	//bro.attack(&dude);
+	ChineseSpyPigeon harold("Harold");
+	ChineseWeatherBalloon ca122("CA-112");
+	DannyDevito danny("Danny DeVito");
+	Drake richard("Richard");
+	Goblin goblin("Bimbo");
+	Harpy harpy("Patricia");
+	Hippie lennon("John Lennon");
+	Merfolk sammy("Sammy");
+	Nickelback nickelback("Nickelback");
+	Ninja gus("Gus");
+	NotSoPeacefulProtestor travis("Travis");
+	Orc wesley("Wesley");
+	Pirate jack("Jack");
+	Roomba xae112("XAE-112");
+	Samurai yoshido("Yoshido");
+	Swiftie fangirl("Karen");
+	TeaKettle kettle("Mr. Coffee");
+	TrashCan trashCan("Oskar the Grouch's Home");
 
-	//cout << "dude health: " << dude.getHealth() << endl;
+	// Display enemy statistics.
 
-	//cout << "dude armor: " << dude.getArmor() << endl;
-
-	//dude.defend();
-
-	//cout << "dude armor: " << dude.getArmor() << endl;
-
-	//cout << "dude stamina: " << dude.getStamina() << endl;
-
-	//dude.setStamina(55);
-
-	//cout << "dude stamina: " << dude.getStamina() << endl;
-
-	//cout << "dude mana: " << dude.getMana() << endl;
-
-	//dude.setMana(60);
-
-	//cout << "dude mana: " << dude.getMana() << endl;
-
-	//cout << "dude name: " << dude.getName() << endl;
-
-	//dude.setName("duuuuude");
-
-	//cout << "dude name: " << dude.getName() << endl;
-
-	//cout << "dude strength: " << dude.getStrength() << endl;
-
-	//dude.setStrength(65);
-
-	//cout << "dude strength: " << dude.getStrength() << endl;
-
-	//cout << "bro health: " << bro.getHealth() << endl;
-
-	//dude.attack(&bro);
-
-	//cout << "bro health: " << bro.getHealth() << endl;
-
-	//dude.run();
-
-	//bro.run();
-
-	//choices.mainMenu();
+	harold.displayStats();
+	cout << "------------------------------" << endl;
+	ca122.displayStats();
+	cout << "------------------------------" << endl;
+	danny.displayStats();
+	cout << "------------------------------" << endl;
+	richard.displayStats();
+	cout << "------------------------------" << endl;
+	goblin.displayStats();
+	cout << "------------------------------" << endl;
+	harpy.displayStats();
+	cout << "------------------------------" << endl;
+	lennon.displayStats();
+	cout << "------------------------------" << endl;
+	sammy.displayStats();
+	cout << "------------------------------" << endl;
+	nickelback.displayStats();
+	cout << "------------------------------" << endl;
+	gus.displayStats();
+	cout << "------------------------------" << endl;
+	travis.displayStats();
+	cout << "------------------------------" << endl;
+	wesley.displayStats();
+	cout << "------------------------------" << endl;
+	jack.displayStats();
+	cout << "------------------------------" << endl;
+	xae112.displayStats();
+	cout << "------------------------------" << endl;
+	yoshido.displayStats();
+	cout << "------------------------------" << endl;
+	fangirl.displayStats();
+	cout << "------------------------------" << endl;
+	kettle.displayStats();
+	cout << "------------------------------" << endl;
+	trashCan.displayStats();
+	cout << "------------------------------" << endl;
 
 	return 0;
 }

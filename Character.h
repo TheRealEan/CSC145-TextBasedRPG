@@ -2,6 +2,7 @@
 #include <string>
 #ifndef CHARACTER_H
 #define CHARACTER_H
+using namespace std;
 
 class Character {
 public:
@@ -36,6 +37,27 @@ public:
 	// Statistic Functions
 
 	virtual void displayStats();
+
+	void target(Character* opponent, Character* self);/* {
+		srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.
+		unsigned int roll = (1 + rand() % 3); // Generates a number from 1 to 3.
+
+		// Determines which options is chosen.
+		switch (roll) {
+		case 1:
+			Character::attack(opponent);
+			cout << self->getName() << " Attacks!";
+			break;
+		case 2:
+			Character::defend();
+			cout << self->getName() << " Defends!";
+			break;
+		case 3:
+			Character::run();
+			cout << self->getName() << " Runs away!";
+			break;
+		}
+	};*/
 
 private:
 	// Data Members

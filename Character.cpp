@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Character.h"
 #include "Menu.h"
+#include "Player.h"
 using namespace std;
 
 Character::Character(string name)  // Delegating constuctor.
@@ -87,3 +88,24 @@ void Character::displayStats() {
 	cout << getName() << "'s Strength: " << getStrength() << endl;
 	cout << getName() << "'s Armor: " << getArmor() << endl;
 }
+/*
+void target(Player player, Character* self) {
+	srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.
+	unsigned int roll = (1 + rand() % 3); // Generates a number from 1 to 3.
+
+	// Determines which options is chosen.
+	switch (roll) {
+	case 1:
+		self->attack(player);
+		cout << self->getName() << " Attacks!";
+		break;
+	case 2:
+		self->defend();
+		cout << self->getName() << " Defends!";
+		break;
+	case 3:
+		self->run();
+		cout << self->getName() << " Runs away!";
+		break;
+	}
+};*/

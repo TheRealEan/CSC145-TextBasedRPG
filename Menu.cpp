@@ -1,7 +1,8 @@
 // Filename: "Menu.cpp"
 #include "Menu.h"
+#include "BattleSequence.h"
+Player player("Bob");
 using namespace std;
-
 void Menu::mainMenu() {
     cout << "1. Return to Game" << endl
         << "2. Enter Battle" << endl
@@ -50,7 +51,7 @@ void Menu::returnToOverworld() {
 
 void Menu::enterBattle() {
     cout << "You have entered battle." << endl;
-    mainMenu();
+    startBattle(player);
 }
 
 void Menu::manageInventory() {

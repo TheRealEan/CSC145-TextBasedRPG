@@ -32,15 +32,19 @@ using namespace std;
 // Initialize Starting Players
 
 // Player object dude
-Player dude("dude", 100, 20, 20, 50, 10);
+Player dude("dude", 100, 20, 20, 10, 10);
 // Player object bro
-Player bro("bro", 100, 20, 20, 50, 10);
+Player bro("bro", 100, 20, 20, 10, 10);
 
 // Main Menu
 Menu choices;
 
 int main() {
 
+	Menu mainMenu;
+	mainMenu.mainMenu();
+	
+	/*
 	// Show initial player stats.
 
 	cout << "Showing initial player stats." << endl;
@@ -118,18 +122,18 @@ int main() {
 	Hippie lennon("John Lennon");
 	Merfolk sammy("Sammy");
 	Nickelback nickelback("Nickelback");
-	Ninja gus("Gus");
+	Ninja gus();
 	NotSoPeacefulProtestor travis("Travis");
 	Orc wesley("Wesley");
 	Pirate jack("Jack");
-	Roomba xae112("XAE-112");
+	Roomba xae112();
 	Samurai yoshido("Yoshido");
-	Swiftie fangirl("Karen");
+	Swiftie fangirl();
 	TeaKettle kettle("Mr. Coffee");
 	TrashCan trashCan("Oskar the Grouch's Home");
 
 	// Display enemy statistics.
-
+	/*
 	harold.displayStats();
 	cout << "------------------------------" << endl;
 	ca122.displayStats();
@@ -166,6 +170,6 @@ int main() {
 	cout << "------------------------------" << endl;
 	trashCan.displayStats();
 	cout << "------------------------------" << endl;
-
+	*/
 	return 0;
 }

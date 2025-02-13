@@ -1,19 +1,46 @@
 // Filename: "Menu.h"
 #include <iostream>
+#include "Player.h"
 #ifndef MENU_H
 #define MENU_H
 
+void startBattle(Player player);
+
 class Menu {
 public:
-	// Main Menu Functions
+	// Clear the screen.
+	void clear();
+};
 
-	void mainMenu(); // Open the main menu.
-	void returnToOverworld(); // Return to the overworld.
-	void enterBattle(); // Enter into a battle sequence.
-	void manageInventory(); // Manage inventory options.
-	void enterShop(); // Enter the shop.
-	void chat(); // Chat with a Character.
-	int quitGame(); // Quit the game.
+class MainMenu : public Menu {
+public:
+	// Open the main menu.
+	MainMenu();
+	// Return to the overworld.
+	void returnToOverworld();
+	// Enter into a battle sequence.
+	void enterBattle();
+	// Manage inventory options.
+	void manageInventory();
+	// Enter the shop.
+	void enterShop();
+	// Chat with a Character.
+	void chat();
+	// Quit the game.
+	int quitGame();
+};
+
+class BattleMenu : public Menu {
+public:
+	BattleMenu();
+	void attack();
+	void magic();
+	void actions();
+	void inventory();
+	void chat();
+	void flee();
+
+	// void startBattle(Player player);
 };
 
 #endif

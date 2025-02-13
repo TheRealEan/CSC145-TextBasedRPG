@@ -12,6 +12,22 @@ public:
 	Player(std::string name, int health, int stamina, int mana, int strength, int armor);
 	virtual ~Player() = default;
 
+	int getExperience();
+
+	void setExperience(int newExperience);
+
+	void checkLevelUp();
+
+	int getxpThreshold();
+
+	void setxpThreshold(int newxpThreshold);
+
+	void classSelection();
+
+protected:
+	int experience{ 0 };
+	int xpThreshold{ 100 };
+
 };
 
 #endif

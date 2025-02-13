@@ -41,6 +41,7 @@ public:
 	void addItemToInventory(Item* item);
 	void removeItemFromInventory(string itemName);
 	void displayInventory();
+	Item* findItem(string name);
 
 
 	virtual void displayStats();

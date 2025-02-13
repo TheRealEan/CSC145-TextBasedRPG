@@ -4,6 +4,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+void checkForItems(Player& player);
 void startBattle(Player& player);
 
 class Menu {
@@ -40,4 +41,6 @@ public:
     void flee();
 };
 
+
 #endif
+

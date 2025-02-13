@@ -78,6 +78,10 @@ void Character::removeItemFromInventory(std::string itemName) {
 void Character::displayInventory() {
 	inventory.printInventory();
 }
+Item* Character::findItem(string name) {
+	return inventory.findItem(name);
+}
+
 
 // Damage dealt is the attacker's strength minus defender's armor dealt to health points.
 void Character::attack(Character* opponent) {

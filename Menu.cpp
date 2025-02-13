@@ -198,9 +198,19 @@ void BattleMenu::flee() {
     BattleMenu();
 }
 
+void checkForItems(Player& player) {
+    if (player.findItem("Sword") != nullptr) {  //ONLY checks if is in inventory
+        player.setStrength(player.getStrength() + 10);
+    }
+    if (player.findItem("Boots") != nullptr) {  //ONLY checks if is in inventory
+        player.setArmor(player.getArmor() + 10);
+    }
+}
+
 void startBattle(Player& player) {
     bool endBattle = false;
     Character* enemy = generateRandomEnemy();
+    checkForItems(player); // runs once at the beginning of the battle sequence
     while (endBattle == false) {
         // player turn
         int choice = 0;
@@ -262,5 +272,8 @@ void startBattle(Player& player) {
     }
     delete enemy;
 }
+
+
+
 
 

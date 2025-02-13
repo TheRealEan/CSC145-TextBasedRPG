@@ -9,9 +9,16 @@
 using namespace std;
 
 int main() {
+
 	Player richard("Richard the Third");
-	
-	startBattle(richard);
+	Item plank("Plank", 1);
+	plank.display();
+	richard.addItemToInventory(new Item("Sword", 5));
+	richard.addItemToInventory(new Item("Shield", 1));
+	richard.addItemToInventory(new Item("Potion", 7));
+	richard.addItemToInventory(new Item("Boots", 1));
+	MainMenu menu(richard);
+	menu;
 
 	return 0;
 }

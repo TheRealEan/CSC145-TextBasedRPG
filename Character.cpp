@@ -65,6 +65,20 @@ void Character::setArmor(int newArmor) { // Implement error checking for below z
 	armor = newArmor;
 }
 
+
+
+void Character::addItemToInventory(Item* item) {
+	inventory.addItem(item);
+}
+
+void Character::removeItemFromInventory(std::string itemName) {
+	inventory.removeItem(itemName);
+}
+
+void Character::displayInventory() {
+	inventory.printInventory();
+}
+
 // Damage dealt is the attacker's strength minus defender's armor dealt to health points.
 void Character::attack(Character* opponent) {
 	opponent->setHealth(opponent->getHealth() - (this->getStrength() - opponent->getArmor()));

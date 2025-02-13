@@ -1,17 +1,20 @@
 // Filename: "Character.h"
 #include <string>
+#include "Inventory.h"
 #ifndef CHARACTER_H
 #define CHARACTER_H
 using namespace std;
 
-class Character {
-public:
-	Character(std::string nombre);
-	Character(std::string nombre, int hp, int sp, int mp, int str, int arm);
-	virtual ~Character() = default;
 
+class Character {
+protected:
+	Inventory inventory;
+public:
+	Character(string nombre);
+	Character(string nombre, int hp, int sp, int mp, int str, int arm);
+	virtual ~Character() = default;
 	// Retrieves the value of name.
-	std::string getName(); 	
+	string getName(); 	
 	// Sets the value of name.
 	void setName(std::string newName); 	
 	// Retrieves the value of health.
@@ -34,6 +37,11 @@ public:
 	int getArmor();
 	// Sets the value of armor.
 	void setArmor(int newArmor);
+
+	void addItemToInventory(Item* item);
+	void removeItemFromInventory(string itemName);
+	void displayInventory();
+
 
 	virtual void displayStats();
 

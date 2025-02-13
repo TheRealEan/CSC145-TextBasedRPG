@@ -9,18 +9,18 @@
 using namespace std;
 
 void Menu::clear() {
-    #ifdef _WIN32
-        system("cls");
-    #endif
+#ifdef _WIN32
+    system("cls");
+#endif
 }
 
-MainMenu::MainMenu() {
-    cout << "1. Return to Game" << endl
+MainMenu::MainMenu(Player& player) {
+    cout << "\033[1;33m1. Return to Game (it's very late at night plz don't touch :(  \033[1;33m)" << endl
         << "2. Enter Battle" << endl
         << "3. Manage Inventory" << endl
-        << "4. Enter Shop" << endl
-        << "5. Talk to Someone" << endl
-        << "6. Quit Game" << endl;
+        << "4. Enter Shop (it's very late at night plz don't touch :(  )" << endl
+        << "5. Talk to Someone (it's very late at night plz don't touch :(  )" << endl
+        << "6. Quit Game (it's very late at night plz don't touch :(  )" << endl;
     int choice;
     cin >> choice;
     switch (choice) {
@@ -29,11 +29,11 @@ MainMenu::MainMenu() {
         break;
 
     case 2:
-        enterBattle();
+        enterBattle(player);
         break;
 
     case 3:
-        manageInventory();
+        manageInventory(player);
         break;
 
     case 4:
@@ -50,7 +50,6 @@ MainMenu::MainMenu() {
 
     default:
         cout << "That's not a valid option. Please type one of the options listed." << endl;
-        MainMenu();
         break;
     }
 }
@@ -58,32 +57,67 @@ MainMenu::MainMenu() {
 void MainMenu::returnToOverworld() {
     clear();
     cout << "Returning to overworld." << endl;
-    MainMenu();
 }
 
-void MainMenu::enterBattle() {
+void MainMenu::enterBattle(Player& player) {
     clear();
     cout << "You have entered battle." << endl;
-    // startBattle(player);
-    MainMenu();
+    startBattle(player); 
 }
 
-void MainMenu::manageInventory() {
+void MainMenu::manageInventory(Player& player) {
     clear();
-    cout << "You are managing your inventory." << endl;
-    MainMenu();
+    int choice;
+    string itemName;
+
+    do {
+        string tempS;
+        int tempN;
+        cout << "\n\033[1;33m=== Inventory Menu ===\033[1;33m\n";
+        cout << "1. View Inventory\n";
+        cout << "2. Remove Item\n";
+        cout << "3. Exit\n";
+        cout << "5. Add Item(debugging only)\n";
+        cout << "==================\n";
+        cout << "Choose an option: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+        case 1:
+            player.displayInventory();
+            break;
+        case 2:
+            cout << "Enter an item you want to remove: ";
+            getline(std::cin, itemName);
+            player.removeItemFromInventory(itemName);
+            break;
+        case 3:
+            cout << "Exiting inventory.\n";
+            break;
+        case 5:
+            cout << "Enter an item to add.\n";
+            getline(cin, tempS);
+            cout << "Enter how many you want to add.\n";
+            cin >> tempN;
+            player.addItemToInventory(new Item(tempS, tempN));
+            cout << "Added " << tempS << " " << tempN << "x";
+            break;
+        default:
+            cout << "Try again. >:(\n";
+        }
+    } while (choice != 3);
 }
+
 
 void MainMenu::enterShop() {
     clear();
     cout << "You entered the shop." << endl;
-    MainMenu(player);
 }
 
 void MainMenu::chat() {
     clear();
     cout << "You're chatting." << endl;
-    MainMenu(player);
 }
 
 int MainMenu::quitGame() {
@@ -164,8 +198,7 @@ void BattleMenu::flee() {
     BattleMenu();
 }
 
-
-void startBattle(Player player) {
+void startBattle(Player& player) {
     bool endBattle = false;
     Character* enemy = generateRandomEnemy();
     while (endBattle == false) {

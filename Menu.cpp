@@ -6,7 +6,16 @@
 #include "Enemy.h"
 #include "Menu.h"
 #include "Extra.h"
+#include <Windows.h>
+#include <mmsystem.h>
+#include <thread>
+#pragma comment(lib, "winmm.lib")
+
 using namespace std;
+
+atomic<bool> running(true);
+bool battle = false;
+bool inven = false;
 
 void Menu::clear() {
 #ifdef _WIN32
@@ -14,7 +23,44 @@ void Menu::clear() {
 #endif
 }
 
+void backgroundPlay() {
+    if (battle == true) {
+        PlaySound(TEXT("battle.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    }
+    else if (inven == true) {
+        PlaySound(TEXT("inventory.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    }
+    else {
+        PlaySound(TEXT("theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    }
+}
+/*
+void selectPlay() {
+    PlaySound(TEXT("select.wav"), NULL, SND_FILENAME | SND_ASYNC);
+}
+
+void selectCheck() {
+    while (running) {
+        for (int key = 8; key <= 256; key++) {
+            if (GetAsyncKeyState(key) & 0x8000) { 
+                selectPlay();
+                Sleep(100);  
+                backgroundPlay();
+            }
+        }
+        Sleep(10); 
+    }
+}
+
+
+
+*/
+
 MainMenu::MainMenu(Player& player) {
+    //thread selectChecker(selectCheck);
+    thread backgroundChecker(backgroundPlay);
+    //selectChecker.detach();
+    backgroundChecker.detach();
     cout << "\033[1;33m1. Return to Game (it's very late at night plz don't touch :(  \033[1;33m)" << endl
         << "2. Enter Battle" << endl
         << "3. Manage Inventory" << endl
@@ -29,6 +75,7 @@ MainMenu::MainMenu(Player& player) {
         break;
 
     case 2:
+        battle = true;
         enterBattle(player);
         break;
 
@@ -63,10 +110,14 @@ void MainMenu::enterBattle(Player& player) {
     clear();
     cout << "You have entered battle." << endl;
     startBattle(player); 
+    battle = false;
 }
 
 void MainMenu::manageInventory(Player& player) {
-    clear();
+    PlaySound(TEXT("item2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+    Sleep(1500);
+    inven = true;
+    backgroundPlay();
     int choice;
     string itemName;
 
@@ -86,11 +137,17 @@ void MainMenu::manageInventory(Player& player) {
         switch (choice) {
         case 1:
             player.displayInventory();
+            PlaySound(TEXT("textPopUp.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1500);
+            backgroundPlay();
             break;
         case 2:
             cout << "Enter an item you want to remove: ";
             getline(std::cin, itemName);
             player.removeItemFromInventory(itemName);
+            PlaySound(TEXT("unequip.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1500);
+            backgroundPlay();
             break;
         case 3:
             cout << "Exiting inventory.\n";
@@ -102,6 +159,9 @@ void MainMenu::manageInventory(Player& player) {
             cin >> tempN;
             player.addItemToInventory(new Item(tempS, tempN));
             cout << "Added " << tempS << " " << tempN << "x";
+            PlaySound(TEXT("coinGain.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1500);
+            backgroundPlay();
             break;
         default:
             cout << "Try again. >:(\n";
@@ -208,6 +268,7 @@ void checkForItems(Player& player) {
 }
 
 void startBattle(Player& player) {
+    backgroundPlay();
     bool endBattle = false;
     Character* enemy = generateRandomEnemy();
     checkForItems(player); // runs once at the beginning of the battle sequence
@@ -228,15 +289,27 @@ void startBattle(Player& player) {
         switch (choice) {  // will need to add error handling here for invalid choices
         case 1:
             player.attack(enemy);
-            cout << "You attacked!";
+            cout << "You attacked!\n";
+            Sleep(70);
+            PlaySound(TEXT("attack1.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1000);
+            backgroundPlay();
             break;
         case 2:
             player.defend();
-            cout << "You defended!";
+            cout << "You defended!\n";
+            Sleep(70);
+            PlaySound(TEXT("defeat.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1000);
+            backgroundPlay();
             break;
         case 3:
             player.run();
-            cout << "You ran away.";
+            cout << "You ran away.\n";
+            Sleep(70);
+            PlaySound(TEXT("run.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1000);
+            backgroundPlay();
             endBattle = true;
             break;
         }
@@ -249,24 +322,38 @@ void startBattle(Player& player) {
         case 1:
             enemy->attack(&player);
             cout << enemy->getName() << " Attacks!";
+            PlaySound(TEXT("hurt4.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1000);
+            backgroundPlay();
             break;
         case 2:
             enemy->defend();
             cout << enemy->getName() << " Defends!";
+            PlaySound(TEXT("troll.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1000);
+            backgroundPlay();
             break;
         case 3:
             enemy->run();
             cout << enemy->getName() << " has been defeated!!";
+            PlaySound(TEXT("run.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1000);
+            backgroundPlay();
             endBattle = true;
             break;
         }
         cout << "\n------------------------------------------\n";
         if (enemy->getHealth() <= 0) {
             cout << enemy->getName() << " has been defeated!!";
+            PlaySound(TEXT("victory.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1500);
             endBattle = true;
         }
         if (player.getHealth() <= 0) {
             cout << "You died.";
+            PlaySound(TEXT("loss.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            Sleep(1500);
+
             endBattle = true;
         }
     }

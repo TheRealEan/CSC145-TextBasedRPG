@@ -157,7 +157,7 @@ void MainMenu::manageInventory(Player& player) {
             getline(cin, tempS);
             cout << "Enter how many you want to add.\n";
             cin >> tempN;
-            player.addItemToInventory(new Item(tempS, tempN));
+            player.addItemToInventory(new Item(tempS, tempN, 50)); // 50 gold placeholder
             cout << "Added " << tempS << " " << tempN << "x";
             PlaySound(TEXT("coinGain.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1500);
@@ -321,21 +321,21 @@ void startBattle(Player& player) {
         switch (roll) {
         case 1:
             enemy->attack(&player);
-            cout << enemy->getName() << " Attacks!";
+            cout << enemy->getName() << " Attacks!" << endl;
             PlaySound(TEXT("hurt4.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
             backgroundPlay();
             break;
         case 2:
             enemy->defend();
-            cout << enemy->getName() << " Defends!";
+            cout << enemy->getName() << " Defends!" << endl;
             PlaySound(TEXT("troll.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
             backgroundPlay();
             break;
         case 3:
             enemy->run();
-            cout << enemy->getName() << " has been defeated!!";
+            cout << enemy->getName() << " runs away!!" << endl;
             PlaySound(TEXT("run.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
             backgroundPlay();
@@ -344,7 +344,9 @@ void startBattle(Player& player) {
         }
         cout << "\n------------------------------------------\n";
         if (enemy->getHealth() <= 0) {
-            cout << enemy->getName() << " has been defeated!!";
+            cout << enemy->getName() << " has been defeated!!" << endl;
+            cout << enemy->getName() << " dropped " << enemy->getGold() << " gold" << endl;
+            player.collect(enemy->getGold());
             PlaySound(TEXT("victory.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1500);
             endBattle = true;

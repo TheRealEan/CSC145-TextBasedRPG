@@ -11,7 +11,7 @@ protected:
 	Inventory inventory;
 public:
 	Character(string nombre);
-	Character(string nombre, int hp, int sp, int mp, int str, int arm);
+	Character(string nombre, int hp, int sp, int mp, int str, int arm, int gold);
 	virtual ~Character() = default;
 	// Retrieves the value of name.
 	string getName(); 	
@@ -37,6 +37,8 @@ public:
 	int getArmor();
 	// Sets the value of armor.
 	void setArmor(int newArmor);
+	int getGold();
+	void setGold(int newGold);
 
 	void addItemToInventory(Item* item);
 	void removeItemFromInventory(string itemName);
@@ -45,6 +47,11 @@ public:
 
 
 	virtual void displayStats();
+
+	// Gold System
+	void buy(int gold);
+	void sell(int gold);
+	void collect(int gold); // use in battle to collect gold from enemies
 
 
 	//
@@ -61,6 +68,7 @@ private:
 	int mana{ 20 };
 	int strength{ 20 };
 	int armor{ 0 };
+	int gold{ 0 };
 };
 
 #endif

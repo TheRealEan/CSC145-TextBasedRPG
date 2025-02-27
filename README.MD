@@ -60,6 +60,13 @@ Verify the changes with
 git remote -v
 ```
 
+### Authenticate to GitHub
+Use:
+```bash
+git remote set-url origin git@github.com:{username}/CSC145-TextBasedRPG.git
+```
+To authenticate with GitHub.
+
 ### Pull from GitHub
 BEFORE YOU PUSH ANY CHANGES YOU NEED TO PULL THE CURRENT FILES DOWN.
 

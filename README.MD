@@ -146,11 +146,11 @@ All files not in the project have the red minus symbol.
 
 ![Step 2](./Images/Step-2.png)
 
-Step 3 - Right-click and click "Include in Project"
-
-Unhighlight the "Show All Files" (See Step 1) to view your newly added files.
+Step 3 - Right-click and click "Include in Project."
 
 ![Step 3](./Images/Step-3.png)
+
+Unhighlight the "Show All Files" (See Step 1) to view your newly added files.
 
 ## Contributors
 *Ian McCurdy* - Project Mismanager, Watch Out For This One (Has a Tendency to Delete Main)

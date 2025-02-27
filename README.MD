@@ -19,12 +19,14 @@ Feel free to customize to your personal preference (Hint: Vim sucks as a text ed
 Once Git is installed you'll want to access the Git Bash terminal. The terminal uses typical bash commands and text editors.
 Git identifies the author of commits using a username and email so at the prompt use the commands:
 ```bash
-git config --global user.name "{username}"
-git config --global user.email "{email_address}""
+git config user.name "{username}"
+git config user.email "{email_address}"
 ```
+where \{username} is your username and \{email_address} is your email.
+
 Verify status of these using:
 ```bash
-git config --global --list
+git config --list
 ```
 or
 ```bash
@@ -34,112 +36,99 @@ git config user.email
 
 ### Create a Local Repository
 To create a local repository you'll need to have a project with Visual Studio.
-Either create a new C++ empty project or use and existing one and navigate to where your code files are located.
+1. Either create a new C++ empty project or use and existing one and navigate to where your code files are located.
 ```bash
 cd C:/Users/.../Project/ProjectName/SolutionName/
 ```
-Here you need to run the git initialize command.
+2. Run the git init to initialize a new repository in the current directory.
 ```bash
 git init
 ```
-Now a new .git (hidden folder) will be placed in that directory and can be used as the source to pull and push changes.
+Note a new .git (hidden folder) will be placed in that directory and can be used as the source to pull and push changes.
 
-To set up the connection to GitHub you need to add the website as a remote origin.
+3a. Set up the remote connection to GitHub.
 ```bash
-git remote add origin https://github.com/{username}/CSC145-TextBasedRPG.git
+git remote add origin https://{username}@github.com/{username}/CSC145-TextBasedRPG.git
+git remote -v # Verify changes.
 ```
-Don't forget the .git part.
-If you make a mistake run
+Adding the remote connection may open a browser tab and ask you to authenticate.
+
+3b. Don't forget the .git portion. If you do run:
 ```bash
 git remote remove origin
+# We use set-url to replace a url.
+git remote set-url origin https://{username}@github.com/{username}/CSC145-TextBasedRPG.git
 ```
-and try again.
 
-Verify the changes with
+4. Fetch the current branches and/or pull changes.
 ```bash
-git remote -v
+git fetch # Downloads changes without merging them with your local files.
+git pull origin main # Downloads changes from main and merges them with your local files.
 ```
+NOTE: Pull changes before uploading new files to main.
 
-### Authenticate to GitHub
-Use:
+### Changing Branches
+
+Identifying branches:
 ```bash
-git remote set-url origin git@github.com:{username}/CSC145-TextBasedRPG.git
+git branch # Shows local repositories.
+git branch -r # Shows remote repositories.
+git branch -a # Shows local and remote repositories.
 ```
-To authenticate with GitHub.
 
-### Pull from GitHub
+Switch branches:
+```bash
+git switch {branch-name}
+# Or
+git checkout {branch-name} # Older method
+```
+
+Creating branches:
+```bash
+git switch -c {new-branch-name}
+git push --set-upstream origin {new-branch-name}
+```
+
+Deleting branches:
+```bash
+git pull origin main # Always remember this.
+git branch -d {feature-branch-name} # For local repositories.
+git branch -D {feature-branch-name} # Force deletes even if the branch is not merged.
+git push origin --delete {feature-branch-name}
+```
+
+### Pulling, Pushing, and Merging
 BEFORE YOU PUSH ANY CHANGES YOU NEED TO PULL THE CURRENT FILES DOWN.
 
-Use
+Pulling files:
 ```bash
 git pull origin main
 ```
 
-### Add and Commit Changes
-DID YOU NOTICE THE CAPITALIZED TEXT BEFORE, PULL CHANGES BEFORE THIS!!!
-
-Implement a new branch when you're working on new features.
-
-To see all branches available in your repository use:
+First-time pushing files to a specific branch, change the last command to:
 ```bash
-git branch
-```
-The asterisk shows you the current branch you're working in.
-
-To switch branches use switch or checkout (switch is a newer method).
-```bash
-git switch branch-name
-git checkout branch-name
+git push origin --set-upstream {feature-branch-name}
 ```
 
-After you've pulled changes, now push them by adding the files and committing the changes with a message.
-
-Adding all files is done by:
+Pushing files:
 ```bash
-git add .
-git commit -m "Commit message details here."
+git pull origin main # Always remember this.
+# Either
+git add . # Adds all files in current directory.
+# Or
+git add {filename.extension}
+git commit -m "Commit message" # Adds a commit with a message.
+git status # Verify that the adding and commiting was successful.
+git push origin {feature-branch-name}
 ```
 
-Add specific files using:
+Merging files:
 ```bash
-git add filename.cpp
-git commit -m "Commit message again."
-```
-
-FOR NEW BRANCHES USE THIS:
-```bash
-git push --set-upstream origin branch-name
-```
-It sets up the upstream branch with this version.
-
-For changes to be sent to GitHub, push the changes.
-```bash
-git push origin current-branch-name
-```
-
-### Merge Changes
-Merging changes with main can also be done with Git Bash.
-
-First switch to main:
-```bash
+git pull origin main # Always remember this.
 git switch main
-git checkout main
-```
-
-And merge using git merge:
-```bash
-git merge feature-branch-name
-```
-
-Then push the merged changes.
-```bash
-git push origin main
-```
-
-Delete the feature branch with:
-```bash
-git branch -d  feature-branch-name # Local repos only.
-git push origin --delete feature-branch-name
+git merge {feature-branch-name}
+git branch -d {feature-branch-name} # For local repositories.
+git push origin --delete {feature-branch-name}
 ```
 
 ## Syncing Git Files with Visual Studio

@@ -3,13 +3,13 @@
 using namespace std;
 
 Player::Player(string name)
-	: Player(name, 100, 100, 100, 100, 100) {
+	: Player(name, 100, 100, 100, 100, 100, 0) {
 };
 
 
 
-Player::Player(string name, int health, int stamina, int mana, int strength, int armor) 
-	: Character(name, health, stamina, mana, strength, armor) {};
+Player::Player(string name, int health, int stamina, int mana, int strength, int armor, int gold) 
+	: Character(name, health, stamina, mana, strength, armor, gold) {};
 
 int Player::getExperience() {
 	return experience;

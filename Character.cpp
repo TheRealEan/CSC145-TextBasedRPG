@@ -6,15 +6,16 @@
 using namespace std;
 
 Character::Character(string name)  // Delegating constuctor.
-	: Character(name, 100, 100, 100, 1000, 100) {};
+	: Character(name, 100, 100, 100, 1000, 100, 0) {};
 
-Character::Character(string name, int health, int stamina, int mana, int strength, int armor) { // Primary constructor.
+Character::Character(string name, int health, int stamina, int mana, int strength, int armor, int gold) { // Primary constructor.
 	Character::setName(name);
 	Character::setHealth(health);
 	Character::setStamina(stamina);
 	Character::setMana(mana);
 	Character::setStrength(strength);
 	Character::setArmor(armor);
+	Character::setGold(gold);
 };
 
 string Character::getName() {
@@ -65,6 +66,14 @@ void Character::setArmor(int newArmor) { // Implement error checking for below z
 	armor = newArmor;
 }
 
+int Character::getGold() {
+	return gold;
+}
+
+void Character::setGold(int newGold) { 
+	gold = newGold;
+}
+
 
 
 void Character::addItemToInventory(Item* item) {
@@ -105,7 +114,20 @@ void Character::displayStats() {
 	cout << getName() << "'s Mana: " << getMana() << endl;
 	cout << getName() << "'s Strength: " << getStrength() << endl;
 	cout << getName() << "'s Armor: " << getArmor() << endl;
+	cout << getName() << "'s Gold: " << getGold() << endl;
 }
+
+// Gold System
+void Character::buy(int goldCost) {
+	setGold(getGold() - goldCost);
+}
+void Character::sell(int goldCost) {
+	setGold(getGold() + goldCost);
+}
+void Character::collect(int goldGained) {
+	setGold(getGold() + goldGained);
+}
+
 /*
 void target(Player player, Character* self) {
 	srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.

@@ -8,8 +8,9 @@ class Item {
 public:
     std::string name;
     int quantity;
+    int cost;
 
-    Item(std::string itemName, int qty) : name(itemName), quantity(qty) {}
+    Item(std::string itemName, int qty, int goldCost) : name(itemName), quantity(qty), cost(goldCost) {}
     void display() const {
         std::cout << "\033[1;32m" << name << "\033[0m"  // Green for item name
             << " (x\033[1;34m" << quantity << "\033[0m)"  // Blue for quantity

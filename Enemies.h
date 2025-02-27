@@ -7,7 +7,7 @@
 class ChineseSpyPigeon : public Enemy {
 public:
 	ChineseSpyPigeon(std::string name);
-	ChineseSpyPigeon(std::string name, int health, int stamina, int mana, int strength, int armor);
+	ChineseSpyPigeon(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~ChineseSpyPigeon() = default;
 };
 
@@ -16,7 +16,7 @@ public:
 class ChineseWeatherBalloon : public Enemy {
 public:
 	ChineseWeatherBalloon(std::string name);
-	ChineseWeatherBalloon(std::string name, int health, int stamina, int mana, int strength, int armor);
+	ChineseWeatherBalloon(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~ChineseWeatherBalloon() = default;
 };
 
@@ -25,7 +25,7 @@ public:
 class DannyDevito : public Enemy {
 public:
 	DannyDevito(std::string name);
-	DannyDevito(std::string name, int health, int stamina, int mana, int strength, int armor);
+	DannyDevito(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~DannyDevito() = default;
 };
 
@@ -34,7 +34,7 @@ public:
 class Drake : public Enemy {
 public:
 	Drake(std::string name);
-	Drake(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Drake(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Drake() = default;
 };
 
@@ -43,7 +43,7 @@ public:
 class Goblin : public Enemy {
 public:
 	Goblin(std::string name);
-	Goblin(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Goblin(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Goblin() = default;
 };
 
@@ -52,7 +52,7 @@ public:
 class Harpy : public Enemy {
 public:
 	Harpy(std::string name);
-	Harpy(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Harpy(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Harpy() = default;
 };
 
@@ -61,7 +61,7 @@ public:
 class Hippie : public Enemy {
 public:
 	Hippie(std::string name);
-	Hippie(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Hippie(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Hippie() = default;
 };
 
@@ -70,7 +70,7 @@ public:
 class Merfolk : public Enemy {
 public:
 	Merfolk(std::string name);
-	Merfolk(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Merfolk(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Merfolk() = default;
 };
 
@@ -79,7 +79,7 @@ public:
 class Nickelback : public Enemy {
 public:
 	Nickelback(std::string name);
-	Nickelback(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Nickelback(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Nickelback() = default;
 };
 
@@ -88,7 +88,7 @@ public:
 class Ninja : public Enemy {
 public:
 	Ninja(std::string name);
-	Ninja(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Ninja(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Ninja() = default;
 };
 
@@ -97,7 +97,7 @@ public:
 class Protestor : public Enemy {
 public:
 	Protestor(std::string name);
-	Protestor(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Protestor(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Protestor() = default;
 };
 
@@ -106,7 +106,7 @@ public:
 class Orc : public Enemy {
 public:
 	Orc(std::string name);
-	Orc(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Orc(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Orc() = default;
 };
 
@@ -115,7 +115,7 @@ public:
 class Pirate : public Enemy {
 public:
 	Pirate(std::string name);
-	Pirate(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Pirate(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Pirate() = default;
 };
 
@@ -124,7 +124,7 @@ public:
 class Roomba : public Enemy {
 public:
 	Roomba(std::string name);
-	Roomba(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Roomba(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Roomba() = default;
 };
 
@@ -133,7 +133,7 @@ public:
 class Samurai : public Enemy {
 public:
 	Samurai(std::string name);
-	Samurai(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Samurai(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Samurai() = default;
 };
 
@@ -142,7 +142,7 @@ public:
 class Swiftie : public Enemy {
 public:
 	Swiftie(std::string name);
-	Swiftie(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Swiftie(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Swiftie() = default;
 };
 
@@ -151,7 +151,7 @@ public:
 class TeaKettle : public Enemy {
 public:
 	TeaKettle(std::string name);
-	TeaKettle(std::string name, int health, int stamina, int mana, int strength, int armor);
+	TeaKettle(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~TeaKettle() = default;
 };
 
@@ -160,7 +160,7 @@ public:
 class TrashCan : public Enemy {
 public:
 	TrashCan(std::string name);
-	TrashCan(std::string name, int health, int stamina, int mana, int strength, int armor);
+	TrashCan(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~TrashCan() = default;
 };
 

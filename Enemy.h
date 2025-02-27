@@ -8,7 +8,7 @@ public:
 	// Constructor and Destructors.
 
 	Enemy(std::string name);
-	Enemy(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Enemy(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Enemy() = default;
 
 	// Combat Functions

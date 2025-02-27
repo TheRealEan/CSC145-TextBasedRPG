@@ -9,7 +9,7 @@ public:
 	// Constructors and Destructors
 
 	Player(std::string name);
-	Player(std::string name, int health, int stamina, int mana, int strength, int armor);
+	Player(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
 	virtual ~Player() = default;
 
 	int getExperience();

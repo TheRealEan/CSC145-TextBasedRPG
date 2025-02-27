@@ -4,27 +4,27 @@
 We have no idea what we're doing.
 
 ## Setting Up Git and Syncing with Visual Studio
-### Dowload Git for Windows
+### Download Git for Windows
 
-Git is our version control system and can be downloaded for Windows, Mac and Linux systems.
+Git is our version control system and can be downloaded for Windows, Mac, and Linux systems.
 The guide here is specifically meant for Windows hosts; however, the website and guides online can show how to download for other hosts.
 
 Once you've downloaded the latest version of Git, run the application, and the default prompts are acceptable for our purposes.
-Feel free to customize to your personal preference (Hint: Vim sucks as a text editor). Many of these settings can be changed later.
+Feel free to customize it to your personal preference (Hint: Vim sucks as a text editor). Many of these settings can be changed later.
 
 [Download Here](https://git-scm.com/downloads)
 
 ### Configure Author Details
 
-Once Git is installed you'll want to access the Git Bash terminal. The terminal uses typical bash commands and text editors.
-Git identifies the author of commits using a username and email so at the prompt use the commands:
+Once Git is installed, you'll want to access the Git Bash terminal. The terminal uses typical bash commands and text editors.
+Git identifies the author of commits using a username and email, so at the prompt, use the commands:
 ```bash
 git config user.name "{username}"
 git config user.email "{email_address}"
 ```
 where \{username} is your username and \{email_address} is your email.
 
-Verify status of these using:
+Verify the status of these using:
 ```bash
 git config --list
 ```
@@ -36,7 +36,7 @@ git config user.email
 
 ### Create a Local Repository
 To create a local repository you'll need to have a project with Visual Studio.
-1. Either create a new C++ empty project or use and existing one and navigate to where your code files are located.
+1. Either create a new C++ empty project or use an existing one and navigate to where your code files are located.
 ```bash
 cd C:/Users/.../Project/ProjectName/SolutionName/
 ```
@@ -56,7 +56,7 @@ Adding the remote connection may open a browser tab and ask you to authenticate.
 3b. Don't forget the .git portion. If you do run:
 ```bash
 git remote remove origin
-# We use set-url to replace a url.
+# We use set-url to replace a URL.
 git remote set-url origin https://{username}@github.com/{username}/CSC145-TextBasedRPG.git
 ```
 
@@ -114,11 +114,11 @@ Pushing files:
 ```bash
 git pull origin main # Always remember this.
 # Either
-git add . # Adds all files in current directory.
+git add . # Adds all files in the current directory.
 # Or
 git add {filename.extension}
 git commit -m "Commit message" # Adds a commit with a message.
-git status # Verify that the adding and commiting was successful.
+git status # Verify that the adding and committing were successful.
 git push origin {feature-branch-name}
 ```
 
@@ -146,7 +146,7 @@ All files not in the project have the red minus symbol.
 
 ![Step 2](./Images/Step-2.png)
 
-Step 3 - Right-clik and click "Include in Project"
+Step 3 - Right-click and click "Include in Project"
 
 Unhighlight the "Show All Files" (See Step 1) to view your newly added files.
 
@@ -155,7 +155,7 @@ Unhighlight the "Show All Files" (See Step 1) to view your newly added files.
 ## Contributors
 *Ian McCurdy* - Project Mismanager, Watch Out For This One (Has a Tendency to Delete Main)
 
-*Philomène Sturgeon* - Software De-engineer, Has an Accented è (Some French Thing)
+*PhilomÃ¨ne Sturgeon* - Software De-engineer, Has an Accented Ã¨ (Some French Thing)
 
 *Noah Parkhurst* - Software Architect and Owner of a Monopoly of Food Establishments on FUS Grounds.
 

@@ -1,29 +1,118 @@
-// "Filename: "Item.h"
+#ifndef ITEM_H
+#define ITEM_H
 #include <string>
+#include <vector>
 
+// Forward Declarations
+class Character;
 
-#include <string>
+// Define lists which can be iterated over to check the existence of items in inventories.
+extern std::vector<std::string> listOfWeapons;
+extern std::vector<std::string> listOfArmor;
+extern std::vector<std::string> listOfConsumables;
+extern std::vector<std::string> listOfEquippables;
+extern std::vector<std::string> listOfAllItems;
+
+static bool initItems();
+// Forces the function to run exactly once at program startup.
+// A neat trick using static.
+extern bool itemInitialized;
 
 class Item {
 public:
-    std::string name;
-    int quantity;
-    int cost;
+	// NOTE THESE CONSTRUCTORS CANNOT MATCH DERIVED CLASSES SO USE THE CREATE() FUNCTION INSTEAD
+	Item();
+	Item(std::string nombre);
+	Item(std::string nombre, int amt);
+	Item(std::string nombre, int amt, int goldCost);
+	~Item() = default;
 
-    Item(std::string itemName, int qty, int goldCost) : name(itemName), quantity(qty), cost(goldCost) {}
-    void display() const {
-        std::cout << "\033[1;32m" << name << "\033[0m"  // Green for item name
-            << " (x\033[1;34m" << quantity << "\033[0m)"  // Blue for quantity
-            << std::endl;
-    }
+	// Creates items, matching item names to their correct derived class where applicable.
+	// Update the primary create() function when addeing new items.
+	// REPLACES making "new Item(parameters)"; these do not create derived classes.
+	static Item* create(std::string itemName);
+	static Item* create(std::string itemName, int quantity);
+	static Item* create(std::string itemName, int quantity, int goldCost);
+
+	std::string const getName();
+	void setName(std::string nombre);
+	int const getQuantity();
+	void setQuantity(int amt);
+	int const getCost();
+	void setCost(int amt);
+
+
+protected:
+	std::string name;
+	int quantity;
+	int cost;
 };
 
-class EquippableItem : public Item {
-    using Item::Item; // Inherit constructor
+class Equippable : public Item {
+public:
+	Equippable();
+	Equippable(std::string nombre);
+	Equippable(std::string nombre, int amt);
+	Equippable(std::string nombre, int amt, int goldCost);
+	~Equippable() = default;
+
+	virtual void equip(Character* target) = 0;
+	virtual void unequip(Character* target) = 0;
 };
 
 class Consumable : public Item {
-    using Item::Item; // Inherit constructor
+public:
+	Consumable();
+	Consumable(std::string nombre);
+	Consumable(std::string nombre, int amt);
+	Consumable(std::string nombre, int amt, int goldCost);
+	~Consumable() = default;
+
+	virtual void consume(Character* target) = 0;
 };
 
-//YOU CAN STILL ADD OTHER THINGIES IT WAS CAUSING GLITCHESAND I WNNA GO TO BED
+/**********************************************
+******************* Items *********************
+***********************************************/
+
+/**********************************************
+******************* Weapons *******************
+***********************************************/
+
+class Longsword : public Equippable {
+public:
+	Longsword();
+	Longsword(int amt);
+
+	void equip(Character* target) override;
+	void unequip(Character* target) override;
+
+	void dealDamage(Character* target);
+};
+
+/**********************************************
+******************* Armor *********************
+***********************************************/
+
+class Chainmail : public Equippable {
+public:
+	Chainmail();
+	Chainmail(int amt);
+
+	void equip(Character* target) override;
+	void unequip(Character* target) override;
+};
+
+/**********************************************
+******************* Potions *******************
+***********************************************/
+
+class SmallPotionOfHealing : public Consumable {
+public:
+	SmallPotionOfHealing();
+	SmallPotionOfHealing(int amt);
+
+	void consume(Character* target) override;
+};
+
+#endif

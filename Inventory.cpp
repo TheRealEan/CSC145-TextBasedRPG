@@ -1,59 +1,97 @@
+#include <iostream>
 #include "Inventory.h"
 
-Inventory::Inventory() : numItems(0) {}
-Item* Inventory::findItem(string name) {
-    Node<Item*>* current = items.getFirst();
-    while (current) {
-        if (current->data->name == name) {
-            return current->data;
-        }
-        current = current->nextNode;
-    }
-    return nullptr;
+Inventory::Inventory() : Inventory(LinkedList<Item*>()) {}
+Inventory::Inventory(LinkedList<Item*> list) : items{ list } {
+	// Dynamically identifies the number of items in the list when constructed.
+	Node<Item*>* index = items.getHead();
+	while (index) {
+		numberOfUniqueItems++;
+		index = index->nextNode;
+	}
+}
+
+void Inventory::printInventory() {
+	std::cout << "\n--- Inventory ---\n";
+	Node<Item*>* current = items.getFirst();
+	while (current) {
+		std::cout << "- " << current->data->getName() << " (x" << current->data->getQuantity() << ") - " << current->data->getCost() << " gold.\n";
+		current = current->nextNode;
+	}
+	std::cout << "-----------------\n";
+}
+
+Item* const Inventory::findItem(Item* item) {
+	Node<Item*>* current = items.getFirst();
+	while (current) {
+		if (current->data->getName() == item->getName()) {
+			return current->data;
+		}
+		current = current->nextNode;
+	}
+	return nullptr;
 }
 
 void Inventory::addItem(Item* item) {
-    Item* existingItem = findItem(item->name);
-    if (existingItem) {
-        existingItem->quantity++;
-        cout << item->name << " amount increased to " << existingItem->quantity << ".\n";
-        delete item; 
-    }
-    else {
-        items.pushBack(item);
-        numItems++;
-        cout << "\033[0;32m" << item->name << " added to inventory. \033[0;32m	\n";
-    }
+	Item* found = findItem(item);
+	if (found) {
+		// Sets the quantity of the found item to its current quantity plus new item's quantity.
+		found->setQuantity(found->getQuantity() + item->getQuantity());
+	}
+	else {
+		items.pushBack(item);
+		item->setQuantity(item->getQuantity());
+		numberOfUniqueItems++; // Describes a new unique item being added to the inventory.
+	}
 }
 
-// Remove an item
-void Inventory::removeItem(string itemName) {
-    Node<Item*>* current = items.getFirst();
-    while (current) {
-        if (current->data->name == itemName) {
-            current->data->quantity--;
-            if (current->data->quantity <= 0) {
-                items.deleteCurrent();
-                numItems--;
-                cout << "\033[0;31m" << itemName << " removed from inventory.\033[0;31m\n";
-            }
-            else {
-                cout << itemName << " quantity decreased to " << current->data->quantity << ".\n";
-            }
-            return;
-        }
-        current = current->nextNode;
-    }
-    cout << "\n\033[0;31mItem not found!\033[0;31m\n";
+void Inventory::removeItem(Item* item) {
+	Item* found = findItem(item);
+	if (!found) return;
+	Node<Item*>* current = items.getHead();
+	while (current) {
+		if (current->data == found) {
+			items.setIndex(current);
+			break;
+		}
+		current = current->nextNode;
+	}
+	int currentQuantity = items.getIndex()->data->getQuantity();
+	if (item->getQuantity() >= currentQuantity) {
+		items.deleteCurrent();
+		numberOfUniqueItems--;
+	}
+	else {
+		items.getIndex()->data->setQuantity(currentQuantity - item->getQuantity());
+	}
 }
 
-// Print the inventory contents
-void Inventory::printInventory() {
-    cout << "\n--- Inventory ---\n";
-    Node<Item*>* current = items.getFirst();
-    while (current) {
-        cout << "- " << current->data->name << " (x" << current->data->quantity << ")\n";
-        current = current->nextNode;
-    }
-    cout << "-----------------\n";
+// Delegating Functions
+
+Item* const Inventory::findItem(std::string itemName) { // Delegating function
+	Item* newItem = Item::create(itemName);
+	return findItem(newItem);
 }
+
+void Inventory::addItem(std::string itemName) {
+	Item* newItem = Item::create(itemName, 1);
+	addItem(newItem);
+}
+
+void Inventory::addItem(std::string itemName, int amt) {
+	Item* newItem = Item::create(itemName, amt);
+	addItem(newItem);
+}
+
+void Inventory::removeItem(std::string itemName) {
+	Item* newItem = Item::create(itemName, 1);
+	removeItem(newItem);
+}
+
+void Inventory::removeItem(std::string itemName, int amt) {
+	Item* newItem = Item::create(itemName, amt);
+	removeItem(newItem);
+}
+
+LinkedList<Item*> const Inventory::getItems() { return items; }
+int const Inventory::getSize() { return numberOfUniqueItems; }

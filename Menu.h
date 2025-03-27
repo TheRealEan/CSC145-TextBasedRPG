@@ -1,46 +1,75 @@
-// Filename: "Menu.h"
-#include <iostream>
-#include "Player.h"
 #ifndef MENU_H
 #define MENU_H
-
-void checkForItems(Player& player);
-void startBattle(Player& player);
+#include <iostream>
+#include <vector>
+#include "Player.h"
+#include "Shop.h"
 
 class Menu {
 public:
-    // Clear the screen.
-    void clear();
+	Menu() = default;
+	virtual ~Menu() = default;
+
+	void clear();
+
+	void yellow();
+	std::string yellow(std::string text);
+
+protected:
+	Player* player{ nullptr };
+};
+
+class PlayerSelectMenu : public Menu {
+public:
+	PlayerSelectMenu();
+
+	// Adds a player type to selected player and exits the menu.
+	void playWarrior();
+	void playRogue();
+	void playMage();
+	int quitGame();
+
+	Player* getSelectedPlayer();
+	void setSelectedPlayer(Player* play);
+
+private:
+	Player* selectedPlayer{ nullptr };
 };
 
 class MainMenu : public Menu {
 public:
-    MainMenu(Player& player);
-    // Return to the overworld.
-    void returnToOverworld();
-    // Enter into a battle sequence.
-    void enterBattle(Player& player);
-    // Manage inventory options.
-    void manageInventory(Player& player);
-    // Enter the shop.
-    void enterShop();
-    // Chat with a Character.
-    void chat();
-    // Quit the game.
-    int quitGame();
+	MainMenu(Player* p);
+	void returnToOverworld();
+	void displayStats();
+	void enterBattle();
+	void manageInventory();
+	void enterShop();
+	void chat();
+	int quitGame();
 };
 
-class BattleMenu : public Menu {
+class InventoryMenu : public Menu {
 public:
-    BattleMenu();
-    void attack();
-    void magic();
-    void actions();
-    void inventory();
-    void chat();
-    void flee();
+	InventoryMenu(Player* p);
+	void viewInventory();
+	void addItem();
+	void removeItem();
+	// To Be Added - void equip() // equips/unequips equippables
+	// To Be Added - void use() // uses consumables
+	int exit();
 };
 
+class ShopMenu : public Menu {
+public:
+	ShopMenu(Player* p);
+	void browse();
+	void buy();
+	void sell();
+	void chat();
+	int exit();
+
+protected:
+	Shop* shop{ nullptr };
+};
 
 #endif
-

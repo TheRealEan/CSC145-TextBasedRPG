@@ -1,33 +1,25 @@
-// Filename: "Player.h"
-#include <string>
-#include "Character.h"
 #ifndef PLAYER_H
 #define PLAYER_H
+#include "Character.h"
 
 class Player : public Character {
 public:
-	// Constructors and Destructors
-
+	Player();
 	Player(std::string name);
-	Player(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
-	virtual ~Player() = default;
+	Player(std::string name, int hp, int stam, int magic, int str, int dex, int arm, int money);
+	Player(std::string name, int hp, int stam, int magic, int str, int dex, int arm, int money, int exp);
 
-	int getExperience();
-
-	void setExperience(int newExperience);
-
+	int const getExperience();
+	void setExperience(int amt);
+	int const getLevel();
 	void checkLevelUp();
 
-	int getxpThreshold();
-
-	void setxpThreshold(int newxpThreshold);
-
-	void classSelection();
+	void displayStats() override;
 
 protected:
-	int experience{ 0 };
-	int xpThreshold{ 100 };
-
+	// std::string classType;
+	int xp;
+	int level{ 1 };
 };
 
 #endif

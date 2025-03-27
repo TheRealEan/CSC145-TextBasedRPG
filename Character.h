@@ -1,74 +1,82 @@
-// Filename: "Character.h"
-#include <string>
-#include "Inventory.h"
 #ifndef CHARACTER_H
 #define CHARACTER_H
-using namespace std;
-
+#include <string>
+#include "Inventory.h"
 
 class Character {
-protected:
-	Inventory inventory;
 public:
-	Character(string nombre);
-	Character(string nombre, int hp, int sp, int mp, int str, int arm, int gold);
-	virtual ~Character() = default;
-	// Retrieves the value of name.
-	string getName(); 	
-	// Sets the value of name.
-	void setName(std::string newName); 	
-	// Retrieves the value of health.
-	int getHealth();
-	// Sets the value of health.
-	void setHealth(int newHealth); 	
-	// Retrieves the value of stamina.
-	int getStamina(); 	
-	// Sets the value of stamina.
-	void setStamina(int newStamina);
-	// Retrieves the value of mana.
-	int getMana(); 	
-	// Sets the value of mana.
-	void setMana(int newMana);
-	// Retrieves the value of strength.
-	int getStrength();
-	// Sets the value of strength.
-	void setStrength(int newStrength);
-	// Retrieves the value of armor.
-	int getArmor();
-	// Sets the value of armor.
-	void setArmor(int newArmor);
-	int getGold();
-	void setGold(int newGold);
+	Character();
+	Character(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money);
 
-	void addItemToInventory(Item* item);
-	void removeItemFromInventory(string itemName);
-	void displayInventory();
-	Item* findItem(string name);
+	std::string const getName();
+	void setName(std::string nombre);
+	Inventory* const getInventory();
+	void setInventory(Inventory* inv);
+	Character* const getTarget();
+	void setTarget(Character* newTarget);
 
+	int const getHealth();
+	void setHealth(int amt);
+	int const getStamina();
+	void setStamina(int amt);
+	int const getMana();
+	void setMana(int amt);
+	int const getStrength();
+	void setStrength(int amt);
+	int const getDexterity();
+	void setDexterity(int amt);
+	int const getArmor();
+	void setArmor(int amt);
+	int const getGold();
+	void setGold(int amt);
+	int const getWeightCap();
+	int const getWeight();
 
 	virtual void displayStats();
 
-	// Gold System
-	void buy(int gold);
-	void sell(int gold);
-	void collect(int gold); // use in battle to collect gold from enemies
+protected:
+	// Derived Statistics Setter Functions
+	// Should be updated when strength is updated.
+	void setWeight(int amt);
+	void setWeightCap(int amt);
 
+	/*******************************************************************************************
+	*** Name	  - the name of the character that is referenced in menus and dialogue.
+	*** Inventory - a list of all the Items the Character can equip/unequip, consume and/or
+			buy or sell at the shop.
+	*** Target	  - used in battle sequences to target themselves with healing effects or
+	***		enemies with harmful effects. 
+	*** Health    - MAX: 100, acts as health points, affects effectiveness of healing items.
+	*** Stamina   - MAX: 100, acts as action points (determine combat actions).
+	*** Mana      - MAX: 100, acts as magic points which are used to cast spells.
+	*** Strength  - MAX: 20, affects strength-based weapon damage, determines ability to equip
+	***		strength-based weapons, and affects weight capacity.
+	*** Dexterity - MAX: 20, affects dexterity-based weapon damage, determines ability to equip
+	***		dexterity-based weapons, affects chance to be hit in combat, and affects chance
+	***		to flee in battle.
+	*** Armor     - MAX: 20, acts as armor score which affects damage blocked in combat.
+	*** Gold      - MAX: SIZEOF(INT), acts as currency which can be used to buy and sell items.
+	*** Weight	  - the weight of the character determined by their strength and inventory.
+	*** Weight Cap. - weight capacity, determined by strength. Should not be set by the program.
+	********************************************************************************************/
 
-	//
-	void attack(Character *opponent); // The Character deals damage to an opponent equal to their strength.
-	void defend(); 	// The Character blocks damage equal to double their armor.
-	void run(); // The Character leaves the battle.
-	// virtual void chat(Character* opponent) = 0; // The Character enters a chat with an opponent.
-	//
+	// Basic/Utility Statistics
+	std::string name{ "Nameless" };
+	Inventory* inventory;
+	Character* target;
 
-private:
-	std::string name;
-	int health{ 20 };
-	int stamina{ 20 };
-	int mana{ 20 };
-	int strength{ 20 };
+	// Primary Statistics
+	int health{ 0 };
+	int stamina{ 0 };
+	int mana{ 0 };
+	int strength{ 0 };
+	int dexterity{ 0 };
 	int armor{ 0 };
 	int gold{ 0 };
+
+	// Derived Statistics
+	int weight{ 0 };
+	int weightCap{ 0 };
 };
 
 #endif

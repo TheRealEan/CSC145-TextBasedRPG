@@ -3,13 +3,15 @@
 using namespace std;
 
 Player::Player(string name)
-	: Player(name, 100, 100, 100, 100, 100, 0) {
+	: Player(name, 100, 100, 100, 100, 100, 0, battleResponses) {
+	battleResponses = { "You punch the enemy!", "You kick the back of their knees!", "You slash them with your weapon!", "You hit them with your shield!", "Their attack is stopped by your shield!", "Their hit is deflected off of your armour!", "You dodge the attack!", "The enemy misses!", "You skedaddle away", "You shirked this fight", "You failed. You turn away in defeat.", "You give up and leave" };
 };
 
 
 
-Player::Player(string name, int health, int stamina, int mana, int strength, int armor, int gold) 
-	: Character(name, health, stamina, mana, strength, armor, gold) {};
+Player::Player(string name, int health, int stamina, int mana, int strength, int armor, int gold, vector<string> battleResponses) 
+	: Character(name, health, stamina, mana, strength, armor, gold, battleResponses) {
+};
 
 int Player::getExperience() {
 	return experience;

@@ -289,7 +289,7 @@ void startBattle(Player& player) {
         switch (choice) {  // will need to add error handling here for invalid choices
         case 1:
             player.attack(enemy);
-            cout << "You attacked!\n";
+            player.pickBattleDialogue(1);
             Sleep(70);
             PlaySound(TEXT("attack1.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
@@ -297,7 +297,7 @@ void startBattle(Player& player) {
             break;
         case 2:
             player.defend();
-            cout << "You defended!\n";
+            player.pickBattleDialogue(2);
             Sleep(70);
             PlaySound(TEXT("defeat.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
@@ -305,7 +305,7 @@ void startBattle(Player& player) {
             break;
         case 3:
             player.run();
-            cout << "You ran away.\n";
+            player.pickBattleDialogue(3);
             Sleep(70);
             PlaySound(TEXT("run.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
@@ -321,21 +321,21 @@ void startBattle(Player& player) {
         switch (roll) {
         case 1:
             enemy->attack(&player);
-            cout << enemy->getName() << " Attacks!" << endl;
+            enemy->pickBattleDialogue(1);
             PlaySound(TEXT("hurt4.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
             backgroundPlay();
             break;
         case 2:
             enemy->defend();
-            cout << enemy->getName() << " Defends!" << endl;
+            enemy->pickBattleDialogue(2);
             PlaySound(TEXT("troll.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
             backgroundPlay();
             break;
         case 3:
             enemy->run();
-            cout << enemy->getName() << " runs away!!" << endl;
+            enemy->pickBattleDialogue(3);
             PlaySound(TEXT("run.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1000);
             backgroundPlay();

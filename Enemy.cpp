@@ -5,10 +5,10 @@
 using namespace std;
 
 Enemy::Enemy(string name)
-	: Enemy(name, 100, 100, 100, 100, 100, 20) {};
+	: Enemy(name, 100, 100, 100, 100, 100, 20, battleResponses) {};
 
-Enemy::Enemy(string name, int health, int stamina, int mana, int strength, int armor, int gold) // Delegating constructor.
-	: Character(name, health, stamina, mana, strength, armor, gold) {};
+Enemy::Enemy(string name, int health, int stamina, int mana, int strength, int armor, int gold, vector<string> battleResponses) // Delegating constructor.
+	: Character(name, health, stamina, mana, strength, armor, gold, battleResponses) {};
 
 void Enemy::target(Character* opponent) {
 	srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.

@@ -1,5 +1,6 @@
 // Filename: "Character.h"
 #include <string>
+#include <vector>
 #include "Inventory.h"
 #ifndef CHARACTER_H
 #define CHARACTER_H
@@ -9,9 +10,10 @@ using namespace std;
 class Character {
 protected:
 	Inventory inventory;
+	vector<string> battleResponses = { "Default" };
 public:
 	Character(string nombre);
-	Character(string nombre, int hp, int sp, int mp, int str, int arm, int gold);
+	Character(string nombre, int hp, int sp, int mp, int str, int arm, int gold, vector<string> battleResponses);
 	virtual ~Character() = default;
 	// Retrieves the value of name.
 	string getName(); 	
@@ -60,6 +62,8 @@ public:
 	void run(); // The Character leaves the battle.
 	// virtual void chat(Character* opponent) = 0; // The Character enters a chat with an opponent.
 	//
+	virtual void pickBattleDialogue(int AttackDefendRunPicker);
+
 
 private:
 	std::string name;

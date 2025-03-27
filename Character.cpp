@@ -6,9 +6,9 @@
 using namespace std;
 
 Character::Character(string name)  // Delegating constuctor.
-	: Character(name, 100, 100, 100, 1000, 100, 0) {};
+	: Character(name, 100, 100, 100, 1000, 100, 0, battleResponses) {};
 
-Character::Character(string name, int health, int stamina, int mana, int strength, int armor, int gold) { // Primary constructor.
+Character::Character(string name, int health, int stamina, int mana, int strength, int armor, int gold, vector<string> battleResponses) { // Primary constructor.
 	Character::setName(name);
 	Character::setHealth(health);
 	Character::setStamina(stamina);
@@ -16,6 +16,7 @@ Character::Character(string name, int health, int stamina, int mana, int strengt
 	Character::setStrength(strength);
 	Character::setArmor(armor);
 	Character::setGold(gold);
+	battleResponses = battleResponses;
 };
 
 string Character::getName() {
@@ -104,7 +105,6 @@ void Character::defend() { // Need a method to reset armor.
 
 // Should leave/end the battle sequence.
 void Character::run() {
-	cout << getName() << " ran away." << endl;
 }
 
 // Display all statistics relating to the Character.
@@ -127,6 +127,61 @@ void Character::sell(int goldCost) {
 void Character::collect(int goldGained) {
 	setGold(getGold() + goldGained);
 }
+
+void Character::pickBattleDialogue(int AttackDefendRunPicker) {
+	srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.
+	unsigned int roll = (1 + rand() % 4); // Generates a number from 1 to 3.
+	switch (AttackDefendRunPicker) {
+	case 1: // Attack case
+		switch (roll) {
+		case 1:
+			std::cout << battleResponses[0];
+			break;
+		case 2:
+			std::cout << battleResponses[1];
+			break;
+		case 3:
+			std::cout << battleResponses[2];
+			break;
+		case 4:
+			std::cout << battleResponses[3];
+			break;
+		}
+		break;
+	case 2: // Defend case
+		switch (roll) {
+		case 1:
+			std::cout << battleResponses[4];
+			break;
+		case 2:
+			std::cout << battleResponses[5];
+			break;
+		case 3:
+			std::cout << battleResponses[6];
+			break;
+		case 4:
+			std::cout << battleResponses[7];
+			break;
+		}
+		break;
+	case 3: // Run case
+		switch (roll) {
+		case 1:
+			std::cout << battleResponses[8];
+			break;
+		case 2:
+			std::cout << battleResponses[9];
+			break;
+		case 3:
+			std::cout << battleResponses[10];
+			break;
+		case 4:
+			std::cout << battleResponses[11];
+			break;
+		}
+		break;
+	}
+};
 
 /*
 void target(Player player, Character* self) {

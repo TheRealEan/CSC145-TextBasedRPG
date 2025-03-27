@@ -16,21 +16,28 @@ protected:
 	vector<int> nextDialogues;
 
 public:
-	DialogueNode(string NPCLine, string playerChoiceList, vector<int> nextList);
+    DialogueNode(string NPCLine, string playerChoiceList, vector<int> nextList)
+        : NPCDialogue(NPCLine), playerChoices(playerChoiceList), nextDialogues(nextList)
+    {
+    }
+   
+    string getNPCDialogue() {
+        return NPCDialogue;
+    }
 
-	string getNPCDialogue() {
-		return NPCDialogue;
-	}
+    void setNPCDialogue(string dialogue) {
+        NPCDialogue = dialogue;
+    }
 
-	void setNPCDialogue(string dialogue) {
-		NPCDialogue = dialogue;
-	}
+    string getPlayerChoice() {
+        return playerChoices;
+    }
 
-	string getPlayerChoice() {
-		return playerChoices;
-	}
+    void setPlayerChoices(string choices) {
+        playerChoices = choices;
+    }
 
-	void  setPlayerChoices(string choices) {
-		playerChoices = choices;
-	}
+    vector<int> getNextDialogues() const {
+        return nextDialogues;
+    }
 };

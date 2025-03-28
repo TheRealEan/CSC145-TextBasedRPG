@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "Menu.h"
 #include "Extra.h"
+#include "TalkingNPC.h"
+#include "DialogueNode.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #include <thread>
@@ -178,7 +180,97 @@ void MainMenu::enterShop() {
 
 void MainMenu::chat() {
     clear();
-    cout << "You're chatting." << endl;
+    // ----------- NPC #1 ----------- //
+    talkingNPC* npc = new talkingNPC("Hermit", 8); //eight node of dialogue, first the inital 0 and then 1, 2, and 3, then three for one (4,5,6) and two for 2 (7,8)
+    vector<int> next = { 1, 2, 3 };
+    npc->setDialogue(0, new DialogueNode("Hello traveler. I see you are new here. I've lived alongside this road for many years and know much about its' inhabitants.", //this is dialogue 0
+        "1: Tell me about the enemies I will encounter.\n2: Where can I buy equipment? \n3: I'm busy, go away.",
+        next));
+
+    vector<int> next1 = { 4,5,6 };
+    npc->setDialogue(1, new DialogueNode("There are three monsters you will have to fight: the Roomba, the Chinese Spy Pigeon, and Danny Devito.", //this is dialgoue 1
+        "1: Tell me about the Roomba.\n2: Tell me about the Chinese Spy Pigeon. \n3: Tell me about Danny Devito",
+        next1));
+
+    vector<int> next2 = { 7,8 };
+    npc->setDialogue(2, new DialogueNode("What are you looking for, armor or weapons?", //this is dialgoue 2
+        "1: Armor\n2: Weapons.",
+        next2));
+
+    vector<int> next3 = {};
+    npc->setDialogue(3, new DialogueNode("Have a blessed day traveller", //this is dialgoue 3
+        "Press any key to continue...",
+        next3));
+    vector<int> next4 = {};
+    npc->setDialogue(4, new DialogueNode("The Roomba can be easily trampled underfoot.", //this is dialgoue 4
+        "Press any key to continue...",
+        next4));
+    vector<int> next5 = {};
+    npc->setDialogue(5, new DialogueNode("The Chinese Spy Pigeon can be defeated if you sever its radio connection.", //this is dialgoue 5
+        "Press any key to continue...",
+        next5));
+    vector<int> next6 = {};
+    npc->setDialogue(6, new DialogueNode("Danny Devito prefers to attack rather than defend.", //this is dialgoue 6
+        "Press any key to continue...",
+        next6));
+    vector<int> next7 = {};
+    npc->setDialogue(7, new DialogueNode("Go to town.There you will find an armor shop.Good luck in your travels!", //this is dialgoue 7
+        "Press any key to continue...",
+        next7));
+    vector<int> next8 = {};
+    npc->setDialogue(8, new DialogueNode("Go to town. There you will find a weapons shop. Good luck in your travels!", //this is dialgoue 8
+        "Press any key to continue...",
+        next8));
+
+    npc->printDialogue(0);
+    system("pause");
+
+    clear();
+    // ----------- NPC #2 ----------- //
+    talkingNPC* npc2 = new talkingNPC("Wandering salesman", 8); //eight node of dialogue, first the inital 0 and then 1, 2, and 3, then three for one (4,5,6) and two for 2 (7,8)
+    vector<int> next9 = { 1, 2, 3 };
+    npc2->setDialogue(0, new DialogueNode("Hello traveler! Would you be interested in joining a pyramid scheme?", //this is dialogue 0
+        "1: Tell me more.\n2: Isn't that illegal? \n3: STRANGER DANGER",
+        next9));
+
+    vector<int> next10 = { 4,5,6 };
+    npc2->setDialogue(1, new DialogueNode("Well I will give you this very nice set of knives, and if you sell it to your family and friends, I will pay you a portion of the profit.", //this is dialgoue 1
+        "1: That sounds great! Count me in! \n2: I don't know about this... \n3: This sounds like a scam, goodbye.",
+        next10));
+
+    vector<int> next11 = { 7,8 };
+    npc2->setDialogue(2, new DialogueNode("Nooooooooo of course not...", //this is dialgoue 2
+        "1: Walk away in disdain.\n2: Steal the knives.",
+        next11));
+
+    vector<int> next12 = {};
+    npc2->setDialogue(3, new DialogueNode("Fine! Be that way.", //this is dialgoue 3
+        "Press any key to continue...",
+        next12));
+    vector<int> next13 = {};
+    npc2->setDialogue(4, new DialogueNode("Great! Sign right here!", //this is dialgoue 4
+        "You are now involved in a pyramid scheme...\nPress any key to continue...",
+        next13));
+    vector<int> next14 = {};
+    npc2->setDialogue(5, new DialogueNode("Oh come on! This is a completely foolproof business strategy!", //this is dialgoue 5
+        "You walk away from the trap...\nPress any key to continue...",
+        next14));
+    vector<int> next15 = {};
+    npc2->setDialogue(6, new DialogueNode("But you can save up for college!!", //this is dialgoue 6
+        "You ignore the crazy salesman and walk away...\nPress any key to continue...",
+        next15));
+    vector<int> next16 = {};
+    npc2->setDialogue(7, new DialogueNode("Hey don't leave! I promise you'll make money!", //this is dialgoue 7
+        "You back away slowly...\nPress any key to continue...",
+        next16));
+    vector<int> next17 = {};
+    npc2->setDialogue(8, new DialogueNode("HEY! Those are mine!!", //this is dialgoue 8
+        "You are now on the run...\nPress any key to continue...",
+        next17));
+
+    npc2->printDialogue(0);
+    system("pause");
+
 }
 
 int MainMenu::quitGame() {

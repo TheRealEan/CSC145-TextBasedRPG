@@ -19,17 +19,17 @@ int main() {
 
     vector<int> next1 = {}; 
     npc->setDialogue(1, new DialogueNode("Darn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy.", //this is dialgoue 1
-        "Press any key to continue",
+        "Press any key to continue...",
         next1));
 
     vector<int> next2 = {}; 
     npc->setDialogue(2, new DialogueNode("D:", //this is dialgoue 2
-        "Press any key to continue",
+        "Press any key to continue...",
         next2));
 
     vector<int> next3 = {};
     npc->setDialogue(3, new DialogueNode("Bruh", //this is dialgoue 3
-        "Press any key to continue",
+        "Press any key to continue...",
         next3));
     npc->printDialogue(0);
 	Player richard("Richard the Third");

@@ -125,6 +125,7 @@ void MainMenu::manageInventory(Player& player) {
         string tempS;
         int tempN;
         cout << "\n\033[1;33m=== Inventory Menu ===\033[1;33m\n";
+        cout << "Gold: " << player.getGold() << endl;
         cout << "1. View Inventory\n";
         cout << "2. Remove Item\n";
         cout << "3. Exit\n";
@@ -157,7 +158,7 @@ void MainMenu::manageInventory(Player& player) {
             getline(cin, tempS);
             cout << "Enter how many you want to add.\n";
             cin >> tempN;
-            player.addItemToInventory(new Item(tempS, tempN, 50)); // 50 gold placeholder
+            player.addItemToInventory(new Item(tempS, tempN, 50), true); // 50 gold placeholder
             cout << "Added " << tempS << " " << tempN << "x";
             PlaySound(TEXT("coinGain.wav"), NULL, SND_FILENAME | SND_ASYNC);
             Sleep(1500);
@@ -183,6 +184,7 @@ void MainMenu::chat() {
 int MainMenu::quitGame() {
     clear();
     cout << "You're quitting the game." << endl;
+    exit(0);
     return 0;
 }
 
@@ -314,6 +316,7 @@ void startBattle(Player& player) {
             break;
         }
         // enemy turn
+        cout << endl;
         srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.
         unsigned int roll = (1 + rand() % 3); // Generates a number from 1 to 3.
 
@@ -345,11 +348,55 @@ void startBattle(Player& player) {
         cout << "\n------------------------------------------\n";
         if (enemy->getHealth() <= 0) {
             cout << enemy->getName() << " has been defeated!!" << endl;
+            cout << "\033[0;32m";
+            if (enemy->getName() == "Chinese Spy Pigeon") {
+                int random = 1 + rand() % 100;
+                if (random > 66) {
+                    int random2 = rand() % 5 + 1;
+                    player.addItemToInventory(new Item("Camera", random2, 80), true);
+                    cout << enemy->getName() << " dropped " << random2 << "x Cameras!\n";
+                }
+                else if (random > 33) {
+                    int random2 = rand() % 30 + 1;
+                    player.addItemToInventory(new Item("Feather", random2, 5), true);
+                    cout << enemy->getName() << " dropped " << random2 << "x Feathers!\n";
+                }
+
+            }
+            
+            if (enemy->getName() == "Danny Devito") {
+                cout << "\033[0;32m";
+                int random = rand() % 100 + 1;
+                if (random > 90) {
+                    int random2 = rand() % 1 + 1;
+                    player.addItemToInventory(new Item("Space Jam DvD", random2, 999), true);
+                    cout << enemy->getName() << " dropped " << random2 << "x Space Jam DvDs!\n";
+                }
+                random = rand() % 100 + 1;
+                if (random > 90) {
+                    int random2 = rand() % 1 + 1;
+                    player.addItemToInventory(new Item("The Lorax DvD", random2, 999), true);
+                    cout << enemy->getName() << " dropped " << random2 << "x Lorax Dvds!\n";
+                }
+                random = rand() % 100 + 1;
+                if (random > 90) {
+                    int random2 = rand() % 1 + 1;
+                    player.addItemToInventory(new Item("Batman Returns DvD", random2, 999), true);
+                    cout << enemy->getName() << " dropped " << random2 << "x Batman Returns Dvds!\n";
+                }
+            }
+            if (enemy->getName() == "Roomba") {
+                cout << "\033[0;32m";
+                cout << "yass\n";
+            }
             cout << enemy->getName() << " dropped " << enemy->getGold() << " gold" << endl;
             player.collect(enemy->getGold());
+            cout << "\033[1;33m";
             PlaySound(TEXT("victory.wav"), NULL, SND_FILENAME | SND_ASYNC);
-            Sleep(1500);
+            cout << "Press any key to continue..." << endl;
             endBattle = true;
+            cin.ignore();
+            cin.get();
         }
         if (player.getHealth() <= 0) {
             cout << "You died.";

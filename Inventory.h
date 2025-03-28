@@ -13,7 +13,7 @@ private:
 
 public:
     Inventory();
-    void addItem(Item* item);
+    void addItem(Item* item, bool battle);
     void removeItem(string itemName);
     Item* findItem(string name);
     void printInventory();

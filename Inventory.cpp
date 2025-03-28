@@ -12,17 +12,19 @@ Item* Inventory::findItem(string name) {
     return nullptr;
 }
 
-void Inventory::addItem(Item* item) {
+void Inventory::addItem(Item* item, bool battle) {
     Item* existingItem = findItem(item->name);
     if (existingItem) {
-        existingItem->quantity++;
+        existingItem->quantity = existingItem->quantity + item->quantity;
         cout << item->name << " amount increased to " << existingItem->quantity << ".\n";
         delete item; 
     }
     else {
         items.pushBack(item);
         numItems++;
-        cout << "\033[0;32m" << item->name << " added to inventory. \033[0;32m	\n";
+        if (battle = false) {
+            cout << "\033[0;32m" << item->name << " added to inventory. \033[0;32m	\n";
+        }
     }
 }
 

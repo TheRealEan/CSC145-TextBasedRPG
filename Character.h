@@ -42,7 +42,7 @@ public:
 	int getGold();
 	void setGold(int newGold);
 
-	void addItemToInventory(Item* item);
+	void addItemToInventory(Item* item, bool battle);
 	void removeItemFromInventory(string itemName);
 	void displayInventory();
 	Item* findItem(string name);

@@ -13,13 +13,13 @@ public:
         dialogueTree.resize(treeSize, nullptr);
     }
     void setDialogue(int index, DialogueNode* node) {
-        if (index >= 0 && index < dialogueTree.size()) {
+        if (index >= 0 && index < static_cast<int>(dialogueTree.size())) {
             dialogueTree[index] = node;
         }
     }
 
     void printDialogue(int dialogue) {
-        if (dialogue < 0 || dialogue >= dialogueTree.size() || dialogueTree[dialogue] == nullptr) {
+        if (dialogue < 0 || dialogue >= static_cast<int>(dialogueTree.size()) || dialogueTree[dialogue] == nullptr) {
             cout << "Dialogue not found." << endl;
             return;
         }
@@ -36,7 +36,7 @@ public:
         cout << "Enter your choice (1-" << nextNodes.size() << "): ";
         cin >> choice;
         choice = choice - 1;
-        if (choice < 0 || choice >= nextNodes.size()) {
+        if (choice < 0 || choice >= static_cast<int>(nextNodes.size())) {
             cout << "Invalid choice." << endl;
             return;
         }

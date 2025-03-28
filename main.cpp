@@ -35,13 +35,15 @@ int main() {
 	Player richard("Richard the Third");
 	Item plank("Plank", 1, 15);
 	plank.display();
-	richard.addItemToInventory(new Item("Sword", 5, 200));
-	richard.addItemToInventory(new Item("Shield", 1, 150));
-	richard.addItemToInventory(new Item("Potion", 7, 60));
-	richard.addItemToInventory(new Item("Boots", 1, 100));
-	MainMenu menu(richard);
-	menu;
-	richard.displayStats();
+	richard.addItemToInventory(new Item("Sword", 5, 200), false);
+	richard.addItemToInventory(new Item("Shield", 1, 150), false);
+	richard.addItemToInventory(new Item("Potion", 7, 60), false);
+	richard.addItemToInventory(new Item("Boots", 1, 100), false);
+    bool gameRunning = true;
+    while (gameRunning) {
+        MainMenu menu(richard);  
+        menu.clear();
+    }
 
 	return 0;
 }

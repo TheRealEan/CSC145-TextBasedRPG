@@ -77,8 +77,8 @@ void Character::setGold(int newGold) {
 
 
 
-void Character::addItemToInventory(Item* item) {
-	inventory.addItem(item);
+void Character::addItemToInventory(Item* item, bool battle) {
+	inventory.addItem(item, battle);
 }
 
 void Character::removeItemFromInventory(std::string itemName) {

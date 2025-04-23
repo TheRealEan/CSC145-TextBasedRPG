@@ -18,6 +18,80 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="DialogueNode.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapNode.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="TalkingNPC.cpp" />
+    <ClCompile Include="utilities\Generator.cpp" />
+    <ClCompile Include="utilities\Roll.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="DialogueNode.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="MapNode.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="TalkingNPC.h" />
+    <ClInclude Include="utilities\Generator.h" />
+    <ClInclude Include="utilities\KeyBindings.h" />
+    <ClInclude Include="utilities\LinkedList.h" />
+    <ClInclude Include="utilities\Music.h" />
+    <ClInclude Include="utilities\Roll.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="media\vc143.idb" />
+    <None Include="media\vc143.pdb" />
+    <None Include="media\wdwwd.exe" />
+    <None Include="media\wdwwd.pdb" />
+    <None Include="README.MD" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="media\attack1.wav" />
+    <Media Include="media\attack2.wav" />
+    <Media Include="media\attack3.wav" />
+    <Media Include="media\battle.wav" />
+    <Media Include="media\Buff.wav" />
+    <Media Include="media\coinGain.wav" />
+    <Media Include="media\debuff.wav" />
+    <Media Include="media\defeat.wav" />
+    <Media Include="media\defeat_boss.wav" />
+    <Media Include="media\equip.wav" />
+    <Media Include="media\heal.wav" />
+    <Media Include="media\hurt1.wav" />
+    <Media Include="media\hurt2.wav" />
+    <Media Include="media\hurt3.wav" />
+    <Media Include="media\hurt4.wav" />
+    <Media Include="media\item2.wav" />
+    <Media Include="media\levelUp.wav" />
+    <Media Include="media\levelUp2.wav" />
+    <Media Include="media\loss.wav" />
+    <Media Include="media\mAttack1.wav" />
+    <Media Include="media\mAttack2.wav" />
+    <Media Include="media\run.wav" />
+    <Media Include="media\select.wav" />
+    <Media Include="media\textPopUp.wav" />
+    <Media Include="media\theme.wav" />
+    <Media Include="media\troll.wav" />
+    <Media Include="media\unequip.wav" />
+    <Media Include="media\victory.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\Step-1.png" />
+    <Image Include="images\Step-2.png" />
+    <Image Include="images\Step-3.png" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -126,82 +200,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Enemies.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Extra.cpp" />
-    <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Player.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Enemies.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Extra.h" />
-    <ClInclude Include="Inventory.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Player.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Updates.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Debug\attack1.wav" />
-    <Media Include="Debug\attack2.wav" />
-    <Media Include="Debug\attack3.wav" />
-    <Media Include="Debug\battle.wav" />
-    <Media Include="Debug\Buff.wav" />
-    <Media Include="Debug\coinGain.wav" />
-    <Media Include="Debug\debuff.wav" />
-    <Media Include="Debug\defeat.wav" />
-    <Media Include="Debug\defeat_boss.wav" />
-    <Media Include="Debug\equip.wav" />
-    <Media Include="Debug\heal.wav" />
-    <Media Include="Debug\hurt1.wav" />
-    <Media Include="Debug\hurt2.wav" />
-    <Media Include="Debug\hurt3.wav" />
-    <Media Include="Debug\hurt4.wav" />
-    <Media Include="wdwwd\x64\Debug\attack1.wav" />
-    <Media Include="wdwwd\x64\Debug\attack2.wav" />
-    <Media Include="wdwwd\x64\Debug\attack3.wav" />
-    <Media Include="wdwwd\x64\Debug\battle.wav" />
-    <Media Include="wdwwd\x64\Debug\Buff.wav" />
-    <Media Include="wdwwd\x64\Debug\coinGain.wav" />
-    <Media Include="wdwwd\x64\Debug\debuff.wav" />
-    <Media Include="wdwwd\x64\Debug\defeat.wav" />
-    <Media Include="wdwwd\x64\Debug\defeat_boss.wav" />
-    <Media Include="wdwwd\x64\Debug\equip.wav" />
-    <Media Include="wdwwd\x64\Debug\heal.wav" />
-    <Media Include="wdwwd\x64\Debug\hurt1.wav" />
-    <Media Include="wdwwd\x64\Debug\hurt2.wav" />
-    <Media Include="wdwwd\x64\Debug\hurt3.wav" />
-    <Media Include="wdwwd\x64\Debug\hurt4.wav" />
-    <Media Include="wdwwd\x64\Debug\inventory.wav" />
-    <Media Include="wdwwd\x64\Debug\item1.wav" />
-    <Media Include="wdwwd\x64\Debug\item2.wav" />
-    <Media Include="wdwwd\x64\Debug\levelUp.wav" />
-    <Media Include="wdwwd\x64\Debug\levelUp2.wav" />
-    <Media Include="wdwwd\x64\Debug\loss.wav" />
-    <Media Include="wdwwd\x64\Debug\mAttack1.wav" />
-    <Media Include="wdwwd\x64\Debug\mAttack2.wav" />
-    <Media Include="wdwwd\x64\Debug\run.wav" />
-    <Media Include="wdwwd\x64\Debug\select.wav" />
-    <Media Include="wdwwd\x64\Debug\textPopUp.wav" />
-    <Media Include="wdwwd\x64\Debug\theme.wav" />
-    <Media Include="wdwwd\x64\Debug\troll.wav" />
-    <Media Include="wdwwd\x64\Debug\unequip.wav" />
-    <Media Include="wdwwd\x64\Debug\victory.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wdwwd\x64\Debug\wdwwd.exe" />
-    <None Include="wdwwd\x64\Debug\wdwwd.pdb" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

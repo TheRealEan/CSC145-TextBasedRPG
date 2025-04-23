@@ -1,15 +1,32 @@
 #include "Shop.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "Player.h"
 #include "./utilities/Roll.h"
 
 Shop::Shop() : inventory(new Inventory()) {
-	// Probablistically generate items in the store.
-	for (int i = 0; i < potentialStoreItems.size(); i++) {
-		int addItemScore = 100; // When the roll is under this value, add an item.
-		while (roll(1, 100) < addItemScore) {
-			inventory->addItem(potentialStoreItems[i]);
-			addItemScore -= 15;
-		}
-	}
+
+	//std::vector<std::string> shopItems;
+	//switch (roll(1, 3)) {
+	//case 1:
+	//	shopItems = store_one;
+	//	break;
+	//case 2:
+	//	shopItems = store_two;
+	//	break;
+	//case 3:
+	//	shopItems = store_three;
+	//	break;
+	//}
+
+	//// Probablistically generate items in the store.
+	//for (int i = 0; i < shopItems.size(); i++) {
+	//	int addItemScore = 100; // When the roll is under this value, add an item.
+	//	while (roll(1, 100) < addItemScore) {
+	//		inventory->addItem(shopItems[i]);
+	//		addItemScore -= 15;
+	//	}
+	//}
 }
 
 Inventory* const Shop::getInventory() { return inventory; }

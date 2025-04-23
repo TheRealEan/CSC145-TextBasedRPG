@@ -18,4 +18,8 @@
 #define KEY_EIGHT 56
 #define KEY_NINE 57
 
+#define KEY_E 69
+#define KEY_C 67
+#define KEY_R 82
+
 #endif

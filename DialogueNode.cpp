@@ -1,26 +1,29 @@
-#include"DialogueNode.h"
+#include "DialogueNode.h"
 
-using namespace std;
-
-//See DialogueNode.h for specifics of each member
-DialogueNode::DialogueNode(string NPCLine, string playerChoiceList, vector<int> nextList) {
-	NPCDialogue = NPCLine;
-	playerChoices = playerChoiceList;
-	nextDialogues = nextList;
+DialogueNode::DialogueNode(std::string line, std::string choices, std::vector<int> nextList)
+	: NPCDialogue(line), playerChoices(choices), nextDialogues(nextList) {
 }
 
-string DialogueNode::getNPCDialogue() {
+std::string const DialogueNode::getNPCDialogue() {
 	return NPCDialogue;
 }
 
-void DialogueNode::setNPCDialogue(string dialogue) {
-	NPCDialogue = dialogue;
+void DialogueNode::setNPCDialogue(std::string line) {
+	NPCDialogue = line;
 }
 
-string DialogueNode::getPlayerChoice() {
+std::string const DialogueNode::getPlayerChoices() {
 	return playerChoices;
 }
 
-void  DialogueNode::setPlayerChoices(string choices) {
+void DialogueNode::setPlayerChoices(std::string choices) {
 	playerChoices = choices;
+}
+
+std::vector<int> const DialogueNode::getNextDialogues() {
+	return nextDialogues;
+}
+
+void DialogueNode::setNextDialogues(std::vector<int> nextList) {
+	nextDialogues = nextList;
 }

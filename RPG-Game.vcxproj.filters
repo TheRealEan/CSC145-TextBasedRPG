@@ -14,4 +14,196 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkingNPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\Generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\Roll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkingNPC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\Generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\KeyBindings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\Music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\Roll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.MD" />
+    <None Include="media\vc143.idb" />
+    <None Include="media\vc143.pdb" />
+    <None Include="media\wdwwd.exe" />
+    <None Include="media\wdwwd.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="media\attack1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\attack2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\attack3.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\battle.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\Buff.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\coinGain.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\debuff.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\defeat.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\defeat_boss.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\equip.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\heal.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\hurt1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\hurt2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\hurt3.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\hurt4.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\item2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\levelUp.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\levelUp2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\loss.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\mAttack1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\mAttack2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\run.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\select.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\textPopUp.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\theme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\troll.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\unequip.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="media\victory.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\Step-1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\Step-2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\Step-3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -1,11 +1,15 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+#include <cmath>
+#include <map>
 #include <string>
-#include "Inventory.h"
+class Inventory;
+class Equippable;
 
 class Character {
 public:
 	Character();
+	Character(std::string nombre);
 	Character(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money);
 
 	std::string const getName();
@@ -33,6 +37,13 @@ public:
 	int const getWeight();
 
 	virtual void displayStats();
+	//void equip(Slot spot, StatBonus stat, int amount);
+	//void modify(StatBonus stat, int amount);
+
+	// A die-roll based attack that adds the appropriate score.
+	int meleeAttack(); // Uses strength.
+	int rangedAttack(); // Uses dexterity.
+	int spellAttack(); // Uses mana.
 
 protected:
 	// Derived Statistics Setter Functions
@@ -62,8 +73,8 @@ protected:
 
 	// Basic/Utility Statistics
 	std::string name{ "Nameless" };
-	Inventory* inventory;
-	Character* target;
+	Inventory* inventory{ nullptr };
+	Character* target{ nullptr };
 
 	// Primary Statistics
 	int health{ 0 };
@@ -77,6 +88,9 @@ protected:
 	// Derived Statistics
 	int weight{ 0 };
 	int weightCap{ 0 };
+
+	//std::map<Slot, Equippable*> equipmentSlots;
+	//std::map<StatBonus, int> statBonuses;
 };
 
 #endif

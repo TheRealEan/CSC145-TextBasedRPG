@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Inventory.h"
+#include "Item.h"
 
 Inventory::Inventory() : Inventory(LinkedList<Item*>()) {}
 Inventory::Inventory(LinkedList<Item*> list) : items{ list } {

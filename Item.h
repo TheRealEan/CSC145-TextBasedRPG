@@ -2,9 +2,12 @@
 #define ITEM_H
 #include <string>
 #include <vector>
-
-// Forward Declarations
 class Character;
+
+// Inventory slots available for a character.
+enum class Slot { LEFT_HAND, RIGHT_HAND, HEAD, TORSO, LEGS, FEET };
+// Stats that can be boosted by items and/or spells.
+enum class StatBonus { HEALTH, STAMINA, MANA, STRENGTH, DEXTERITY, ARMOR };
 
 // Define lists which can be iterated over to check the existence of items in inventories.
 extern std::vector<std::string> listOfWeapons;
@@ -56,6 +59,7 @@ public:
 	Equippable(std::string nombre, int amt, int goldCost);
 	~Equippable() = default;
 
+	virtual Slot getSlot() const = 0;
 	virtual void equip(Character* target) = 0;
 	virtual void unequip(Character* target) = 0;
 };
@@ -84,9 +88,11 @@ public:
 	Longsword();
 	Longsword(int amt);
 
+	Slot getSlot() const override;
 	void equip(Character* target) override;
 	void unequip(Character* target) override;
 
+private:
 	void dealDamage(Character* target);
 };
 
@@ -99,6 +105,7 @@ public:
 	Chainmail();
 	Chainmail(int amt);
 
+	Slot getSlot() const override;
 	void equip(Character* target) override;
 	void unequip(Character* target) override;
 };

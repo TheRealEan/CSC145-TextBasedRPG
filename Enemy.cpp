@@ -1,29 +1,41 @@
-// Filename: "Enemy.cpp"
-#include <cstdlib>
-#include <ctime>
+#include <iostream>
 #include "Enemy.h"
-using namespace std;
 
-Enemy::Enemy(string name)
-	: Enemy(name, 100, 100, 100, 100, 100, 20) {};
+Enemy::Enemy() : Enemy("Nameless", 100, 100, 100, 20, 20, 20, 0) {}
+Enemy::Enemy(std::string nombre) : Enemy(nombre, 100, 100, 100, 20, 20, 20, 0) {}
+Enemy::Enemy(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money) {
+	setName(nombre);
+	setHealth(hp);
+	setStamina(hp);
+	setStrength(str);
+	setDexterity(dex);
+	setArmor(arm);
+	setGold(money);
+}
 
-Enemy::Enemy(string name, int health, int stamina, int mana, int strength, int armor, int gold) // Delegating constructor.
-	: Character(name, health, stamina, mana, strength, armor, gold) {};
+void Enemy::displayStats() {
+	std::cout
+		<< "Enemy: " << getName() << "\n"
+		<< "Health: " << getHealth() << "\n"
+		<< "Stamina: " << getStamina() << "\n"
+		<< "Mana: " << getMana() << "\n"
+		<< "Strength: " << getStrength() << "\n"
+		<< "Dexterity: " << getDexterity() << "\n"
+		<< "Armor: " << getArmor() << "\n"
+		<< "Gold: " << getGold() << "\n";
+}
 
-void Enemy::target(Character* opponent) {
-	srand(static_cast<unsigned int>(time(0))); // Seeds using the current time.
-	unsigned int roll = (1 + rand() % 3); // Generates a number from 1 to 3.
+ChineseSpyPigeon::ChineseSpyPigeon() : ChineseSpyPigeon(100, 100, 100, 20, 20, 20, 0) {};
+ChineseSpyPigeon::ChineseSpyPigeon(int hp, int stam, int magic, int str, int dex, int arm, int money)
+	: Enemy("Chinese Spy Pigeon", hp, stam, magic, str, dex, arm, money) {
+};
 
-	// Determines which options is chosen.
-	switch (roll) {
-	case 1:
-		Character::attack(opponent);
-		break;
-	case 2:
-		Character::defend();
-		break;
-	case 3:
-		Character::run();
-		break;
-	}
+DannyDevito::DannyDevito() : DannyDevito(100, 100, 100, 20, 20, 20, 0) {};
+DannyDevito::DannyDevito(int hp, int stam, int magic, int str, int dex, int arm, int money)
+	: Enemy("Danny Devito", hp, stam, magic, str, dex, arm, money) {
+};
+
+Roomba::Roomba() : Roomba(100, 100, 100, 20, 20, 20, 0) {};
+Roomba::Roomba(int hp, int stam, int magic, int str, int dex, int arm, int money)
+	: Enemy("Roomba", hp, stam, magic, str, dex, arm, money) {
 };

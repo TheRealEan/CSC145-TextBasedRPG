@@ -3,11 +3,15 @@
 // Define lists which can be iterated over to check the existence of items in inventories.
 std::vector<std::string> listOfWeapons{ "Longsword" };
 std::vector<std::string> listOfArmor{ "Chainmail" };
-std::vector<std::string> listOfConsumables{ "Small Potion of Healing" };
+std::vector<std::string> listOfPotions{ "Samll Potion of Healing" };
+
+std::vector<std::string> listOfConsumables;
 std::vector<std::string> listOfEquippables;
+
 std::vector<std::string> listOfAllItems;
 
 static bool initItems() {
+	listOfConsumables.insert(listOfConsumables.end(), listOfPotions.begin(), listOfPotions.end());
 
 	listOfEquippables.insert(listOfEquippables.end(), listOfWeapons.begin(), listOfWeapons.end());
 	listOfEquippables.insert(listOfEquippables.end(), listOfArmor.begin(), listOfArmor.end());
@@ -79,6 +83,9 @@ Consumable::Consumable(std::string nombre, int amt, int goldCost) : Item(nombre,
 
 Longsword::Longsword() : Longsword(1) {}
 Longsword::Longsword(int amt) : Equippable("Longsword", amt, 25) {}
+Slot Longsword::getSlot() const {
+	return Slot::LEFT_HAND;
+}
 void Longsword::equip(Character* target) {
 	// Add attack function to Character's attack list.
 	return;
@@ -87,23 +94,27 @@ void Longsword::unequip(Character* target) {
 	// Remove attack function from Character's attack list.
 	return;
 }
-void Longsword::dealDamage(Character* target) {
-	// Use the setHealth() function to make Character's health getHealth() minus damage.
-	return;
-}
+//void Longsword::dealDamage(Character* target) {
+//	target->setHealth(target->getHealth() - roll(1, 8));
+//}
 
 /**********************************************
 ******************* Armor *********************
 ***********************************************/
 
 Chainmail::Chainmail() : Chainmail(1) {}
-Chainmail::Chainmail(int amt) : Equippable("Chainmail", amt, 50) {}
+Chainmail::Chainmail(int amt) : Equippable("Chainmail", amt, 50) {
+	//statBonus[StatBonus::ARMOR] = 3;
+}
+Slot Chainmail::getSlot() const {
+	return Slot::TORSO;
+}
 void Chainmail::equip(Character* target) {
-	// Change Character stats.
+	//target->setArmor(target->getArmor() + 3);
 	return;
 }
 void Chainmail::unequip(Character* target) {
-	// Change Character stats.
+	//target->setArmor(target->getArmor() - 3);
 	return;
 }
 

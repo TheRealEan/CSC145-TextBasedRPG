@@ -1,0 +1,13 @@
+﻿  main.cpp
+  Menu.cpp
+  Character.cpp
+C:\Users\ianmc\OneDrive\01_Folder\Documents\Education\Course Work\Video-Game-Project\Video-Game-Project\Character.cpp(103,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\ianmc\OneDrive\01_Folder\Documents\Education\Course Work\Video-Game-Project\Video-Game-Project\Character.cpp(108,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\ianmc\OneDrive\01_Folder\Documents\Education\Course Work\Video-Game-Project\Video-Game-Project\Character.cpp(113,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Enemy.cpp
+  Player.cpp
+  Shop.cpp
+  TalkingNPC.cpp
+  Generator.cpp
+  Generating Code...
+  Video-Game-Project.vcxproj -> C:\Users\ianmc\OneDrive\01_Folder\Documents\Education\Course Work\Video-Game-Project\x64\Debug\Video-Game-Project.exe

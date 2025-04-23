@@ -1,7 +1,8 @@
+#include <iostream>
 #include "Player.h"
 
-Player::Player() : Player("Nameless", 100, 100, 100, 20, 20, 20, 100, 0) {}
-Player::Player(std::string nombre) : Player(nombre, 100, 100, 100, 20, 20, 20, 100, 0) {}
+Player::Player() : Player("Nameless", 100, 100, 100, 20, 20, 20, 0, 0) {}
+Player::Player(std::string nombre) : Player(nombre, 100, 100, 100, 20, 20, 20, 0, 0) {}
 Player::Player(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money) : Player(nombre, hp, stam, magic, str, dex, arm, money, 0) {}
 Player::Player(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money, int exp) {
 	setName(nombre);
@@ -28,7 +29,8 @@ void Player::checkLevelUp() {
 }
 
 void Player::displayStats() {
-	std::cout << "Character: " << getName() << "\n"
+	std::cout
+		<< "Character: " << getName() << "\n"
 		<< "Health: " << getHealth() << "\n"
 		<< "Stamina: " << getStamina() << "\n"
 		<< "Mana: " << getMana() << "\n"

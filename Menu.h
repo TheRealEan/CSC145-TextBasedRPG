@@ -1,9 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
-#include <iostream>
-#include <vector>
-#include "Player.h"
-#include "Shop.h"
+class Enemy;
+class Player;
+class Shop;
 
 class Menu {
 public:
@@ -14,6 +13,9 @@ public:
 
 	void yellow();
 	std::string yellow(std::string text);
+
+	Player* getPlayer();
+	void setPlayer(Player* p);
 
 protected:
 	Player* player{ nullptr };
@@ -32,7 +34,7 @@ public:
 	Player* getSelectedPlayer();
 	void setSelectedPlayer(Player* play);
 
-private:
+protected:
 	Player* selectedPlayer{ nullptr };
 };
 
@@ -48,9 +50,24 @@ public:
 	int quitGame();
 };
 
+class BattleMenu : public Menu {
+public:
+	BattleMenu(Player* p);
+	BattleMenu(Player* p, Enemy* e);
+	void attacks(); // Opens attack options submenu.
+	void magic(); // Opens a spell options submenu.
+	void displayStats(); // Displays the player's stats.
+	void inventory(); // Opens the player's inventory.
+	void chat(); // Opens up a dialogue with an enemy.
+	void flee(); // Allows the player to flee the battle.
+};
+
 class InventoryMenu : public Menu {
 public:
 	InventoryMenu(Player* p);
+	void manageInventory(); // Allows for equipping, unequipping, consuming items, and removing items. 
+
+	// Testing options.
 	void viewInventory();
 	void addItem();
 	void removeItem();
@@ -61,7 +78,8 @@ public:
 
 class ShopMenu : public Menu {
 public:
-	ShopMenu(Player* p);
+	ShopMenu(Player* p); // Generates a random shop.
+	ShopMenu(Player* p, Shop* shop);
 	void browse();
 	void buy();
 	void sell();

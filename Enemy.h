@@ -1,19 +1,38 @@
-// Filename: "Enemy.h"
-#include "Character.h"
 #ifndef ENEMY_H
 #define ENEMY_H
+#include <string>
+#include "Character.h"
 
 class Enemy : public Character {
 public:
-	// Constructor and Destructors.
-
-	Enemy(std::string name);
-	Enemy(std::string name, int health, int stamina, int mana, int strength, int armor, int gold);
+	Enemy();
+	Enemy(std::string nombre);
+	Enemy(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money);
 	virtual ~Enemy() = default;
 
-	// Combat Functions
-
-	virtual void target(Character* opponent); // Makes decisions during battle sequence.
+	void displayStats();
 };
+
+class ChineseSpyPigeon : public Enemy {
+public:
+	ChineseSpyPigeon();
+	ChineseSpyPigeon(int hp, int stam, int magic, int str, int dex, int arm, int money);
+	virtual ~ChineseSpyPigeon() = default;
+};
+
+class DannyDevito : public Enemy {
+public:
+	DannyDevito();
+	DannyDevito(int hp, int stam, int magic, int str, int dex, int arm, int money);
+	virtual ~DannyDevito() = default;
+};
+
+class Roomba : public Enemy {
+public:
+	Roomba();
+	Roomba(int hp, int stam, int magic, int str, int dex, int arm, int money);
+	virtual ~Roomba() = default;
+};
+
 
 #endif

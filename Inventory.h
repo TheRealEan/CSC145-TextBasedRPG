@@ -2,7 +2,7 @@
 #define INVENTORY_H
 #include <iostream>
 #include "./utilities/LinkedList.h"
-#include "Item.h"
+class Item;
 
 /*
 There is a case to be made that int amt should NOT BE USED in any of these

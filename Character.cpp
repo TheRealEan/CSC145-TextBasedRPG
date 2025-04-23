@@ -1,6 +1,10 @@
 #include "Character.h"
+#include "Item.h"
+#include "Inventory.h"
+int roll(int, int);
 
 Character::Character() : Character("Nameless", 100, 100, 100, 20, 20, 20, 100) {}
+Character::Character(std::string nombre) : Character(nombre, 100, 100, 100, 20, 20, 20, 100) {}
 Character::Character(std::string nombre, int hp, int stam, int magic, int str, int dex, int arm, int money)
 {
 	setName(nombre);
@@ -84,4 +88,28 @@ void Character::displayStats() {
 		<< "Dexterity: " << getDexterity() << "\n"
 		<< "Armor: " << getArmor() << "\n"
 		<< "Gold: " << getGold() << "\n";
+}
+
+//void equip(Slot spot, StatBonus stat, int amount) {
+//	
+//	modify(stat, amount);
+//}
+//
+//void modify(StatBonus stat, int amount) {
+//
+//}
+
+int Character::meleeAttack() {
+	int rollToHit = roll(1, 20) + std::floor(getStrength() / 3);
+	return rollToHit;
+}
+
+int Character::rangedAttack() {
+	int rollToHit = roll(1, 20) + std::floor(getDexterity() / 3);
+	return rollToHit;
+}
+
+int Character::spellAttack() {
+	int rollToHit = roll(1, 20) + std::floor(getMana() / 3);
+	return rollToHit;
 }

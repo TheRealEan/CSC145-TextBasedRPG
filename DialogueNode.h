@@ -1,36 +1,23 @@
-#pragma once
-#include<iostream>
-#include<string>
-#include<vector>
-
-using namespace std;
+#ifndef DIALOGUENODE_H
+#define DIALOGUENODE_H
+#include <vector>
+#include <string>
 
 class DialogueNode {
-protected:
-	//This is the current line the NPC says
-	string NPCDialogue;
-	//This contains all possible options for player dialogue in response to the NPC line
-	//This should use numbers corresponding to each possible line
-	string playerChoices;
-	//Contains what the NPC will reply with based on what number diaglogue option the player chose
-	vector<int> nextDialogues;
-
 public:
-	DialogueNode(string NPCLine, string playerChoiceList, vector<int> nextList);
+	DialogueNode(std::string line, std::string choices, std::vector<int> nextList);
 
-	string getNPCDialogue() {
-		return NPCDialogue;
-	}
+	std::string const getNPCDialogue();
+	void setNPCDialogue(std::string line);
+	std::string const getPlayerChoices();
+	void setPlayerChoices(std::string choices);
+	std::vector<int> const getNextDialogues();
+	void setNextDialogues(std::vector<int> nextList);
 
-	void setNPCDialogue(string dialogue) {
-		NPCDialogue = dialogue;
-	}
-
-	string getPlayerChoice() {
-		return playerChoices;
-	}
-
-	void  setPlayerChoices(string choices) {
-		playerChoices = choices;
-	}
+protected:
+	std::string NPCDialogue{ "" };
+	std::string playerChoices{ "" };
+	std::vector<int> nextDialogues;
 };
+
+#endif

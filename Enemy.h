@@ -34,5 +34,12 @@ public:
 	virtual ~Roomba() = default;
 };
 
+class TylerBrown : public Enemy {
+public:
+	TylerBrown();
+	TylerBrown(int hp, int stam, int magic, int str, int dex, int arm, int money);
+	virtual ~TylerBrown() = default;
+};
+
 
 #endif

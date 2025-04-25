@@ -27,15 +27,16 @@ void Enemy::displayStats() {
 
 ChineseSpyPigeon::ChineseSpyPigeon() : ChineseSpyPigeon(100, 100, 100, 20, 20, 20, 0) {};
 ChineseSpyPigeon::ChineseSpyPigeon(int hp, int stam, int magic, int str, int dex, int arm, int money)
-	: Enemy("Chinese Spy Pigeon", hp, stam, magic, str, dex, arm, money) {
-};
+	: Enemy("Chinese Spy Pigeon", hp, stam, magic, str, dex, arm, money) {};
 
 DannyDevito::DannyDevito() : DannyDevito(100, 100, 100, 20, 20, 20, 0) {};
 DannyDevito::DannyDevito(int hp, int stam, int magic, int str, int dex, int arm, int money)
-	: Enemy("Danny Devito", hp, stam, magic, str, dex, arm, money) {
-};
+	: Enemy("Danny Devito", hp, stam, magic, str, dex, arm, money) {};
 
 Roomba::Roomba() : Roomba(100, 100, 100, 20, 20, 20, 0) {};
 Roomba::Roomba(int hp, int stam, int magic, int str, int dex, int arm, int money)
-	: Enemy("Roomba", hp, stam, magic, str, dex, arm, money) {
-};
+	: Enemy("Roomba", hp, stam, magic, str, dex, arm, money) {};
+
+TylerBrown::TylerBrown() : TylerBrown(100, 100, 100, 20, 20, 20, 1000000) {};
+TylerBrown::TylerBrown(int hp, int stam, int magic, int str, int dex, int arm, int money)
+	: Enemy("Tyler Brown", hp, stam, magic, str, dex, arm, money) {};

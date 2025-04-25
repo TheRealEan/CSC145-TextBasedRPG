@@ -61,4 +61,18 @@ protected:
 	TalkingNPC* npc3{ nullptr };
 };
 
+class Map {
+public:
+	Map(); // Creates the MapNode details and links them by cardinal pointers (N-W-E-S).
+
+	MapNode* getIndex();
+	void setIndex(MapNode* node);
+	MapNode* getHead(); 
+	void setHead(MapNode* node);
+
+private:
+	MapNode* index; // Tracks where the player is located.
+	MapNode* head; // Tracks where the map initially starts.
+};
+
 #endif

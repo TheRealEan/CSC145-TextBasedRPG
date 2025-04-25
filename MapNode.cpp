@@ -1,13 +1,104 @@
+#include <conio.h> // Includes the _getch() function to retrieve keyboard input.
+#include <string>
+#include <tuple> // Includes std::ignore.
+#include <vector>
 #include "MapNode.h"
+#include "Menu.h"
 #include "Enemy.h"
 #include "Shop.h"
 #include "TalkingNPC.h"
 #include "./utilities/Generator.h"
+//#include "./utilities/KeyBindings.h" // Brings over keyboard input constants.
+//#include "./utilities/Music.h"
 
 MapNode::MapNode(std::string nombre, std::string des)
 	: MapNode(nombre, des, nullptr, nullptr, nullptr, nullptr) {}
 MapNode::MapNode(std::string nombre, std::string des, MapNode* n, MapNode* w, MapNode* e, MapNode* s)
-	: locationName{ nombre }, description{ des }, north{ n }, west{ w }, east{ e }, south{ s } {}
+	: locationName{ nombre }, description{ des }, menu{ new Menu }, north {n}, west{ w }, east{ e }, south{ s } {}
+
+//void MapNode::execLocation(Player* p) {
+//	Player* player = p;
+//
+//	backgroundPlay("theme.wav");
+//	int choice{ KEY_UP };
+//	// The highlighted yellow text, when Enter key is pressed this option is selected.
+//	int index{ 1 };
+//	std::vector<MenuOption> options{};
+//	do {
+//		menu->clear();
+//		std::cout << getLocationName() << std::endl;
+//
+//		// Identify the options to list for the player.
+//		options.emplace_back(
+//			"Display Player Stats",
+//			[player] { player->displayStats(); }
+//		);
+//		options.emplace_back("Manage Inventory",
+//			[new InventoryMenu(player)] { menu->InventoryMenu() }
+//		);
+//		// Add enemies to options.
+//		if (enemy1) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Fight " + enemy1->getName());
+//		}
+//		if (enemy2) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Fight " + enemy2->getName());
+//		}
+//		if (enemy3) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Fight " + enemy3->getName());
+//		}
+//		// Add shops to options.
+//		if (shop1) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Enter Shop 1");
+//		}
+//		if (shop2) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Enter Shop 2");
+//		}
+//		if (shop3) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Enter Shop 3");
+//		}
+//		// Add talkingNPCs to options.
+//		if (npc1) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Chat with " + npc1->getName());
+//		}
+//		if (npc2) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Chat with " + npc2->getName());
+//		}
+//		if (npc3) {
+//			options.emplace_back(std::to_string(options.size() + 1) + ". Chat with " + npc3->getName());
+//		}
+//
+//		options.emplace_back(
+//			std::to_string(options.size() + 1) + ". Quit Game"
+//		);
+//
+//		// Display options
+//		options[index - 1] = menu->yellow(options[index - 1]);
+//		for (int i = 0; i < options.size(); i++) {
+//			std::cout << options[i] << "\n";
+//		}
+//
+//		choice = _getch(); // Take input from the keyboard.
+//
+//		int index_max = options.size();
+//		switch (choice) {
+//		case KEY_UP:
+//			if (index != 1) index--;
+//			else index = index_max;
+//			break;
+//		case KEY_DOWN:
+//			if (index != index_max) index++;
+//			else index = 1;
+//			break;
+//		case KEY_ENTER:
+//			if (index != index_max) {
+//
+//			}
+//			break;
+//		}
+//
+//
+//	} while (!(index == (options.size() && choice == KEY_ENTER)));
+//}
 
 // Handle cardinal setters for both directions (e.g. 1->setEast(2) counts also as 2->setWest(1)).
 std::string const MapNode::getLocationName() { return locationName; }
@@ -106,7 +197,10 @@ void MapNode::setNPCs(TalkingNPC* np1, TalkingNPC* np2, TalkingNPC* np3) {
 	npc3 = np3;
 }
 
-Map::Map() {
+Map::Map(Player* p) {
+	// Set the player.
+	player = p;
+
 	// The Ohio Turnpike
 	MapNode* tollgate = new MapNode("Tollgate Town", "A toll town is ahead.");
 	MapNode* buckeye = new MapNode("Buckeye Bend", "A sharp bend.");

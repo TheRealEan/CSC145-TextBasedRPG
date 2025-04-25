@@ -2,7 +2,9 @@
 #define MAPNODE_H
 #include <string>
 class Enemy;
+class Menu;
 class Shop;
+class Player;
 class TalkingNPC;
 
 class MapNode {
@@ -10,6 +12,8 @@ public:
 	MapNode(std::string nombre, std::string des);
 	// Primary constructor. Use setters for other variables.
 	MapNode(std::string nombre, std::string des, MapNode* n, MapNode* w, MapNode* e, MapNode* s);
+
+	//void execLocation(Player* p); // Lists options for the player to do at a node's location.
 
 	std::string const getLocationName();
 	void setLocationName(std::string nombre);
@@ -45,6 +49,8 @@ protected:
 	std::string locationName;
 	std::string description; // A text description of this location when seen from an adjacent node.
 
+	Menu* menu; // Used for menu functions in execLocation(). 
+
 	MapNode* north;
 	MapNode* west;
 	MapNode* east;
@@ -63,7 +69,7 @@ protected:
 
 class Map {
 public:
-	Map(); // Creates the MapNode details and links them by cardinal pointers (N-W-E-S).
+	Map(Player* p); // Creates the MapNode details and links them by cardinal pointers (N-W-E-S).
 
 	MapNode* getIndex();
 	void setIndex(MapNode* node);
@@ -71,6 +77,7 @@ public:
 	void setHead(MapNode* node);
 
 private:
+	Player* player;
 	MapNode* index; // Tracks where the player is located.
 	MapNode* head; // Tracks where the map initially starts.
 };

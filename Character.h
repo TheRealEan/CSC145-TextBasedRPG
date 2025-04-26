@@ -3,6 +3,7 @@
 #include <cmath>
 #include <map>
 #include <string>
+
 class Inventory;
 class Equippable;
 
@@ -36,20 +37,24 @@ public:
 	int const getWeightCap();
 	int const getWeight();
 
+
 	virtual void displayStats();
 	//void equip(Slot spot, StatBonus stat, int amount);
 	//void modify(StatBonus stat, int amount);
 
 	// A die-roll based attack that adds the appropriate score.
-	int meleeAttack(); // Uses strength.
-	int rangedAttack(); // Uses dexterity.
-	int spellAttack(); // Uses mana.
+	void meleeAttack(); // Uses strength.
+	void rangedAttack(); // Uses dexterity.
+	void spellAttack(); // Uses mana.
+	void setBlock(bool a);
+	bool isBlocking;
 
 protected:
 	// Derived Statistics Setter Functions
 	// Should be updated when strength is updated.
 	void setWeight(int amt);
 	void setWeightCap(int amt);
+
 
 	/*******************************************************************************************
 	*** Name	  - the name of the character that is referenced in menus and dialogue.

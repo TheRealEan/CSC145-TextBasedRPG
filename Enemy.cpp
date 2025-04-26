@@ -25,18 +25,18 @@ void Enemy::displayStats() {
 		<< "Gold: " << getGold() << "\n";
 }
 
-ChineseSpyPigeon::ChineseSpyPigeon() : ChineseSpyPigeon(100, 100, 100, 20, 20, 20, 0) {};
+ChineseSpyPigeon::ChineseSpyPigeon() : ChineseSpyPigeon(20, 100, 100, 20, 20, 0, 50) {};
 ChineseSpyPigeon::ChineseSpyPigeon(int hp, int stam, int magic, int str, int dex, int arm, int money)
 	: Enemy("Chinese Spy Pigeon", hp, stam, magic, str, dex, arm, money) {};
 
-DannyDevito::DannyDevito() : DannyDevito(100, 100, 100, 20, 20, 20, 0) {};
+DannyDevito::DannyDevito() : DannyDevito(40, 100, 100, 20, 20, 0, 50) {};
 DannyDevito::DannyDevito(int hp, int stam, int magic, int str, int dex, int arm, int money)
 	: Enemy("Danny Devito", hp, stam, magic, str, dex, arm, money) {};
 
-Roomba::Roomba() : Roomba(100, 100, 100, 20, 20, 20, 0) {};
+Roomba::Roomba() : Roomba(30, 100, 100, 20, 20, 0, 50) {};
 Roomba::Roomba(int hp, int stam, int magic, int str, int dex, int arm, int money)
 	: Enemy("Roomba", hp, stam, magic, str, dex, arm, money) {};
 
-TylerBrown::TylerBrown() : TylerBrown(100, 100, 100, 20, 20, 20, 1000000) {};
+TylerBrown::TylerBrown() : TylerBrown(100, 100, 100, 20, 20, 0, 1000000) {};
 TylerBrown::TylerBrown(int hp, int stam, int magic, int str, int dex, int arm, int money)
 	: Enemy("Tyler Brown", hp, stam, magic, str, dex, arm, money) {};

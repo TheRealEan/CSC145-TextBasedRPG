@@ -1,6 +1,8 @@
 #include "Character.h"
 #include "Item.h"
 #include "Inventory.h"
+using namespace std;
+
 int roll(int, int);
 
 Character::Character() : Character("Nameless", 100, 100, 100, 20, 20, 20, 100) {}
@@ -99,17 +101,57 @@ void Character::displayStats() {
 //
 //}
 
-int Character::meleeAttack() {
-	int rollToHit = roll(1, 20) + std::floor(getStrength() / 3);
-	return rollToHit;
+void Character::meleeAttack() {
+	int damage = strength - (.1*target->getArmor());
+	if (damage < 0) {
+		damage = 0;
+	}
+	if (target->isBlocking == true) {
+		target->setHealth(target->getHealth() - (damage / 2));
+	}
+	else {
+		target->setHealth(target->getHealth() - damage);
+	}
+	target->setBlock(false);
+
+	cout << name << " hits " << target->getName() << " for " << damage << " damage!!\n";
 }
 
-int Character::rangedAttack() {
-	int rollToHit = roll(1, 20) + std::floor(getDexterity() / 3);
-	return rollToHit;
+void Character::rangedAttack() {
+	int damage = dexterity - (.1 * target->getArmor());
+	if (damage < 0) {
+		damage = 0;
+	}
+	if (target->isBlocking == true) {
+		target->setHealth(target->getHealth() - (damage / 2));
+	}
+	else {
+		target->setHealth(target->getHealth() - damage);
+	}
+	target->setBlock(false);
+
+	cout << name << " hits " << target->getName() << " for " << damage << " damage!!\n";
 }
 
-int Character::spellAttack() {
-	int rollToHit = roll(1, 20) + std::floor(getMana() / 3);
-	return rollToHit;
+
+void  Character::spellAttack() {
+	int damage = mana - (.1 * target->getArmor());
+	if (damage < 0) {
+		damage = 0;
+	}
+	if (target->isBlocking == true) {
+		target->setHealth(target->getHealth() - (damage/2));
+	}
+	else {
+	target->setHealth(target->getHealth() - damage);
+	}
+	target->setBlock(false);
+	cout << name << " hits " << target->getName() << " for " << damage << " damage!!\n";
 }
+
+void Character::setBlock(bool a) {
+	isBlocking = a;
+}
+
+
+

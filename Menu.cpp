@@ -55,7 +55,7 @@ PlayerSelectMenu::PlayerSelectMenu() {
 		};
 		options[index - 1] = yellow(options[index - 1]);
 		for (int i = 0; i < options.size(); i++) {
-			std::cout << "\033[1;33m" << options[i] << "\033[0m" << "\n";
+			std::cout << options[i] << "\n";
 		}
 
 		choice = _getch(); // Take input from the keyboard.
@@ -196,7 +196,7 @@ MainMenu::MainMenu(Player* p) : Menu() {
 
 		options[index - 1] = yellow(options[index - 1]);
 		for (int i = 0; i < options.size(); i++) {
-			std::cout << "\033[1;33m" << options[i] << "\033[0m" << "\n";
+			std::cout << options[i] << "\n";
 		}
 
 		choice = _getch(); // Take input from the keyboard.

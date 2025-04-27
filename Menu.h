@@ -1,8 +1,24 @@
 #ifndef MENU_H
 #define MENU_H
+#include <functional> // Allows std::function
 class Enemy;
 class Player;
 class Shop;
+
+class OptionNode {
+public:
+	using Action = std::function<void()>;
+
+	std::string description;
+	Action action;
+	OptionNode* prevNode{ nullptr };
+	OptionNode* nextNode{ nullptr };
+
+	OptionNode(std::string desc, Action act)
+		: description(desc), action(act) {}
+
+	void execute() { if (action) action(); }
+};
 
 class Menu {
 public:

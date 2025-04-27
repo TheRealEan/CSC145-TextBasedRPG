@@ -6,6 +6,7 @@
 #include "Menu.h"
 #include "Enemy.h"
 #include "Shop.h"
+#include "Player.h"
 #include "TalkingNPC.h"
 #include "./utilities/Generator.h"
 #include "./utilities/KeyBindings.h" // brings over keyboard input constants.
@@ -23,56 +24,121 @@ void MapNode::execLocation(Player* p) {
 	int choice{ KEY_UP };
 	// The highlighted yellow text, when Enter key is pressed this option is selected.
 	int index{ 1 };
-	std::vector<std::string> options{};
+	
+	
+	int optionsSize = 0; // The size of all the options available.
+	//std::vector<std::string> options{};
+	
 	do {
 		menu->clear();
-		std::cout << getLocationName() << std::endl;
+		std::cout << getLocationName() << "\n\n";
+
+		// Reset options for each run.
+		LinkedList<OptionNode*>* options = new LinkedList<OptionNode*>;
+		optionsSize = 0; // The size of all the options available.
 
 		// Identify the options to list for the player.
-		options.push_back("Display Player Stats");
-		options.push_back("Manage Inventory");
+		options->pushBack(
+			new OptionNode(
+				std::to_string(optionsSize + 1) + ". Display Player Stats",
+				[player] {player->displayStats(); })
+		); optionsSize++;
+		options->pushBack(
+			new OptionNode(
+				std::to_string(optionsSize + 1) + ". Manage Inventory",
+				[player] { InventoryMenu menu(player); menu.manageInventory(); })
+		); optionsSize++;
+
 		// Add enemies to options.
 		if (enemy1) {
-			options.push_back(std::to_string(options.size() + 1) + ". Fight " + enemy1->getName());
+			Enemy* enemy = enemy1;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Fight " + enemy1->getName(),
+					[player, enemy] { BattleMenu menu(player, enemy); })
+			); optionsSize++;
 		}
 		if (enemy2) {
-			options.push_back(std::to_string(options.size() + 1) + ". Fight " + enemy2->getName());
+			Enemy* enemy = enemy2;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Fight " + enemy2->getName(),
+					[player, enemy] { BattleMenu menu(player, enemy); }
+				)
+			); optionsSize++;
 		}
 		if (enemy3) {
-			options.push_back(std::to_string(options.size() + 1) + ". Fight " + enemy3->getName());
+			Enemy* enemy = enemy3;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Fight " + enemy3->getName(),
+					[player, enemy] { BattleMenu menu(player, enemy); }
+				)
+			); optionsSize++;
 		}
 		// Add shops to options.
 		if (shop1) {
-			options.push_back(std::to_string(options.size() + 1) + ". Enter Shop 1");
+			Shop* shop = shop1;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Enter Shop 1",
+					[player, shop] { ShopMenu menu(player, shop); }
+				)
+			); optionsSize++;
+
 		}
 		if (shop2) {
-			options.push_back(std::to_string(options.size() + 1) + ". Enter Shop 2");
+			Shop* shop = shop2;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Enter Shop 2",
+					[player, shop] { ShopMenu menu(player, shop); }
+				)
+			); optionsSize++;
 		}
 		if (shop3) {
-			options.push_back(std::to_string(options.size() + 1) + ". Enter Shop 3");
+			Shop* shop = shop3;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Enter Shop 3",
+					[player, shop] { ShopMenu menu(player, shop); }
+				)
+			); optionsSize++;
 		}
-		// Add talkingNPCs to options.
-		if (npc1) {
-			options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc1->getName());
-		}
-		if (npc2) {
-			options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc2->getName());
-		}
-		if (npc3) {
-			options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc3->getName());
-		}
+		//// Add talkingNPCs to options.
+		//if (npc1) {
+		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc1->getName());
+		//}
+		//if (npc2) {
+		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc2->getName());
+		//}
+		//if (npc3) {
+		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc3->getName());
+		//}
 
-		options.push_back(std::to_string(options.size() + 1) + ". Quit Game");
+		options->pushBack(
+			new OptionNode(
+				std::to_string(optionsSize + 1) + ". Quit Game",
+				[player] { return; })
+		); optionsSize++;
 
 		// Display options
-		options[index - 1] = menu->yellow(options[index - 1]);
-		for (int i = 0; i < options.size(); i++) {
-			std::cout << options[i] << "\n";
+		Node<OptionNode*>* current = options->getHead();
+		int ctr = 1; // Counts the lines.
+		while (current) {
+			std::string text = current->data->description;
+			if (ctr == index) {
+				text = menu->yellow(std::move(text));
+			}
+			std::cout << text << "\n";
+
+			current = current->nextNode;
+			ctr++;
 		}
 
 		choice = _getch(); // Take input from the keyboard.
 
-		int index_max = options.size();
+		int index_max = ctr - 1;
 		switch (choice) {
 		case KEY_UP:
 			if (index != 1) index--;
@@ -84,13 +150,19 @@ void MapNode::execLocation(Player* p) {
 			break;
 		case KEY_ENTER:
 			if (index != index_max) {
+				Node<OptionNode*>* node = options->getHead();
+				for (int i = 1; i < index && node; ++i) {
+					node = node->nextNode;
+				}
 
+				if (node) node->data->execute();
+				break;
 			}
 			break;
 		}
 
 
-	} while (!(index == (options.size() && choice == KEY_ENTER)));
+	} while (!(index == (optionsSize) && (choice == KEY_ENTER)));
 }
 
 // Handle cardinal setters for both directions (e.g. 1->setEast(2) counts also as 2->setWest(1)).

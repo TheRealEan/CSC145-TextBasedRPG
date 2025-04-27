@@ -49,6 +49,45 @@ void MapNode::execLocation(Player* p) {
 				[player] { InventoryMenu menu(player); menu.manageInventory(); })
 		); optionsSize++;
 
+
+		// Identify possible cardinal directions for the player to navigate.
+		if (north) {
+			MapNode* node = north;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Travel North",
+					[player, node] { node->execLocation(player); }
+				)
+			); optionsSize++;
+		}
+		if (west) {
+			MapNode* node = west;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Travel West",
+					[player, node] { node->execLocation(player); }
+				)
+			); optionsSize++;
+		}
+		if (east) {
+			MapNode* node = east;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Travel East",
+					[player, node] { node->execLocation(player); }
+				)
+			); optionsSize++;
+		}
+		if (south) {
+			MapNode* node = south;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Travel South",
+					[player, node] { node->execLocation(player); }
+				)
+			); optionsSize++;
+		}
+
 		// Add enemies to options.
 		if (enemy1) {
 			Enemy* enemy = enemy1;

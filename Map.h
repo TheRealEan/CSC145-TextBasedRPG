@@ -1,5 +1,5 @@
-#ifndef MAPNODE_H
-#define MAPNODE_H
+#ifndef MAP_H
+#define MAP_H
 #include <string>
 class Enemy;
 class Menu;
@@ -13,7 +13,7 @@ public:
 	// Primary constructor. Use setters for other variables.
 	MapNode(std::string nombre, std::string des, MapNode* n, MapNode* w, MapNode* e, MapNode* s);
 
-	//void execLocation(Player* p); // Lists options for the player to do at a node's location.
+	void execLocation(Player* p); // Lists options for the player to do at a node's location.
 
 	std::string const getLocationName();
 	void setLocationName(std::string nombre);

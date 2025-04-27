@@ -1,15 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
-#include <functional> // Allows for the struct.
-
 class Enemy;
 class Player;
 class Shop;
-
-struct MenuOption {
-	std::string label; // A label the player sees.
-	std::is_function<void(void)> action; // What executes when KEY_ENTER is pressed.
-};
 
 class Menu {
 public:

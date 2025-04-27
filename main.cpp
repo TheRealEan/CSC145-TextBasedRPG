@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Map.h"
 #include "Menu.h"
 #include "Player.h"
 
@@ -16,8 +17,11 @@ int main() {
 		return 0;
 	}
 
+	Map* ohio = new Map(player);
+	ohio->getIndex()->execLocation(player);
+
 	// Create a Main Menu to navigate.
-	MainMenu menu(player);
+	// MainMenu menu(player);
 
 	return 0;
 }

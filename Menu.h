@@ -2,6 +2,7 @@
 #define MENU_H
 #include <functional> // Allows std::function
 class Enemy;
+class MapNode;
 class Player;
 class Shop;
 
@@ -37,6 +38,22 @@ protected:
 	Player* player{ nullptr };
 };
 
+class StartMenu : public Menu {
+public:
+	StartMenu();
+	virtual ~StartMenu() = default;
+
+	void newGame();
+	void continueGame();
+	void quitGame();
+
+	MapNode* getLastLocation();
+	void setLastLocation(MapNode* node);
+
+protected:
+	MapNode* lastLocation{ nullptr }; // The last node the player was on. Puts them back into the game.
+};
+
 class PlayerSelectMenu : public Menu {
 public:
 	PlayerSelectMenu();
@@ -45,7 +62,7 @@ public:
 	void playWarrior();
 	void playRogue();
 	void playMage();
-	int quitGame();
+	int returnToStart();
 
 	Player* getSelectedPlayer();
 	void setSelectedPlayer(Player* play);

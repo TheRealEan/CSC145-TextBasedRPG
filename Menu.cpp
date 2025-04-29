@@ -2,6 +2,8 @@
 #include <string>
 #include <tuple> // Includes std::ignore.
 #include <vector>
+#define NOMINMAX // Ensure that including windows does not bring over std::min, std::max
+#include <windows.h> // Allows for sleep.
 #include "Menu.h"
 #include "./utilities/Generator.h"
 #include "./utilities/KeyBindings.h" // Brings over keyboard input constants.
@@ -9,6 +11,7 @@
 #include "DialogueNode.h"
 #include "Inventory.h"
 #include "Item.h"
+#include "Map.h"
 #include "Player.h"
 #include "Shop.h"
 #include "TalkingNPC.h"
@@ -35,6 +38,117 @@ Player* Menu::getPlayer() { return player; }
 void Menu::setPlayer(Player* p) { player = p; }
 
 /**********************************************
+****************** Start Menu *****************
+***********************************************/
+StartMenu::StartMenu() {
+
+	backgroundPlay("theme.wav");
+	int choice{ KEY_UP };
+	// The highlighted yellow text, when Enter key is pressed this option is selected.
+	int index{ 1 };
+	do {
+		clear();
+		std::cout << "The Video Game\n";
+
+		std::vector<std::string> options = {
+			"1. Start New Game",
+			"2. Continue Game",
+			"3. Quit Game"
+		};
+		options[index - 1] = yellow(options[index - 1]);
+		for (int i = 0; i < options.size(); i++) {
+			std::cout << options[i] << "\n";
+		}
+
+		choice = _getch(); // Take input from the keyboard
+
+		const int INDEX_MAX = 3;
+		switch (choice) {
+		case KEY_UP:
+			if (index != 1) index--;
+			else index = INDEX_MAX;
+			break;
+		case KEY_DOWN:
+			if (index != INDEX_MAX) index++;
+			else index = 1;
+			break;
+		case KEY_ENTER:
+			switch (index) {
+			case 1: choice = KEY_ONE; break;
+			case 2: choice = KEY_TWO; break;
+			case 3: choice = KEY_THREE; break;
+			}
+		}
+
+		switch (choice) {
+		case KEY_ONE:
+			newGame();
+			std::ignore = _getch();
+			break;
+		case KEY_TWO:
+			continueGame();
+			std::ignore = _getch();
+			break;
+		case KEY_THREE:
+			quitGame();
+			std::ignore = _getch();
+			break;
+		}
+
+	} while (choice != KEY_THREE);
+}
+
+void StartMenu::newGame() {
+	
+	PlayerSelectMenu playerMenu; // Have the user select a player.
+	if (playerMenu.getSelectedPlayer()) {
+		player = playerMenu.getSelectedPlayer();
+	}
+	else {
+		return;
+	}
+
+	// Initialize the Ohio map and start the player there.
+	Map* ohio = new Map(player, this);
+	ohio->getIndex()->execLocation(player);
+}
+
+void StartMenu::continueGame() {
+	if (player) {
+		if (getLastLocation()) {
+			getLastLocation()->execLocation(player);
+		}
+		else {
+			std::cout << "No location found.\n";
+			std::cout << "Make sure you've started a game before you continue.\n";
+			std::cout << "Press enter to continue... ";
+			return;
+		}
+	}
+	else {
+		std::cout << "No player selected.\n";
+		std::cout << "Make sure you've started a game before you continue.\n";
+		std::cout << "Press enter to continue... ";
+		return;
+	}
+}
+
+void StartMenu::quitGame() {
+	std::cout << std::endl;
+	std::cout << "Quitting game.\n";
+	std::cout << "Press enter to continue... ";
+	return;
+}
+
+MapNode* StartMenu::getLastLocation() {
+	return lastLocation;
+}
+
+void StartMenu::setLastLocation(MapNode* node) {
+	lastLocation = node;
+}
+
+/**********************************************
 ************** Player Select Menu *************
 ***********************************************/
 PlayerSelectMenu::PlayerSelectMenu() {
@@ -51,7 +165,7 @@ PlayerSelectMenu::PlayerSelectMenu() {
 			"1. Play a Warrior",
 			"2. Play a Rogue",
 			"3. Play a Mage",
-			"4. Quit Game"
+			"4. Return to Start Game"
 		};
 		options[index - 1] = yellow(options[index - 1]);
 		for (int i = 0; i < options.size(); i++) {
@@ -95,7 +209,7 @@ PlayerSelectMenu::PlayerSelectMenu() {
 			std::ignore = _getch();
 			break;
 		case KEY_FOUR:
-			quitGame();
+			returnToStart();
 			std::ignore = _getch();
 			break;
 		default:
@@ -158,9 +272,9 @@ void PlayerSelectMenu::playMage() {
 	std::cout << "Press enter to continue... ";
 }
 
-int PlayerSelectMenu::quitGame() {
+int PlayerSelectMenu::returnToStart() {
 	std::cout << std::endl;
-	std::cout << "Quitting game.\n";
+	std::cout << "Returning to Start Menu.\n";
 	std::cout << "Press enter to continue... ";
 	return 0;
 }
@@ -308,7 +422,7 @@ void MainMenu::enterShop() {
 
 void MainMenu::chat() {
 	std::cout << std::endl;
-	std::cout << "Chatting.\n";
+	// std::cout << "Chatting.\n";
 
 	clear();
 	// ----------- NPC #1 ----------- //

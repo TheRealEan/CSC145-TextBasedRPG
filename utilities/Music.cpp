@@ -1,4 +1,9 @@
 #include "Music.h"
+#define NOMINMAX // Fixes issues with <windows.h> interfering with the max function in other files.
+#include <windows.h>
+#include <mmsystem.h>
+#include <thread>
+#pragma comment(lib, "winmm.lib")
 
 // Global variable to hold the current background song in play.
 // If the same song is called to play by a function the backgroundPlay will return.
@@ -27,7 +32,7 @@ void soundEffect(const std::string& effect) {
 		std::wstring wideEffect(path.begin(), path.end());
 		PlaySound(wideEffect.c_str(), NULL, SND_FILENAME | SND_ASYNC);
 #else
-		PlaySound(songPath.c_str(), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySound(path.c_str(), NULL, SND_FILENAME | SND_ASYNC);
 #endif
 		}, effectPath).detach();
 }

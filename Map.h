@@ -2,16 +2,18 @@
 #define MAP_H
 #include <string>
 class Enemy;
+class Map;
 class Menu;
 class Shop;
+class StartMenu;
 class Player;
 class TalkingNPC;
 
 class MapNode {
 public:
-	MapNode(std::string nombre, std::string des);
+	MapNode(const std::string& nombre, const std::string& des, Map* own);
 	// Primary constructor. Use setters for other variables.
-	MapNode(std::string nombre, std::string des, MapNode* n, MapNode* w, MapNode* e, MapNode* s);
+	MapNode(const std::string& nombre, const std::string& des, Map* own, MapNode* n, MapNode* w, MapNode* e, MapNode* s);
 
 	void execLocation(Player* p); // Lists options for the player to do at a node's location.
 
@@ -19,6 +21,8 @@ public:
 	void setLocationName(std::string nombre);
 	std::string const getDescription();
 	void setDescription(std::string des);
+	Map* const getMap();
+	void setMap(Map* m);
 	MapNode* const getNorth();
 	void setNorth(MapNode* n);
 	MapNode* const getWest();
@@ -48,6 +52,7 @@ public:
 protected:
 	std::string locationName;
 	std::string description; // A text description of this location when seen from an adjacent node.
+	Map* owner;
 
 	Menu* menu; // Used for menu functions in execLocation(). 
 
@@ -69,15 +74,20 @@ protected:
 
 class Map {
 public:
-	Map(Player* p); // Creates the MapNode details and links them by cardinal pointers (N-W-E-S).
+	Map(Player* p, StartMenu* sm); // Creates the MapNode details and links them by cardinal pointers (N-W-E-S).
 
+	Player* getPlayer();
+	void setPlayer(Player* p);
+	StartMenu* getStartMenu();
+	void setStartMenu(StartMenu* sm);
 	MapNode* getIndex();
 	void setIndex(MapNode* node);
 	MapNode* getHead(); 
 	void setHead(MapNode* node);
 
-private:
+protected:
 	Player* player;
+	StartMenu* startMenu;
 	MapNode* index; // Tracks where the player is located.
 	MapNode* head; // Tracks where the map initially starts.
 };

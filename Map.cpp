@@ -12,10 +12,10 @@
 #include "./utilities/KeyBindings.h" // brings over keyboard input constants.
 #include "./utilities/Music.h"
 
-MapNode::MapNode(std::string nombre, std::string des)
-	: MapNode(nombre, des, nullptr, nullptr, nullptr, nullptr) {}
-MapNode::MapNode(std::string nombre, std::string des, MapNode* n, MapNode* w, MapNode* e, MapNode* s)
-	: locationName{ nombre }, description{ des }, menu{ new Menu }, north {n}, west{ w }, east{ e }, south{ s } {}
+MapNode::MapNode(const std::string& nombre, const std::string& des, Map* own)
+	: MapNode(nombre, des, own, nullptr, nullptr, nullptr, nullptr) {}
+MapNode::MapNode(const std::string& nombre, const std::string& des, Map* own, MapNode* n, MapNode* w, MapNode* e, MapNode* s)
+	: locationName{ nombre }, description{ des }, owner{ own }, menu { new Menu }, north{ n }, west{ w }, east{ e }, south{ s } {}
 
 void MapNode::execLocation(Player* p) {
 	Player* player = p;
@@ -41,8 +41,14 @@ void MapNode::execLocation(Player* p) {
 		options->pushBack(
 			new OptionNode(
 				std::to_string(optionsSize + 1) + ". Display Player Stats",
-				[player] {player->displayStats(); })
+				[player] {
+					std::cout << std::endl;
+					player->displayStats();
+					std::cout << "Press enter to continue... \n";
+					(void)_getch(); }
+			)
 		); optionsSize++;
+
 		options->pushBack(
 			new OptionNode(
 				std::to_string(optionsSize + 1) + ". Manage Inventory",
@@ -56,7 +62,14 @@ void MapNode::execLocation(Player* p) {
 			options->pushBack(
 				new OptionNode(
 					std::to_string(optionsSize + 1) + ". Travel North",
-					[player, node] { node->execLocation(player); }
+					[player, node] { 
+						std::string flag{ "yes" };
+						std::cout << std::endl;
+						std::cout << node->getDescription() << "\n";
+						std::cout << "Do you wish to travel here? Type 'yes' to accept." << std::endl;
+						std::cin.clear(); std::getline(std::cin, flag);
+						if (flag != "yes" && flag != "y") { return; }
+						node->execLocation(player); }
 				)
 			); optionsSize++;
 		}
@@ -65,7 +78,14 @@ void MapNode::execLocation(Player* p) {
 			options->pushBack(
 				new OptionNode(
 					std::to_string(optionsSize + 1) + ". Travel West",
-					[player, node] { node->execLocation(player); }
+					[player, node] {
+						std::string flag{ "yes" };
+						std::cout << std::endl;
+						std::cout << node->getDescription() << "\n";
+						std::cout << "Do you wish to travel here? Type 'yes' to accept." << std::endl;
+						std::cin.clear(); std::getline(std::cin, flag);
+						if (flag != "yes" && flag != "y") { return; }
+						node->execLocation(player); }
 				)
 			); optionsSize++;
 		}
@@ -74,7 +94,14 @@ void MapNode::execLocation(Player* p) {
 			options->pushBack(
 				new OptionNode(
 					std::to_string(optionsSize + 1) + ". Travel East",
-					[player, node] { node->execLocation(player); }
+					[player, node] {
+						std::string flag{ "yes" };
+						std::cout << std::endl;
+						std::cout << node->getDescription() << "\n";
+						std::cout << "Do you wish to travel here? Type 'yes' to accept." << std::endl;
+						std::cin.clear(); std::getline(std::cin, flag);
+						if (flag != "yes" && flag != "y") { return; }
+						node->execLocation(player); }
 				)
 			); optionsSize++;
 		}
@@ -83,7 +110,14 @@ void MapNode::execLocation(Player* p) {
 			options->pushBack(
 				new OptionNode(
 					std::to_string(optionsSize + 1) + ". Travel South",
-					[player, node] { node->execLocation(player); }
+					[player, node] {
+						std::string flag{ "yes" };
+						std::cout << std::endl;
+						std::cout << node->getDescription() << "\n";
+						std::cout << "Do you wish to travel here? Type 'yes' to accept." << std::endl;
+						std::cin.clear(); std::getline(std::cin, flag);
+						if (flag != "yes" && flag != "y") { return; }
+						node->execLocation(player); }
 				)
 			); optionsSize++;
 		}
@@ -157,8 +191,16 @@ void MapNode::execLocation(Player* p) {
 
 		options->pushBack(
 			new OptionNode(
-				std::to_string(optionsSize + 1) + ". Quit Game",
-				[player] { return; })
+				std::to_string(optionsSize + 1) + ". Return to Start Menu",
+				[this] { 
+					Map* m = this->getMap();
+					StartMenu* sm = m->getStartMenu();
+					sm->setLastLocation(this);
+					std::cout << std::endl;
+					std::cout << "Returning to Start Menu\n";
+					std::cout << "Press enter to continue... ";
+				}
+			)
 		); optionsSize++;
 
 		// Display options
@@ -188,20 +230,17 @@ void MapNode::execLocation(Player* p) {
 			else index = 1;
 			break;
 		case KEY_ENTER:
-			if (index != index_max) {
-				Node<OptionNode*>* node = options->getHead();
-				for (int i = 1; i < index && node; ++i) {
-					node = node->nextNode;
-				}
-
-				if (node) node->data->execute();
-				break;
+			Node<OptionNode*>* node = options->getHead();
+			for (int i = 1; i < index && node; ++i) {
+				node = node->nextNode;
 			}
+
+			if (node) node->data->execute();
 			break;
 		}
 
 
-	} while (!(index == (optionsSize) && (choice == KEY_ENTER)));
+	} while (!(index == optionsSize && choice == KEY_ENTER));
 }
 
 // Handle cardinal setters for both directions (e.g. 1->setEast(2) counts also as 2->setWest(1)).
@@ -209,6 +248,8 @@ std::string const MapNode::getLocationName() { return locationName; }
 void MapNode::setLocationName(std::string nombre) { locationName = nombre; }
 std::string const MapNode::getDescription() { return description; }
 void MapNode::setDescription(std::string des) { description = des; }
+Map* const MapNode::getMap() { return owner; }
+void MapNode::setMap(Map* m) { owner = m; }
 MapNode* const MapNode::getNorth() { return north; }
 void MapNode::setNorth(MapNode* n) { north = n; }
 MapNode* const MapNode::getWest() { return west; }
@@ -301,16 +342,40 @@ void MapNode::setNPCs(TalkingNPC* np1, TalkingNPC* np2, TalkingNPC* np3) {
 	npc3 = np3;
 }
 
-Map::Map(Player* p) {
-	// Set the player.
-	player = p;
+Map::Map(Player* p, StartMenu* sm)
+	: player(p), startMenu(sm) {
 
 	// The Ohio Turnpike
-	MapNode* tollgate = new MapNode("Tollgate Town", "A toll town is ahead.");
-	MapNode* buckeye = new MapNode("Buckeye Bend", "A sharp bend.");
-	MapNode* cuyahoga = new MapNode("Cuyahoga Cross", "Something descriptive.");
-	MapNode* jefferson = new MapNode("The Bridge of Jefferson", "Something else.");
-	MapNode* ctt = new MapNode("CTT - Ground Floor, Room 03", "A challenger approaches...");
+	MapNode* tollgate = new MapNode(
+		"Tollgate Town",
+		"A dusty way-station clustered around the interstate toll-booths.\n"
+		"Lanterns swing in the breeze and the air smells of diesel and kettle-corn.",
+		this
+	);
+	MapNode* buckeye = new MapNode(
+		"Buckeye Bend",
+		"The highway hooks into a tight horseshoe curve here.\n"
+		"Scarlet buckeye trees lean over the asphalt, their nuts rattling on the tarmac.",
+		this
+	);
+	MapNode* cuyahoga = new MapNode(
+		"Cuyahoga Cross",
+		"You reach an old covered bridge spanning the tea-colored Cuyahoga River.\n"
+		"Weather-beaten signposts point toward long-abandoned canal trails.",
+		this
+	);
+	MapNode* jefferson = new MapNode(
+		"The Bridge of Jefferson",
+		"A soaring steel truss bridge.\n"
+		"Plaques quoting Jefferson on free travel line the railings while the wind whistles through the cables.",
+		this
+	);
+	MapNode* ctt = new MapNode(
+		"CTT - Ground Floor, Room 03",
+		"Static lights emanate from the televisions amidst the shadows of the room.\n"
+		"Chairs and tables are scattered about and as the server racks hum, a single console blinks an ominous prompt.",
+		this
+	);
 
 	// Link the nodes.
 	tollgate->setEast(buckeye); buckeye->setWest(tollgate);
@@ -339,6 +404,10 @@ Map::Map(Player* p) {
 
 }
 
+Player* Map::getPlayer() { return player; }
+void Map::setPlayer(Player* p) { player = p; }
+StartMenu* Map::getStartMenu() { return startMenu; }
+void Map::setStartMenu(StartMenu* sm) { startMenu = sm; }
 MapNode* Map::getIndex() { return index; }
 void Map::setIndex(MapNode* node) { index = node; }
 MapNode* Map::getHead() { return head; }

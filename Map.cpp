@@ -178,16 +178,34 @@ void MapNode::execLocation(Player* p) {
 				)
 			); optionsSize++;
 		}
-		//// Add talkingNPCs to options.
-		//if (npc1) {
-		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc1->getName());
-		//}
-		//if (npc2) {
-		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc2->getName());
-		//}
-		//if (npc3) {
-		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc3->getName());
-		//}
+		// Add talkingNPCs to options.
+		if (npc1) {
+			TalkingNPC* npc = npc1;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName() + ".",
+					[npc] { npc->printDialogue(0); }
+				)
+			); optionsSize++;
+		}
+		if (npc2) {
+			TalkingNPC* npc = npc2;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName() + ".",
+					[npc] { npc->printDialogue(0); }
+				)
+			); optionsSize++;
+		}
+		if (npc3) {
+			TalkingNPC* npc = npc3;
+			options->pushBack(
+				new OptionNode(
+					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName() + ".",
+					[npc] { npc->printDialogue(0); }
+				)
+			); optionsSize++;
+		}
 
 		options->pushBack(
 			new OptionNode(
@@ -389,6 +407,7 @@ Map::Map(Player* p, StartMenu* sm)
 	// Create details for tollgate.
 	tollgate->setShop(generateShop());
 	tollgate->setShop(generateShop());
+	tollgate->setNPC(new Hermit);
 
 	// Create details for buckeye.
 	buckeye->setEnemy(new Roomba);

@@ -183,7 +183,7 @@ void MapNode::execLocation(Player* p) {
 			TalkingNPC* npc = npc1;
 			options->pushBack(
 				new OptionNode(
-					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName() + ".",
+					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName(),
 					[npc] { npc->printDialogue(0); }
 				)
 			); optionsSize++;
@@ -192,7 +192,7 @@ void MapNode::execLocation(Player* p) {
 			TalkingNPC* npc = npc2;
 			options->pushBack(
 				new OptionNode(
-					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName() + ".",
+					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName(),
 					[npc] { npc->printDialogue(0); }
 				)
 			); optionsSize++;
@@ -201,7 +201,7 @@ void MapNode::execLocation(Player* p) {
 			TalkingNPC* npc = npc3;
 			options->pushBack(
 				new OptionNode(
-					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName() + ".",
+					std::to_string(optionsSize + 1) + ". Chat with " + npc->getName(),
 					[npc] { npc->printDialogue(0); }
 				)
 			); optionsSize++;
@@ -414,6 +414,7 @@ Map::Map(Player* p, StartMenu* sm)
 
 	// Create details for cuyahoga.
 	cuyahoga->setEnemy(new ChineseSpyPigeon);
+	cuyahoga->setNPC(new Salesman);
 
 	// Create details for jefferson.
 	jefferson->setEnemy(new DannyDevito);

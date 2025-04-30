@@ -21,4 +21,9 @@ public:
     Hermit();
 };
 
+class Salesman : public TalkingNPC {
+public:
+    Salesman();
+};
+
 #endif

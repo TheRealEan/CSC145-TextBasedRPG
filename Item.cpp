@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "Player.h"
 
 // Define lists which can be iterated over to check the existence of items in inventories.
 std::vector<std::string> listOfWeapons{ "Longsword" };
@@ -28,11 +29,11 @@ static bool itemInitialized = initItems();
 Item::Item() : Item("Nameless", 1, 0) {}
 Item::Item(std::string nombre) : Item(nombre, 1, 0) {}
 Item::Item(std::string nombre, int amt) : Item(nombre, amt, 0) {}
-Item::Item(std::string nombre, int amt, int goldCost) : name{ nombre }, quantity{ amt }, cost{ goldCost } {}
+Item::Item(std::string nombre, int amt, int goldCost) : name{ nombre }, quantity{ amt }, cost{ goldCost }, equipped{false} {}
 
-Item* Item::create(std::string itemName) { return create(itemName, 1, 0); }
-Item* Item::create(std::string itemName, int amt) { return create(itemName, amt, 0); }
-Item* Item::create(std::string itemName, int amt, int goldCost) {
+Item* Item::create(std::string itemName) { return create(itemName, 1, 0, false); }
+Item* Item::create(std::string itemName, int amt) { return create(itemName, amt, 0, false); }
+Item* Item::create(std::string itemName, int amt, int goldCost, bool equipped) {
 	// The goldCost parameter is ignored if the item is a derived class.
 	// These have established gold costs in their constructors.
 	if (itemName == "Longsword") {
@@ -51,8 +52,12 @@ Item* Item::create(std::string itemName, int amt, int goldCost) {
 }
 
 std::string const Item::getName() { return name; }
+bool Item::getEquipped() { return equipped; }
 void Item::setName(std::string nombre) { name = nombre; }
 int const Item::getQuantity() { return quantity; }
+void Item::setEquipped(bool e) {
+	equipped = e;
+}
 void Item::setQuantity(int amt) {
 	if (amt < 0) quantity = 0;
 	else quantity = amt;
@@ -87,13 +92,14 @@ Slot Longsword::getSlot() const {
 	return Slot::LEFT_HAND;
 }
 void Longsword::equip(Character* target) {
-	// Add attack function to Character's attack list.
+	target->setStrength(50);
 	return;
 }
 void Longsword::unequip(Character* target) {
-	// Remove attack function from Character's attack list.
+	target->setStrength(65);
 	return;
 }
+
 //void Longsword::dealDamage(Character* target) {
 //	target->setHealth(target->getHealth() - roll(1, 8));
 //}
@@ -110,11 +116,11 @@ Slot Chainmail::getSlot() const {
 	return Slot::TORSO;
 }
 void Chainmail::equip(Character* target) {
-	//target->setArmor(target->getArmor() + 3);
+	target->setArmor(target->getArmor() + 35);
 	return;
 }
 void Chainmail::unequip(Character* target) {
-	//target->setArmor(target->getArmor() - 3);
+	target->setArmor(target->getArmor() - 35);
 	return;
 }
 
@@ -125,6 +131,6 @@ void Chainmail::unequip(Character* target) {
 SmallPotionOfHealing::SmallPotionOfHealing() : SmallPotionOfHealing(1) {}
 SmallPotionOfHealing::SmallPotionOfHealing(int amt) : Consumable("Small Potion of Healing", amt, 75) {}
 void SmallPotionOfHealing::consume(Character* target) {
-	// Add health.
+	target->setHealth(target->getHealth() + 30);
 	return;
 }

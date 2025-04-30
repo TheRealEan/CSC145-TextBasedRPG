@@ -1,4 +1,4 @@
-#include <conio.h> // Includes the _getch() function to retrieve keyboard input.
+﻿#include <conio.h> // Includes the _getch() function to retrieve keyboard input.
 #include <string>
 #include <tuple> // Includes std::ignore.
 #include <vector>
@@ -188,17 +188,42 @@ void MapNode::execLocation(Player* p) {
 		//if (npc3) {
 		//	options.push_back(std::to_string(options.size() + 1) + ". Chat with " + npc3->getName());
 		//}
+		
+		options->pushBack(
+			new OptionNode(
+				std::to_string(optionsSize + 1) + ". Show Map",
+				[this] {
+					menu->clear();
+					std::cout << "\nWorld Map:\n";
+					auto highlight = [&](const std::string& name) {
+						return (name == this->getLocationName())
+							? menu->yellow(name)
+							: name;
+						};
+					std::cout << "                       [" << highlight("Cuyahoga Cross") << "] <--> ["
+						<< highlight("The Bridge of Jefferson") << "] <--> ["
+						<< highlight("CTT - Ground Floor, Room 03") << "]\n";
+					std::cout << "                              ||\n";
+					std::cout << " [" << highlight("Tollgate Town") << "] <--> ["
+						<< highlight("Buckeye Bend") << "]\n\n";
+
+					std::cout << "Press enter to continue... ";
+					(void)_getch();
+				}
+			)
+		); optionsSize++;
+
 
 		options->pushBack(
 			new OptionNode(
 				std::to_string(optionsSize + 1) + ". Return to Start Menu",
-				[this] { 
+				[this] {
 					Map* m = this->getMap();
 					StartMenu* sm = m->getStartMenu();
 					sm->setLastLocation(this);
-					std::cout << std::endl;
-					std::cout << "Returning to Start Menu\n";
-					std::cout << "Press enter to continue... ";
+					std::cout << "\nReturning to Start Menu\nPress enter to continue... ";
+					(void)_getch();
+					throw 1;   
 				}
 			)
 		); optionsSize++;

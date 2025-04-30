@@ -31,39 +31,27 @@ void Character::setTarget(Character* newTarget) { target = newTarget; }
 
 int const Character::getHealth() { return health; }
 void Character::setHealth(int amt) {
-	if (amt > 100) health = 100;
-	else if (amt < 0) health = 0;
-	else health = amt;
+	health = amt;
 }
 int const Character::getStamina() { return stamina; }
 void Character::setStamina(int amt) {
-	if (amt > 100) stamina = 100;
-	else if (amt < 0) stamina = 0;
-	else stamina = amt;
+	stamina = amt;
 }
 int const Character::getMana() { return mana; }
 void Character::setMana(int amt) {
-	if (amt > 100) mana = 100;
-	else if (amt < 0) mana = 0;
-	else mana = amt;
+	mana = amt;
 }
 int const Character::getStrength() { return strength; }
 void Character::setStrength(int amt) {
-	if (amt > 20) strength = 20;
-	else if (amt < 0) strength = 0;
-	else strength = amt;
+	strength = amt;
 }
 int const Character::getDexterity() { return dexterity; }
 void Character::setDexterity(int amt) {
-	if (amt > 20) dexterity = 20;
-	else if (amt < 0) dexterity = 0;
-	else dexterity = amt;
+	dexterity = amt;
 }
 int const Character::getArmor() { return armor; }
 void Character::setArmor(int amt) {
-	if (amt > 20) armor = 20;
-	else if (amt < 0) armor = 0;
-	else armor = amt;
+	armor = amt;
 }
 int const Character::getGold() { return gold; }
 void Character::setGold(int amt) {

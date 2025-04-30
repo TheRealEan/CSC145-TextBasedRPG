@@ -99,7 +99,6 @@ StartMenu::StartMenu() {
 }
 
 void StartMenu::newGame() {
-	
 	PlayerSelectMenu playerMenu; // Have the user select a player.
 	if (playerMenu.getSelectedPlayer()) {
 		player = playerMenu.getSelectedPlayer();
@@ -108,10 +107,14 @@ void StartMenu::newGame() {
 		return;
 	}
 
-	// Initialize the Ohio map and start the player there.
 	Map* ohio = new Map(player, this);
-	ohio->getIndex()->execLocation(player);
+	try {
+		ohio->getIndex()->execLocation(player);
+	}
+	catch (int) {
+	}
 }
+
 
 void StartMenu::continueGame() {
 	if (player) {
@@ -527,23 +530,23 @@ int MainMenu::quitGame() {
 }
 
 BattleMenu::BattleMenu(Player* p)
-	: BattleMenu(p, generateEnemy()) {}
+	: BattleMenu(p, generateEnemy()) {
+}
 
 BattleMenu::BattleMenu(Player* p, Enemy* e) {
-	// Initialize the player variable.
 	player = p;
-	// Initialize the enemy varaiable.
 	enemy = e;
 	int e_health = e->getHealth();
 	int r;
-	int choice{ KEY_UP };
-	// The highlighted yellow text, when Enter key is pressed this option is selected.
+	int choice;
 	int index{ 1 };
-	while (choice != KEY_SIX || enemy->getHealth() > 0){
-		backgroundPlay("battle.wav");
+	backgroundPlay("battle.wav");
+
+	while (true) {
 		clear();
 		player->setTarget(e);
 		enemy->setTarget(player);
+
 		std::cout << "Battling " << enemy->getName() << "!\n\n";
 		std::cout << player->getName() << "'s Health: " << player->getHealth() << ".\n"
 			<< player->getName() << "'s Stamina: " << player->getStamina() << ".\n"
@@ -565,21 +568,20 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 		}
 		std::cout << std::endl;
 
-		choice = _getch(); // Take input from the keyboard.
+		choice = _getch();
+		if (choice == 224) choice = _getch();
 
-		const int INDEX_MAX = 6;
+		const int INDEX_MAX = 7;
 		switch (choice) {
 		case KEY_UP:
 			if (index != 1) index--;
 			else index = INDEX_MAX;
-			break;
+			continue;
 		case KEY_DOWN:
 			if (index != INDEX_MAX) index++;
 			else index = 1;
-			break;
+			continue;
 		case KEY_ENTER:
-			// When the enter key is pressed we don't break out of the case.
-			// Using the index we reassign the choice to the appropriate key sequence.
 			switch (index) {
 			case 1: choice = KEY_ONE; break;
 			case 2: choice = KEY_TWO; break;
@@ -588,7 +590,11 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 			case 5: choice = KEY_FIVE; break;
 			case 6: choice = KEY_SIX; break;
 			case 7: choice = KEY_SEVEN; break;
+			default: continue;
 			}
+			break;
+		default:
+			continue;
 		}
 
 		switch (choice) {
@@ -616,23 +622,18 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 		case KEY_SEVEN:
 			flee();
 			std::ignore = _getch();
-			break;
+			return;
 		default:
 			break;
 		}
-		if (enemy->getHealth() > (.3*e_health)) {
+
+		if (enemy->getHealth() > (.3 * e_health)) {
 			r = rand() % 3 + 1;
 			if (enemy->getStrength() > enemy->getMana() || enemy->getDexterity()) {
 				enemy->meleeAttack();
-				if (r == 1) {
-					backgroundPlay("attack3.wav");
-				}
-				if (r == 2) {
-					backgroundPlay("attack2.wav");
-				}
-				else {
-					backgroundPlay("attack1.wav");
-				}	
+				if (r == 1) backgroundPlay("attack3.wav");
+				else if (r == 2) backgroundPlay("attack2.wav");
+				else backgroundPlay("attack1.wav");
 			}
 			else if (enemy->getMana() > enemy->getStrength() || enemy->getDexterity()) {
 				enemy->spellAttack();
@@ -641,44 +642,39 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 				enemy->rangedAttack();
 			}
 			else {
-				if (r == 1) {
-					enemy->meleeAttack();
-				}
-				else if (r == 1) {
-					enemy->spellAttack();
-				}
-				else if (r == 1) {
-					enemy->rangedAttack();
-				}
+				if (r == 1) enemy->meleeAttack();
+				else if (r == 2) enemy->spellAttack();
+				else enemy->rangedAttack();
 			}
 			Sleep(1000);
+			backgroundPlay("battle.wav");
+
 		}
 		if (enemy->getHealth() <= 0) {
 			backgroundPlay("victory.wav");
-			cout << "You've defeated " << enemy->getName() << "!!!!\n";
+			std::cout << "You've defeated " << enemy->getName() << "!!!!\n\n";
 			Sleep(1000);
-			PlaySound(nullptr, nullptr, SND_ASYNC);			
-			player->setGold(enemy->getGold());
+			PlaySound(nullptr, nullptr, SND_ASYNC);
+			player->setGold(player->getGold() + enemy->getGold());
 			player->setExperience((enemy->getGold() / 2));
 			player->checkLevelUp();
-			std::cout << "Press enter to continue... \n";
+			std::cout << "\nPress enter to continue... \n";
 			backgroundPlay("theme.wav");
 			std::ignore = _getch();
-			break;
+			return;
 		}
-		if (player->getHealth() <= 0) {
+		else if (player->getHealth() <= 0) {
 			backgroundPlay("defeat.wav");
-			cout << "You've been defeated.....\n";
+			std::cout << "You've been defeated.....\n";
 			Sleep(1000);
 			backgroundPlay("theme.wav");
 			std::cout << "Press enter to continue... \n";
 			player->setHealth(player->getBaseHealth());
 			player->setGold(player->getGold() - enemy->getGold());
 			std::ignore = _getch();
-			break;
-		
+			return;
 		}
-	} 
+	}
 }
 
 void BattleMenu::attacks() {
@@ -722,14 +718,15 @@ void BattleMenu::attacks() {
 void BattleMenu::magic() {
 	int r = rand() % 2 + 1;
 	if (r == 1) {
-		backgroundPlay("mAttack1.wav");
+		PlaySound(TEXT("mAttack1.wav.wav"), nullptr, SND_FILENAME | SND_ASYNC);
 		player->spellAttack();
 	}
 	else {
-		backgroundPlay("mAttack2.wav");
+		PlaySound(TEXT("mAttack2.wav.wav"), nullptr, SND_FILENAME | SND_ASYNC);
 		player->spellAttack();
 	}
 	std::cout << "Press enter to continue... \n";
+	std::ignore = _getch();
 }
 
 void BattleMenu::block() {
@@ -841,10 +838,79 @@ void InventoryMenu::manageInventory() {
 }
 
 void InventoryMenu::viewInventory() {
-	clear();
-	player->getInventory()->printInventory();
-	std::cout << "Press enter to continue... ";
-}
+	LinkedList<Item*> list = player->getInventory()->getItems();
+	std::vector<Item*> items;
+	for (Node<Item*>* cur = list.getHead(); cur; cur = cur->nextNode)
+		items.push_back(cur->data);
+
+	if (items.empty()) {
+		clear();
+		std::cout << "\n--- Inventory is empty ---\n";
+		std::cout << "Press enter to continue... ";
+		_getch();
+		return;
+	}
+	int index = 0;
+	int ch;
+	do {
+		clear();
+		std::cout << "\n--- Inventory ---\n";
+		for (int i = 0; i < (int)items.size(); ++i) {
+			std::string label = items[i]->getName() + " (x" + std::to_string(items[i]->getQuantity()) + ")";
+			if (i == index)
+				std::cout << yellow(label) << "\n";
+			else
+				std::cout << " " << label << "\n";
+		}
+		std::cout << "\nUse  arrows keys to move up and down, Enter to consume/equip, and Esc to back out.\n";
+
+		ch = _getch();
+		if (ch == KEY_UP) {
+			index = (index - 1 + items.size()) % items.size();
+		}
+		else if (ch == KEY_DOWN) {
+			index = (index + 1) % items.size();
+		}
+		if (ch == KEY_ENTER) {
+			Item* item1 = items[index];
+
+			if (ch == KEY_ENTER) {
+				Item* item1 = items[index];
+
+				if (auto eqItem = dynamic_cast<Equippable*>(item1)) {
+					if (!item1->getEquipped()) {
+						eqItem->equip(player);
+						item1->setEquipped(true);
+						std::cout << "\nEquipped " << item1->getName() << "!\n";
+					}
+					else {
+						eqItem->unequip(player);
+						item1->setEquipped(false);
+						std::cout << "\nUnequipped " << item1->getName() << "!\n";
+					}
+					player->displayStats();
+				}
+				else if (auto co = dynamic_cast<Consumable*>(item1)) {
+					co->consume(player);
+					player->getInventory()->removeItem(item1);
+					std::cout << "\nConsumed " << item1->getName() << "!\n";
+				}
+				else {
+					std::cout << "\nCannot use " << item1->getName() << ".\n";
+				}
+
+				std::cout << "\nPress any key to continue (or Esc to exit)...";
+				int c = _getch();
+				if (c == 27)  // Esc
+					break;
+				else
+					continue;
+			}
+		}
+	} while (ch != 27);
+} 
+
+
 
 void InventoryMenu::addItem() {
 	std::cout << std::endl;

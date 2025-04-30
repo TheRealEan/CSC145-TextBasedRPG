@@ -28,14 +28,14 @@ public:
 	Item(std::string nombre);
 	Item(std::string nombre, int amt);
 	Item(std::string nombre, int amt, int goldCost);
-	~Item() = default;
+	virtual ~Item() = default;
 
 	// Creates items, matching item names to their correct derived class where applicable.
 	// Update the primary create() function when addeing new items.
 	// REPLACES making "new Item(parameters)"; these do not create derived classes.
 	static Item* create(std::string itemName);
 	static Item* create(std::string itemName, int quantity);
-	static Item* create(std::string itemName, int quantity, int goldCost);
+	static Item* create(std::string itemName, int quantity, int goldCost, bool equipped);
 
 	std::string const getName();
 	void setName(std::string nombre);
@@ -43,12 +43,16 @@ public:
 	void setQuantity(int amt);
 	int const getCost();
 	void setCost(int amt);
+	bool getEquipped();
+	void setEquipped(bool e);
+
 
 
 protected:
 	std::string name;
 	int quantity;
 	int cost;
+	bool equipped = false;
 };
 
 class Equippable : public Item {

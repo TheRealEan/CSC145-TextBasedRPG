@@ -33,7 +33,7 @@ int Player::getBaseHealth() {
 	if (cClass == "Rogue") {
 		return health = 30 + (2 * (level - 1));
 	}
-	if (cClass == "Warrior") {
+	if (cClass == "Mage") {
 		return health = 25 + (5 * (level - 1));
 	}
 }
@@ -74,7 +74,7 @@ void Player::checkLevelUp() {
 			}
 			displayStats();
 			exp -= (5 * level);
-			std::cout << "Press enter to continue... \n";
+			std::cout << "\nPress enter to continue... \n\n";
 			std::ignore = _getch();
 		}
 

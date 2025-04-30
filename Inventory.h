@@ -32,6 +32,7 @@ public:
 	Item* const findItem(std::string itemName);
 	void addItem(std::string itemName);
 	void addItem(std::string itemName, int amt);
+	void addItem(std::string itemName, int amt, int goldCost);
 	void removeItem(std::string itemName);
 	void removeItem(std::string itemName, int amt);
 

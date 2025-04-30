@@ -102,7 +102,7 @@ void Character::meleeAttack() {
 	}
 	target->setBlock(false);
 
-	cout << name << " hits " << target->getName() << " for " << damage << " damage!!\n";
+	cout << "\033[32m" << name << " \033[0m" << "hits " << "\033[31m" << target->getName() << "\033[31m" << "for " << damage << " damage!!\n";
 }
 
 void Character::rangedAttack() {
@@ -118,7 +118,7 @@ void Character::rangedAttack() {
 	}
 	target->setBlock(false);
 
-	cout << name << " hits " << target->getName() << " for " << damage << " damage!!\n";
+	cout << "\033[32m" << name << " \033[0m" << "hits " << "\033[31m" << target->getName() << " \033[0m" << "for " << damage << " damage!!\n";
 }
 
 
@@ -134,7 +134,7 @@ void  Character::spellAttack() {
 	target->setHealth(target->getHealth() - damage);
 	}
 	target->setBlock(false);
-	cout << name << " hits " << target->getName() << " for " << damage << " damage!!\n";
+	cout << "\033[32m" << name << " \033[0m" << "hits " << "\033[31m" << target->getName() << " \033[0m" << "for " << damage << " damage!!\n";
 }
 
 void Character::setBlock(bool a) {

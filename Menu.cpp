@@ -15,6 +15,8 @@
 #include "Player.h"
 #include "Shop.h"
 #include "TalkingNPC.h"
+#include <cstdlib>
+
 
 /**********************************************
 ******************* Menu **********************
@@ -48,8 +50,7 @@ StartMenu::StartMenu() {
 	int index{ 1 };
 	do {
 		clear();
-		std::cout << "The Video Game\n";
-
+		std::cout << yellow("The Video Game") << "\n";
 		std::vector<std::string> options = {
 			"1. Start New Game",
 			"2. Continue Game",
@@ -225,7 +226,7 @@ Player* PlayerSelectMenu::getSelectedPlayer() { return selectedPlayer; }
 void PlayerSelectMenu::setSelectedPlayer(Player* play) { selectedPlayer = play; }
 
 void PlayerSelectMenu::playWarrior() {
-	std::cout << std::endl;
+	std::system("cls");
 	std::cout << "Choosing warrior!\n";
 	std::string name;
 	std::cout << "What name should this warrior bear?\n";
@@ -235,14 +236,14 @@ void PlayerSelectMenu::playWarrior() {
 	Player* warrior = new Player(name, "Warrior", 50, 30, 0, 25, 30, 20, 30, 0, 1);
 	setSelectedPlayer(warrior);
 
-	std::cout << std::endl;
+	std::system("cls");
 	std::cout << getSelectedPlayer()->getName() << " is now a Warrior!\n";
 	soundEffect("levelUp.wav");
 	std::cout << "Press enter to continue... ";
 }
 
 void PlayerSelectMenu::playRogue() {
-	std::cout << std::endl;
+	std::system("cls");
 	std::cout << "Choosing rogue!\n";
 	std::string name;
 	std::cout << "What name should this rogue bear?\n";
@@ -252,14 +253,14 @@ void PlayerSelectMenu::playRogue() {
 	Player* rogue = new Player(name, "Rogue", 30, 60, 10, 15, 5, 5, 125, 0, 1);
 	setSelectedPlayer(rogue);
 
-	std::cout << std::endl;
+	std::system("cls");
 	std::cout << getSelectedPlayer()->getName() << " is now a Rogue!\n";
 	soundEffect("levelUp.wav");
 	std::cout << "Press enter to continue... ";
 }
 
 void PlayerSelectMenu::playMage() {
-	std::cout << std::endl;
+	std::system("cls");
 	std::cout << "Choosing mage!\n";
 	std::string name;
 	std::cout << "What name should this mage bear?\n";
@@ -269,7 +270,7 @@ void PlayerSelectMenu::playMage() {
 	Player* mage = new Player(name, "Mage", 25, 15, 60, 20, 15, 10, 75, 0 ,1);
 	setSelectedPlayer(mage);
 
-	std::cout << std::endl;
+	std::system("cls");
 	std::cout << getSelectedPlayer()->getName() << " is now a Mage!\n";
 	soundEffect("levelUp.wav");
 	std::cout << "Press enter to continue... ";
@@ -291,7 +292,7 @@ MainMenu::MainMenu(Player* p) : Menu() {
 	player = p;
 
 	backgroundPlay("theme.wav"); 
-	std::cout << "The Video Game Main Menu\n";
+	std::cout << yellow("The Video Game Main Menu") << "\n";
 	int choice{ KEY_UP };
 	// The highlighted yellow text, when Enter key is pressed this option is selected.
 	int index{ 1 };
@@ -540,27 +541,32 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 	int r;
 	int choice;
 	int index{ 1 };
-	backgroundPlay("battle.wav");
+	if (enemy->getName() != "Tyler Brown") {
+		backgroundPlay("battle.wav");
+	}
+	else {
+		backgroundPlay("boss.wav");
+	}
 
 	while (true) {
 		clear();
 		player->setTarget(e);
 		enemy->setTarget(player);
 
-		std::cout << "Battling " << enemy->getName() << "!\n\n";
-		std::cout << player->getName() << "'s Health: " << player->getHealth() << ".\n"
-			<< player->getName() << "'s Stamina: " << player->getStamina() << ".\n"
-			<< player->getName() << "'s Mana: " << player->getMana() << ".\n";
-		std::cout << enemy->getName() << "'s Health: " << enemy->getHealth() << "\n\n";
+		std::cout << "Battling \033[31m" << enemy->getName() << "\033[0m!\n\n";
+		std::cout << "\033[32m" << player->getName() << "\033[0m"
+			<< "'s Health: " << "\033[34m" << player->getHealth() << "\033[0m" << ".\n"
+			<< "\033[32m" << player->getName() << "\033[0m"
+			<< "'s Stamina: " << "\033[34m" << player->getStamina() << "\033[0m" << ".\n"
+			<< "\033[32m" << player->getName() << "\033[0m"
+			<< "'s Mana: " << "\033[34m" << player->getMana() << "\033[0m" << ".\n";
+		std::cout << "\033[31m" << enemy->getName() << "\033[0m" << "'s Health: " << "\033[34m" << enemy->getHealth() << "\033[0m" << "\n\n";
 
 		std::vector<std::string> options = {
 			"1. Attack",
 			"2. Magic",
 			"3. Defend",
-			"4. Display Stats",
-			"5. Inventory",
-			"6. Chat",
-			"7. Flee"
+			"4. Flee"
 		};
 		options[index - 1] = yellow(options[index - 1]);
 		for (int i = 0; i < options.size(); i++) {
@@ -571,7 +577,7 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 		choice = _getch();
 		if (choice == 224) choice = _getch();
 
-		const int INDEX_MAX = 7;
+		const int INDEX_MAX = 4;
 		switch (choice) {
 		case KEY_UP:
 			if (index != 1) index--;
@@ -587,9 +593,6 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 			case 2: choice = KEY_TWO; break;
 			case 3: choice = KEY_THREE; break;
 			case 4: choice = KEY_FOUR; break;
-			case 5: choice = KEY_FIVE; break;
-			case 6: choice = KEY_SIX; break;
-			case 7: choice = KEY_SEVEN; break;
 			default: continue;
 			}
 			break;
@@ -608,20 +611,9 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 			block();
 			break;
 		case KEY_FOUR:
-			displayStats();
-			std::ignore = _getch();
-			break;
-		case KEY_FIVE:
-			inventory();
-			std::ignore = _getch();
-			break;
-		case KEY_SIX:
-			chat();
-			std::ignore = _getch();
-			break;
-		case KEY_SEVEN:
 			flee();
 			std::ignore = _getch();
+			backgroundPlay("theme.wav");
 			return;
 		default:
 			break;
@@ -631,9 +623,11 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 			r = rand() % 3 + 1;
 			if (enemy->getStrength() > enemy->getMana() || enemy->getDexterity()) {
 				enemy->meleeAttack();
-				if (r == 1) backgroundPlay("attack3.wav");
-				else if (r == 2) backgroundPlay("attack2.wav");
-				else backgroundPlay("attack1.wav");
+				if(enemy->getName() != "Tyler Brown") {
+					if (r == 1) backgroundPlay("attack3.wav");
+					else if (r == 2) backgroundPlay("attack2.wav");
+					else backgroundPlay("attack1.wav");
+				}
 			}
 			else if (enemy->getMana() > enemy->getStrength() || enemy->getDexterity()) {
 				enemy->spellAttack();
@@ -647,18 +641,79 @@ BattleMenu::BattleMenu(Player* p, Enemy* e) {
 				else enemy->rangedAttack();
 			}
 			Sleep(1000);
-			backgroundPlay("battle.wav");
+			if (enemy->getName() != "Tyler Brown") {
+				PlaySound(NULL, NULL, 0);
+			}
+			std::cout << "\nPress enter to continue... \n";
+			std::ignore = _getch();
+			if (enemy->getName() != "Tyler Brown") {
+				backgroundPlay("battle.wav");
+			}
 
 		}
 		if (enemy->getHealth() <= 0) {
+			std::system("cls");
 			backgroundPlay("victory.wav");
-			std::cout << "You've defeated " << enemy->getName() << "!!!!\n\n";
-			Sleep(1000);
+			std::cout << "You've defeated " "\033[31m" << enemy->getName() << "\033[0m!!!!\n\n";
+			Sleep(1500);
 			PlaySound(nullptr, nullptr, SND_ASYNC);
+			std::cout << "\nPress enter to continue... \n";
+			std::ignore = _getch();			
 			player->setGold(player->getGold() + enemy->getGold());
 			player->setExperience((enemy->getGold() / 2));
 			player->checkLevelUp();
-			std::cout << "\nPress enter to continue... \n";
+			std::system("cls");
+			if (enemy->getName() == "Roomba") {
+				int r = rand() % 3 + 1;
+				if (r == 1 || r==3) {
+					player->getInventory()->addItem("Mechanical Part", 3, 15);
+					cout << "\033[31m" << enemy->getName() << "\033[0m" << " just dropped \033[34m3\033[0m Mechanical parts!!\n\n";
+					soundEffect("coinGain.wav");
+				}
+				if (r == 2) {
+					player->getInventory()->addItem("Glowing eye", 1, 50);
+					cout << "\033[31m" << enemy->getName() << "\033[0m" << " just dropped \033[34m1\033[0m Glowing Eye!!\n\n";
+					soundEffect("coinGain.wav");
+
+				}
+
+			}
+			if (enemy->getName() == "Chinese Spy Pigeon") {
+				int r = rand() % 3 + 1;
+				if (r == 1 || r == 3) {
+					player->getInventory()->addItem("Mechanical Part", 3, 40);
+					cout << "\033[31m" << enemy->getName() << "\033[0m" << " just dropped 3 feathers!!\n\n";
+				}
+				if (r == 2) {
+					player->getInventory()->addItem("Camera", 1, 250);
+					cout << "\033[31m" << enemy->getName() << "\033[0m" << " just dropped a Camera!!\n\n";
+
+				}
+
+			}
+			if (enemy->getName() == "Danny Devito") {
+				int r = rand() % 3 + 1;
+				if (r == 1 || r == 3) {
+					player->getInventory()->addItem("Mechanical Part", 2, 200);
+					cout << "\033[31m" << enemy->getName() << "\033[0m" << " just dropped 3 blasters!!\n\n";
+				}
+				if (r == 2) {
+					player->getInventory()->addItem("Glowing eye", 1, 500);
+					cout << "\033[31m" << enemy->getName() << "\033[0m" << " just dropped a Penguin!!\n\n";
+
+				}
+
+			}
+			if (enemy->getName() == "Tyler Brown") {
+				player->getInventory()->addItem("3rd Extension Request", 3, 15);
+				cout << enemy->getName() << " just dropped a 3rd Extesion Request!! USE IT BEFORE IT'S TOO LATE!!!!!\n\n";
+				cout << "Congrats you just beat the game which means you're able to now use A THIRD EXTENSION ON WHATEVER YOU DESIRE.... or can you???\n\n";
+				std::cout << "\nPress enter to finish game\n";
+				std::ignore = _getch();
+				std::exit(EXIT_SUCCESS);
+			}
+			std::cout << "\nPress enter to continue... \n\n";
+			std::ignore = _getch();
 			backgroundPlay("theme.wav");
 			std::ignore = _getch();
 			return;
@@ -685,48 +740,100 @@ void BattleMenu::attacks() {
 	if (choice == "2")
 	{
 		if (r == 1) {
+			if(enemy->getName()!="Tyler Brown") {
 			backgroundPlay("attack1.wav");
-			player->rangedAttack();
+			}
 		}
-		if (r == 2) {
-			backgroundPlay("attack2.wav");
-			player->rangedAttack();
+		else if (r == 2) {
+			if (enemy->getName() != "Tyler Brown") {
+				backgroundPlay("attack2.wav");
+			}
 		}
 		else {
-			backgroundPlay("attack3.wav");
-		}	player->rangedAttack();
+			if (enemy->getName() != "Tyler Brown") {
+				backgroundPlay("attack3.wav");
+			}
+		}
 		Sleep(1000);
+		if (enemy->getName() != "Tyler Brown") {
+			PlaySound(NULL, NULL, 0);
+		}
+		player->rangedAttack();
+		std::cout << "Press enter to continue... \n";
+		std::ignore = _getch();
+		int stamina = player->getStamina();
+		int chance = std::min(stamina, 100);
+		int roll = rand() % 100;
+		if (roll < chance) {
+			std::cout << "\nDouble Attack!\n";
+				player->rangedAttack();
+				std::cout << "Press enter to continue... \n";
+				std::ignore = _getch();
+		}
 
 	}
 	else {
 		if (r == 1) {
-			backgroundPlay("attack1.wav");
-			player->meleeAttack();
+			if (enemy->getName() != "Tyler Brown") {
+				backgroundPlay("attack1.wav");
+			}
 		}
-		if (r == 2) {
-			backgroundPlay("attack2.wav");
-			player->meleeAttack();
+		else if (r == 2) {
+			if (enemy->getName() != "Tyler Brown") {
+				backgroundPlay("attack2.wav");
+			}
 		}
 		else {
-			backgroundPlay("attack3.wav");
-		}	player->meleeAttack();
+			if (enemy->getName() != "Tyler Brown") {
+				backgroundPlay("attack3.wav");
+			}
+		}
 		Sleep(1000);
+		if (enemy->getName() != "Tyler Brown") {
+			PlaySound(NULL, NULL, 0);
+		}
+		player->meleeAttack();
+		std::cout << "Press enter to continue... \n\n";
+		std::ignore = _getch();
+		int stamina = player->getStamina();
+		int chance = std::min(stamina, 100);
+		int roll = rand() % 100;
+		if (roll < chance) {
+			std::cout << "\nDouble Attack!\n";
+			player->meleeAttack();
+			std::cout << "Press enter to continue... \n";
+			std::ignore = _getch();
+		}
 	}
+	if (enemy->getName() != "Tyler Brown") {
+		backgroundPlay("battle.wav");
+	}
+
 	
 }
 
 void BattleMenu::magic() {
 	int r = rand() % 2 + 1;
 	if (r == 1) {
-		PlaySound(TEXT("mAttack1.wav.wav"), nullptr, SND_FILENAME | SND_ASYNC);
-		player->spellAttack();
+		if (enemy->getName() != "Tyler Brown") {
+			backgroundPlay("mAttack1.wav");
+		}
 	}
 	else {
-		PlaySound(TEXT("mAttack2.wav.wav"), nullptr, SND_FILENAME | SND_ASYNC);
-		player->spellAttack();
+		if (enemy->getName() != "Tyler Brown") {
+			backgroundPlay("mAttack2.wav");
+		}
 	}
-	std::cout << "Press enter to continue... \n";
+	Sleep(1000);
+	if (enemy->getName() != "Tyler Brown") {
+		PlaySound(NULL, NULL, 0);
+	}
+	player->spellAttack();
+	std::cout << "Press enter to continue... \n\n";
 	std::ignore = _getch();
+	if (enemy->getName() != "Tyler Brown") {
+		backgroundPlay("battle.wav");
+	}
 }
 
 void BattleMenu::block() {
@@ -736,7 +843,7 @@ void BattleMenu::block() {
 
 void BattleMenu::displayStats() {
 	player->displayStats();
-	std::cout << "\nPress enter to continue... \n";
+	std::cout << "\nPress enter to continue... \n\n";
 }
 
 void BattleMenu::inventory() {
@@ -755,35 +862,34 @@ void BattleMenu::chat() {
 
 void BattleMenu::flee() {
 	std::cout << "Fleeing...\n";
+	backgroundPlay("run.wav");
 	std::cout << "\nPress enter to continue... \n";
 }
 
 InventoryMenu::InventoryMenu(Player* p) {
-	// Initialize the player variable.
+	backgroundPlay("inventory.wav");
 	player = p;
 
 	int choice{ KEY_UP };
-	// The highlighted yellow text, when Enter key is pressed this option is selected.
 	int index{ 1 };
 	do {
 		clear();
 		std::cout << "Inventory Menu\n";
 
 		std::vector<std::string> options = {
-			"1. Manage Inventory",
-			"2. View Inventory",
-			"3. Add Item",
-			"4. Remove Item",
-			"5. Exit"
+			"1. View Inventory",
+			"2. Add Item",
+			"3. Remove Item",
+			"4. Exit"
 		};
 		options[index - 1] = yellow(options[index - 1]);
 		for (int i = 0; i < options.size(); i++) {
 			std::cout << options[i] << "\n";
 		}
 
-		choice = _getch(); // Take input from the keyboard.
+		choice = _getch();
 
-		const int INDEX_MAX = 5;
+		const int INDEX_MAX = 4;
 		switch (choice) {
 		case KEY_UP:
 			if (index != 1) index--;
@@ -794,43 +900,39 @@ InventoryMenu::InventoryMenu(Player* p) {
 			else index = 1;
 			break;
 		case KEY_ENTER:
-			// When the enter key is pressed we don't break out of the case.
-			// Using the index we reassign the choice to the appropriate key sequence.
 			switch (index) {
-			case 1: choice = KEY_ONE; break;
-			case 2: choice = KEY_TWO; break;
-			case 3: choice = KEY_THREE; break;
-			case 4: choice = KEY_FOUR; break;
-			case 5: choice = KEY_FIVE; break;
-			case 6: choice = KEY_SIX; break;
+			case 1: choice = KEY_ONE;   break;
+			case 2: choice = KEY_TWO;   break; 
+			case 3: choice = KEY_THREE; break; 
+			case 4: choice = KEY_FOUR;  break; 
 			}
-		}
-
-		switch (choice) {
-		case KEY_ONE:
-			manageInventory();
-			std::ignore = _getch(); // Wait for keypress before redrawing.
-			break;
-		case KEY_TWO:
-			viewInventory();
-			std::ignore = _getch();
-			break;
-		case KEY_THREE:
-			addItem();
-			std::ignore = _getch();
-			break;
-		case KEY_FOUR:
-			removeItem();
-			std::ignore = _getch();
-			break;
-		case KEY_FIVE:
-			exit();
-			std::ignore = _getch();
 			break;
 		default:
 			break;
 		}
-	} while (choice != KEY_FIVE);
+
+		switch (choice) {
+		case KEY_ONE:
+			viewInventory();
+			std::ignore = _getch();
+			break;
+		case KEY_TWO:
+			addItem();
+			std::ignore = _getch();
+			break;
+		case KEY_THREE:
+			removeItem();
+			std::ignore = _getch();
+			break;
+		case KEY_FOUR:
+			exit();
+			std::ignore = _getch();
+			backgroundPlay("theme.wav");
+			break;
+		default:
+			break;
+		}
+	} while (choice != KEY_FOUR);
 }
 
 void InventoryMenu::manageInventory() {
@@ -979,6 +1081,7 @@ ShopMenu::ShopMenu(Player* p)
 	: ShopMenu(p, generateShop()) {}
 
 ShopMenu::ShopMenu(Player* p, Shop* s) {
+	backgroundPlay("shop.wav");
 	// Initialize the player variable.
 	player = p;
 	// Initialize the shop variable.
@@ -989,14 +1092,12 @@ ShopMenu::ShopMenu(Player* p, Shop* s) {
 	int index{ 1 };
 	do {
 		clear();
-		std::cout << "Shop Menu\n";
-
+		std::cout << yellow("Shop Menu") << "\n";
 		std::vector<std::string> options = {
 			"1. Browse Wares",
 			"2. Buy an Item",
 			"3. Sell an Item",
-			"4. Chat with Shopkeeper",
-			"5. Exit"
+			"4. Exit"
 		};
 		options[index - 1] = yellow(options[index - 1]);
 		for (int i = 0; i < options.size(); i++) {
@@ -1005,7 +1106,7 @@ ShopMenu::ShopMenu(Player* p, Shop* s) {
 
 		choice = _getch(); // Take input from the keyboard.
 
-		const int INDEX_MAX = 5;
+		const int INDEX_MAX = 4;
 		switch (choice) {
 		case KEY_UP:
 			if (index != 1) index--;
@@ -1023,7 +1124,6 @@ ShopMenu::ShopMenu(Player* p, Shop* s) {
 			case 2: choice = KEY_TWO; break;
 			case 3: choice = KEY_THREE; break;
 			case 4: choice = KEY_FOUR; break;
-			case 5: choice = KEY_FIVE; break;
 			}
 		}
 
@@ -1041,17 +1141,16 @@ ShopMenu::ShopMenu(Player* p, Shop* s) {
 			std::ignore = _getch();
 			break;
 		case KEY_FOUR:
-			chat();
-			std::ignore = _getch();
-			break;
-		case KEY_FIVE:
 			exit();
 			std::ignore = _getch();
+			backgroundPlay("theme.wav");
 			break;
 		default:
 			break;
 		}
-	} while (choice != KEY_FIVE);
+	} while (choice != KEY_FOUR);
+
+
 }
 
 void ShopMenu::browse() {

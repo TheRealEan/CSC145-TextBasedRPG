@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Player.h"
 #include <conio.h>
+#include "utilities/Music.h"
 
 Player::Player() : Player("Nameless", "", 100, 100, 100, 20, 20, 20, 0, 0, 1) {}
 Player::Player(std::string nombre) : Player(nombre, "", 100, 100, 100, 20, 20, 20, 0, 0, 1) {}
@@ -48,6 +49,8 @@ void Player::checkLevelUp() {
 		}
 		else {
 			level++;
+			std::system("cls");
+			soundEffect("levelUp2.wav");
 			cout << "Congrats! You're now level: " << level << "!\n";
 			if (cClass == "Warrior") {
 				health += 15;
@@ -74,6 +77,7 @@ void Player::checkLevelUp() {
 			}
 			displayStats();
 			exp -= (5 * level);
+
 			std::cout << "\nPress enter to continue... \n\n";
 			std::ignore = _getch();
 		}
@@ -85,15 +89,15 @@ string Player::getClass() { return cClass; };
 
 void Player::displayStats() {
 	std::cout
-		<< "Character: " << getName() << "\n"
-		<< "Health: " << getHealth() << "\n"
-		<< "Stamina: " << getStamina() << "\n"
-		<< "Mana: " << getMana() << "\n"
-		<< "Strength: " << getStrength() << "\n"
-		<< "Dexterity: " << getDexterity() << "\n"
-		<< "Armor: " << getArmor() << "\n"
-		<< "Gold: " << getGold() << "\n"
-		<< "Level: " << getLevel() << "\n"
-		<< "Experience: " << getExperience() << "\n"
-		<< "Class: " << getClass() << "\n";
+		<< "Character: " << "\033[34m" << getName() << "\033[0m\n"
+		<< "Health: " << "\033[34m" << getHealth() << "\033[0m\n"
+		<< "Stamina: " << "\033[34m" << getStamina() << "\033[0m\n"
+		<< "Mana: " << "\033[34m" << getMana() << "\033[0m\n"
+		<< "Strength: " << "\033[34m" << getStrength() << "\033[0m\n"
+		<< "Dexterity: " << "\033[34m" << getDexterity() << "\033[0m\n"
+		<< "Armor: " << "\033[34m" << getArmor() << "\033[0m\n"
+		<< "Gold: " << "\033[34m" << getGold() << "\033[0m\n"
+		<< "Level: " << "\033[34m" << getLevel() << "\033[0m\n"
+		<< "Experience: " << "\033[34m" << getExperience() << "\033[0m\n"
+		<< "Class: " << "\033[34m" << getClass() << "\033[0m\n";
 }

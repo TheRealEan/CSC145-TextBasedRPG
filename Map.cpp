@@ -18,9 +18,13 @@ MapNode::MapNode(const std::string& nombre, const std::string& des, Map* own, Ma
 	: locationName{ nombre }, description{ des }, owner{ own }, menu { new Menu }, north{ n }, west{ w }, east{ e }, south{ s } {}
 
 void MapNode::execLocation(Player* p) {
+	static bool themeStarted = false;
+	if (!themeStarted) {
+		backgroundPlay("theme.wav");
+		themeStarted = true;
+	}
 	Player* player = p;
 
-	backgroundPlay("theme.wav");
 	int choice{ KEY_UP };
 	// The highlighted yellow text, when Enter key is pressed this option is selected.
 	int index{ 1 };
@@ -31,8 +35,7 @@ void MapNode::execLocation(Player* p) {
 	
 	do {
 		menu->clear();
-		std::cout << getLocationName() << "\n\n";
-
+		std::cout << menu->yellow(getLocationName()) << "\n\n";
 		// Reset options for each run.
 		LinkedList<OptionNode*>* options = new LinkedList<OptionNode*>;
 		optionsSize = 0; // The size of all the options available.
@@ -65,7 +68,7 @@ void MapNode::execLocation(Player* p) {
 					[player, node] { 
 						std::string flag{ "yes" };
 						std::cout << std::endl;
-						std::cout << node->getDescription() << "\n";
+						std::cout << node->getDescription() << "\n\n";
 						std::cout << "Do you wish to travel here? Type 'yes' to accept." << std::endl;
 						std::cin.clear(); std::getline(std::cin, flag);
 						if (flag != "yes" && flag != "y") { return; }
@@ -124,30 +127,37 @@ void MapNode::execLocation(Player* p) {
 
 		// Add enemies to options.
 		if (enemy1) {
-			Enemy* enemy = enemy1;
-			options->pushBack(
-				new OptionNode(
-					std::to_string(optionsSize + 1) + ". Fight " + enemy1->getName(),
-					[player, enemy] { BattleMenu menu(player, enemy); })
-			); optionsSize++;
+			Enemy* proto = enemy1;
+			options->pushBack(new OptionNode(
+				std::to_string(++optionsSize) + ". Fight " + proto->getName(),
+				[player, proto] {
+					Enemy* fresh = proto->clone();
+					BattleMenu menu(player, fresh);
+					delete fresh;
+				}
+			));
 		}
 		if (enemy2) {
-			Enemy* enemy = enemy2;
-			options->pushBack(
-				new OptionNode(
-					std::to_string(optionsSize + 1) + ". Fight " + enemy2->getName(),
-					[player, enemy] { BattleMenu menu(player, enemy); }
-				)
-			); optionsSize++;
+			Enemy* proto = enemy2;
+			options->pushBack(new OptionNode(
+				std::to_string(++optionsSize) + ". Fight " + proto->getName(),
+				[player, proto] {
+					Enemy* fresh = proto->clone();
+					BattleMenu menu(player, fresh);
+					delete fresh;
+				}
+			));
 		}
 		if (enemy3) {
-			Enemy* enemy = enemy3;
-			options->pushBack(
-				new OptionNode(
-					std::to_string(optionsSize + 1) + ". Fight " + enemy3->getName(),
-					[player, enemy] { BattleMenu menu(player, enemy); }
-				)
-			); optionsSize++;
+			Enemy* proto = enemy3;
+			options->pushBack(new OptionNode(
+				std::to_string(++optionsSize) + ". Fight " + proto->getName(),
+				[player, proto] {
+					Enemy* fresh = proto->clone();
+					BattleMenu menu(player, fresh);
+					delete fresh;
+				}
+			));
 		}
 		// Add shops to options.
 		if (shop1) {
@@ -212,7 +222,7 @@ void MapNode::execLocation(Player* p) {
 				std::to_string(optionsSize + 1) + ". Show Map",
 				[this] {
 					menu->clear();
-					std::cout << "\nWorld Map:\n";
+					std::cout << "\n                                                      "<< "\033[1;33m" << "World Map" << "\033[0m" << "\n\n\n";
 					auto highlight = [&](const std::string& name) {
 						return (name == this->getLocationName())
 							? menu->yellow(name)
@@ -225,7 +235,7 @@ void MapNode::execLocation(Player* p) {
 					std::cout << " [" << highlight("Tollgate Town") << "] <--> ["
 						<< highlight("Buckeye Bend") << "]\n\n";
 
-					std::cout << "Press enter to continue... ";
+					std::cout << "\n\nPress enter to continue... ";
 					(void)_getch();
 				}
 			)

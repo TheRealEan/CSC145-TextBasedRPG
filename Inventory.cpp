@@ -84,6 +84,11 @@ void Inventory::addItem(std::string itemName, int amt) {
 	addItem(newItem);
 }
 
+void Inventory::addItem(std::string itemName, int amt, int goldCost) {
+	Item* newItem = Item::create(itemName, amt, goldCost, false);
+	addItem(newItem);
+}
+
 void Inventory::removeItem(std::string itemName) {
 	Item* newItem = Item::create(itemName, 1);
 	removeItem(newItem);

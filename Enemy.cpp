@@ -64,7 +64,7 @@ TylerBrown::TylerBrown(int hp, int stam, int magic, int str, int dex, int arm, i
 Enemy* TylerBrown::clone() const { return new TylerBrown(*this); }
 
 ChickenJockey::ChickenJockey()
-    : ChickenJockey(2000, 500, 600, 600, 600, 1000, 0) {
+    : ChickenJockey(1000, 500, 0, 1000, 0, 10, 50000) {
 }
 ChickenJockey::ChickenJockey(int hp, int stam, int magic, int str, int dex, int arm, int money)
     : Enemy("Chicken Jockey", hp, stam, magic, str, dex, arm, money) {

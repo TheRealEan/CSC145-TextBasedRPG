@@ -39,8 +39,6 @@ public:
 
 
 	virtual void displayStats();
-	//void equip(Slot spot, StatBonus stat, int amount);
-	//void modify(StatBonus stat, int amount);
 
 	// A die-roll based attack that adds the appropriate score.
 	void meleeAttack(); // Uses strength.
@@ -62,16 +60,16 @@ protected:
 			buy or sell at the shop.
 	*** Target	  - used in battle sequences to target themselves with healing effects or
 	***		enemies with harmful effects. 
-	*** Health    - MAX: 100, acts as health points, affects effectiveness of healing items.
-	*** Stamina   - MAX: 100, acts as action points (determine combat actions).
-	*** Mana      - MAX: 100, acts as magic points which are used to cast spells.
-	*** Strength  - MAX: 20, affects strength-based weapon damage, determines ability to equip
+	*** Health    - acts as health points, affects effectiveness of healing items.
+	*** Stamina   - acts as action points (determine combat actions).
+	*** Mana      - acts as magic points which are used to cast spells.
+	*** Strength  - affects strength-based weapon damage, determines ability to equip
 	***		strength-based weapons, and affects weight capacity.
-	*** Dexterity - MAX: 20, affects dexterity-based weapon damage, determines ability to equip
+	*** Dexterity - affects dexterity-based weapon damage, determines ability to equip
 	***		dexterity-based weapons, affects chance to be hit in combat, and affects chance
 	***		to flee in battle.
-	*** Armor     - MAX: 20, acts as armor score which affects damage blocked in combat.
-	*** Gold      - MAX: SIZEOF(INT), acts as currency which can be used to buy and sell items.
+	*** Armor     - acts as armor score which affects damage blocked in combat.
+	*** Gold      - acts as currency which can be used to buy and sell items.
 	*** Weight	  - the weight of the character determined by their strength and inventory.
 	*** Weight Cap. - weight capacity, determined by strength. Should not be set by the program.
 	********************************************************************************************/
@@ -93,9 +91,6 @@ protected:
 	// Derived Statistics
 	int weight{ 0 };
 	int weightCap{ 0 };
-
-	//std::map<Slot, Equippable*> equipmentSlots;
-	//std::map<StatBonus, int> statBonuses;
 };
 
 #endif

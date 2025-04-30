@@ -446,6 +446,7 @@ Map::Map(Player* p, StartMenu* sm)
 
 	// Create details for buckeye.
 	buckeye->setEnemy(new Roomba);
+	buckeye->setEnemy(new ChickenJockey);
 
 	// Create details for cuyahoga.
 	cuyahoga->setEnemy(new ChineseSpyPigeon);

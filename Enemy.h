@@ -42,6 +42,13 @@ public:
     Enemy* clone() const override;
 };
 
+class ChickenJockey : public Enemy {
+public:
+	ChickenJockey();
+	ChickenJockey(int hp, int stam, int magic, int str, int dex, int arm, int money);
+	virtual ~ChickenJockey() = default;
+};
+
 class TylerBrown : public Enemy {
 public:
     TylerBrown();

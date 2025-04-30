@@ -847,7 +847,7 @@ void InventoryMenu::viewInventory() {
 		clear();
 		std::cout << "\n--- Inventory is empty ---\n";
 		std::cout << "Press enter to continue... ";
-		_getch();
+		std::ignore = _getch();
 		return;
 	}
 	int index = 0;

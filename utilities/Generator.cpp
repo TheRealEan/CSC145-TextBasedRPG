@@ -49,17 +49,3 @@ Shop* generateShop() {
 
 	return newShop;
 }
-
-// Generate a random talking NPC for the player to chat with.
-
-//TalkingNPC* generateTalkingNPC() {
-//	int randomTalkingNPC = roll(1, 3);
-//	switch (randomTalkingNPC) {
-//	case 1:
-//		return new Somebody;
-//	case 2:
-//		return new Somebody;
-//	case 3:
-//		return new Somebody;
-//	}
-//}

@@ -37,6 +37,10 @@ Roomba::Roomba() : Roomba(30, 100, 100, 20, 20, 0, 50) {};
 Roomba::Roomba(int hp, int stam, int magic, int str, int dex, int arm, int money)
 	: Enemy("Roomba", hp, stam, magic, str, dex, arm, money) {};
 
+ChickenJockey::ChickenJockey() : ChickenJockey(50, 75, 0, 50, 100, 45, 100) {};
+ChickenJockey::ChickenJockey(int hp, int stam, int magic, int str, int dex, int arm, int money)
+	: Enemy("Chicken Jockey", hp, stam, magic, str, dex, arm, money) {};
+
 TylerBrown::TylerBrown() : TylerBrown(500, 100, 100, 20, 20, 0, 1000000) {};
 TylerBrown::TylerBrown(int hp, int stam, int magic, int str, int dex, int arm, int money)
 	: Enemy("Tyler Brown", hp, stam, magic, str, dex, arm, money) {};

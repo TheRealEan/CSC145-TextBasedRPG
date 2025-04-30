@@ -6,19 +6,6 @@ class Player;
 class Item;
 #include "Inventory.h"
 
-//static const std::vector<std::string> potentialStoreItems {
-//	"Longsword", "Chainmail", "Small Potion of Healing", "Moth-Eaten Shirt"
-//};
-//static const std::vector<std::string> store_one{
-//	"Longsword", "Enderpearl", "Shortbow"
-//};
-//static const std::vector<std::string> store_two{
-//	"Chainmail", "Leather Armor", "Flint and Steel"
-//};
-//static const std::vector<std::string> store_three{
-//	"Small Potion of Healing", "Medium Potion of Healing", "Large Potion of Healing"
-//};
-
 class Shop {
 public:
 	Shop();

@@ -14,27 +14,13 @@ static const std::vector<std::string> potentialStoreItems{
 	"Longsword", "Chainmail", "Small Potion of Healing", "Moth-Eaten Shirt"
 };
 static const std::vector<std::string> store_one{
-	"Longsword", "Enderpearl", "Shortbow"
+	"Sling", "Scimitar", "Shortbow", "Really Big Stick", "Maul", "Enderpearl", "Flint and Steel"
 };
 static const std::vector<std::string> store_two{
-	"Chainmail", "Leather Armor", "Flint and Steel"
+	"Chainmail", "Leather Armor", "Diamond Boots", "Moth-Eaten Shirt", "Small Potion of Healing"
 };
 static const std::vector<std::string> store_three{
-	"Small Potion of Healing", "Medium Potion of Healing", "Large Potion of Healing"
+	"Small Potion of Healing", "Medium Potion of Healing", "Large Potion of Healing", "Longsword", "Longbow"
 };
 
 Shop* generateShop();
-
-// Generate a random talking NPC for the player to chat with.
-
-//TalkingNPC* generateTalkingNPC() {
-//	int randomTalkingNPC = roll(1, 3);
-//	switch (randomTalkingNPC) {
-//	case 1:
-//		return new Somebody;
-//	case 2:
-//		return new Somebody;
-//	case 3:
-//		return new Somebody;
-//	}
-//}

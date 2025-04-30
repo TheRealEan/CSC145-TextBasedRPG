@@ -1,3 +1,6 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Video-Game-Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Video-Game-Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Map.cpp
+  Menu.cpp
+C:\Users\ianmc\OneDrive\01_Folder\Documents\Education\Course Work\CSC-145 - RPG Quest - Data Structures\RPG-Game\RPG-Game\Menu.cpp(870,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   RPG-Game.vcxproj -> C:\Users\ianmc\OneDrive\01_Folder\Documents\Education\Course Work\CSC-145 - RPG Quest - Data Structures\RPG-Game\x64\Debug\RPG-Game.exe

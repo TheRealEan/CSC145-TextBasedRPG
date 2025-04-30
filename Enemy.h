@@ -47,6 +47,7 @@ public:
 	ChickenJockey();
 	ChickenJockey(int hp, int stam, int magic, int str, int dex, int arm, int money);
 	virtual ~ChickenJockey() = default;
+    Enemy* clone() const override;
 };
 
 class TylerBrown : public Enemy {

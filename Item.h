@@ -1,4 +1,3 @@
-// Item.h
 #ifndef ITEM_H
 #define ITEM_H
 
@@ -57,14 +56,11 @@ public:
     virtual Slot getSlot() const = 0;
     virtual void equip(Character* target) = 0;
     virtual void unequip(Character* target) = 0;
-	virtual Slot getSlot() const = 0;
-	virtual void equip(Character* target) = 0;
-	virtual void unequip(Character* target) = 0;
 
 protected:
-	int originalStr{ 0 }; // Tracks the player's original strength.
-	int originalDex{ 0 }; // Tracks the player's original dexterity.
-	int originalArm{ 0 }; // Tracks the player's original armor.
+    int originalStr{ 0 }; // Tracks the player's original strength.
+    int originalDex{ 0 }; // Tracks the player's original dexterity.
+    int originalArm{ 0 }; // Tracks the player's original armor.
 };
 
 class Consumable : public Item {
@@ -78,33 +74,28 @@ public:
     virtual void consume(Character* target) = 0;
 };
 
-// Weapons
-/**********************************************
-******************* Items *********************
-***********************************************/
-
 /**********************************************
 ******************* Weapons *******************
 ***********************************************/
 
 class BigStick : public Equippable {
 public:
-	BigStick();
-	BigStick(int amt);
+    BigStick();
+    BigStick(int amt);
 
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
 };
 
 class Longbow : public Equippable {
 public:
-	Longbow();
-	Longbow(int amt);
+    Longbow();
+    Longbow(int amt);
 
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
 };
 
 class Longsword : public Equippable {
@@ -115,56 +106,25 @@ public:
     Slot getSlot() const override;
     void equip(Character* target) override;
     void unequip(Character* target) override;
-};
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
+
+private:
+    void dealDamage(Character* target);
 };
 
 class Maul : public Equippable {
 public:
-	Maul();
-	Maul(int amt);
+    Maul();
+    Maul(int amt);
 
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
 };
 
 class Scimitar : public Equippable {
 public:
-	Scimitar();
-	Scimitar(int amt);
-
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
-};
-
-class Shortbow : public Equippable {
-public:
-	Shortbow();
-	Shortbow(int amt);
-
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
-};
-
-class Shortsword : public Equippable {
-public:
-	Shortsword();
-	Shortsword(int amt);
-
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
-};
-
-class FlintNSteel : public Equippable {
-public:
-    FlintNSteel();
-    FlintNSteel(int amt);
+    Scimitar();
+    Scimitar(int amt);
 
     Slot getSlot() const override;
     void equip(Character* target) override;
@@ -179,14 +139,36 @@ public:
     Slot getSlot() const override;
     void equip(Character* target) override;
     void unequip(Character* target) override;
+};
+
+class Shortsword : public Equippable {
+public:
+    Shortsword();
+    Shortsword(int amt);
+
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
+};
+
+class FlintNSteel : public Equippable {
+public:
+    FlintNSteel();
+    FlintNSteel(int amt);
+
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
+};
+
 class Sling : public Equippable {
 public:
-	Sling();
-	Sling(int amt);
+    Sling();
+    Sling(int amt);
 
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
 };
 
 class Enderpearl : public Equippable {
@@ -199,7 +181,10 @@ public:
     void unequip(Character* target) override;
 };
 
-// Armor
+/**********************************************
+******************* Armor *********************
+***********************************************/
+
 class Chainmail : public Equippable {
 public:
     Chainmail();
@@ -210,7 +195,6 @@ public:
     void unequip(Character* target) override;
 };
 
-// Leather Armor
 class LeatherArmor : public Equippable {
 public:
     LeatherArmor();
@@ -220,31 +204,21 @@ public:
     void equip(Character* target) override;
     void unequip(Character* target) override;
 };
-class LeatherArmor : public Equippable {
-public:
-	LeatherArmor();
-	LeatherArmor(int amt);
-
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
-};
 
 class DiamondBoots : public Equippable {
 public:
-	DiamondBoots();
-	DiamondBoots(int amt);
+    DiamondBoots();
+    DiamondBoots(int amt);
 
-	Slot getSlot() const override;
-	void equip(Character* target) override;
-	void unequip(Character* target) override;
+    Slot getSlot() const override;
+    void equip(Character* target) override;
+    void unequip(Character* target) override;
 };
 
 /**********************************************
 ******************* Potions *******************
 ***********************************************/
 
-// Potions
 class SmallPotionOfHealing : public Consumable {
 public:
     SmallPotionOfHealing();
@@ -270,36 +244,3 @@ public:
 };
 
 #endif // ITEM_H
-class MediumPotionOfHealing : public Consumable {
-public:
-	MediumPotionOfHealing();
-	MediumPotionOfHealing(int amt);
-
-	void consume(Character* target) override;
-};
-
-class LargePotionOfHealing : public Consumable {
-public:
-	LargePotionOfHealing();
-	LargePotionOfHealing(int amt);
-
-	void consume(Character* target) override;
-};
-
-/**********************************************
-***************** Valuables *******************
-***********************************************/
-
-class Enderpearl : public Item {
-public:
-	Enderpearl();
-	Enderpearl(int amt);
-};
-
-class FlintAndSteel : public Item {
-public:
-	FlintAndSteel();
-	FlintAndSteel(int amt);
-};
-
-#endif

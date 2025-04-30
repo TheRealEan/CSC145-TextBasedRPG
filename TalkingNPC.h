@@ -16,4 +16,14 @@ protected:
     std::vector<DialogueNode*> dialogueTree;
 };
 
+class Hermit : public TalkingNPC {
+public:
+    Hermit();
+};
+
+class Salesman : public TalkingNPC {
+public:
+    Salesman();
+};
+
 #endif
